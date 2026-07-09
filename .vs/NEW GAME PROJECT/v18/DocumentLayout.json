@@ -1,0 +1,105 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\tapio\\Documents\\new-game-project\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{3BA89592-9EF3-4ECB-8BA1-AAF5D3BEB655}|New Game Project.csproj|c:\\users\\tapio\\documents\\new-game-project\\scritps\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3BA89592-9EF3-4ECB-8BA1-AAF5D3BEB655}|New Game Project.csproj|solutionrelative:scritps\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3BA89592-9EF3-4ECB-8BA1-AAF5D3BEB655}|New Game Project.csproj|c:\\users\\tapio\\documents\\new-game-project\\scritps\\states\\jumpstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3BA89592-9EF3-4ECB-8BA1-AAF5D3BEB655}|New Game Project.csproj|solutionrelative:scritps\\states\\jumpstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3BA89592-9EF3-4ECB-8BA1-AAF5D3BEB655}|New Game Project.csproj|c:\\users\\tapio\\documents\\new-game-project\\scritps\\states\\walkstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3BA89592-9EF3-4ECB-8BA1-AAF5D3BEB655}|New Game Project.csproj|solutionrelative:scritps\\states\\walkstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3BA89592-9EF3-4ECB-8BA1-AAF5D3BEB655}|New Game Project.csproj|c:\\users\\tapio\\documents\\new-game-project\\scritps\\states\\idlestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3BA89592-9EF3-4ECB-8BA1-AAF5D3BEB655}|New Game Project.csproj|solutionrelative:scritps\\states\\idlestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3BA89592-9EF3-4ECB-8BA1-AAF5D3BEB655}|New Game Project.csproj|c:\\users\\tapio\\documents\\new-game-project\\scritps\\states\\fallstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3BA89592-9EF3-4ECB-8BA1-AAF5D3BEB655}|New Game Project.csproj|solutionrelative:scritps\\states\\fallstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "JumpState.cs",
+              "DocumentMoniker": "C:\\Users\\tapio\\Documents\\new-game-project\\Scritps\\States\\JumpState.cs",
+              "RelativeDocumentMoniker": "Scritps\\States\\JumpState.cs",
+              "ToolTip": "C:\\Users\\tapio\\Documents\\new-game-project\\Scritps\\States\\JumpState.cs",
+              "RelativeToolTip": "Scritps\\States\\JumpState.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAABsAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-09T18:25:47.814Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "WalkState.cs",
+              "DocumentMoniker": "C:\\Users\\tapio\\Documents\\new-game-project\\Scritps\\States\\WalkState.cs",
+              "RelativeDocumentMoniker": "Scritps\\States\\WalkState.cs",
+              "ToolTip": "C:\\Users\\tapio\\Documents\\new-game-project\\Scritps\\States\\WalkState.cs",
+              "RelativeToolTip": "Scritps\\States\\WalkState.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAzwBMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-09T18:18:48.043Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IdleState.cs",
+              "DocumentMoniker": "C:\\Users\\tapio\\Documents\\new-game-project\\Scritps\\States\\IdleState.cs",
+              "RelativeDocumentMoniker": "Scritps\\States\\IdleState.cs",
+              "ToolTip": "C:\\Users\\tapio\\Documents\\new-game-project\\Scritps\\States\\IdleState.cs",
+              "RelativeToolTip": "Scritps\\States\\IdleState.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAADwvxMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-09T18:06:22.462Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "FallState.cs",
+              "DocumentMoniker": "C:\\Users\\tapio\\Documents\\new-game-project\\Scritps\\States\\FallState.cs",
+              "RelativeDocumentMoniker": "Scritps\\States\\FallState.cs",
+              "ToolTip": "C:\\Users\\tapio\\Documents\\new-game-project\\Scritps\\States\\FallState.cs",
+              "RelativeToolTip": "Scritps\\States\\FallState.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAAwCMAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-09T18:06:20.473Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Player.cs",
+              "DocumentMoniker": "C:\\Users\\tapio\\Documents\\new-game-project\\Scritps\\Player.cs",
+              "RelativeDocumentMoniker": "Scritps\\Player.cs",
+              "ToolTip": "C:\\Users\\tapio\\Documents\\new-game-project\\Scritps\\Player.cs",
+              "RelativeToolTip": "Scritps\\Player.cs",
+              "ViewState": "AgIAAHIAAAAAAAAAAAAowIMAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-09T18:06:02.76Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

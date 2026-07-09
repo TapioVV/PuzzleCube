@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://4pqund3nukl7"]
+
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="1_e2o6t"]
+[ext_resource type="Script" uid="uid://c4b72858fmebs" path="res://Scritps/Player.cs" id="2_feb5d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iuuih"]
+size = Vector2(130, 120)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ohsbh"]
+size = Vector2(122, 130)
+
+[node name="Game" type="Node2D" unique_id=753927107]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=660531255]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(866.00006, 548)
+scale = Vector2(24.88573, 1.0260768)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=537219879]
+shape = SubResource("RectangleShape2D_iuuih")
+
+[node name="Icon2" type="Sprite2D" parent="StaticBody2D" unique_id=637698691]
+texture = ExtResource("1_e2o6t")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1144635686 node_paths=PackedStringArray("stateLabel")]
+position = Vector2(857, 401)
+script = ExtResource("2_feb5d")
+stateLabel = NodePath("../Label")
+horizontalAcceleration = 7500.0
+horizontalDeacceleration = 12500.0
+jumpControlAcceleration = 15.0
+jumpControlDeacceleration = 200.0
+timeToJumpPeak = 0.5
+jumpHeight = 100.0
+jumpDistance = 250.0
+maxVerticalSpeed = 20000.0
+
+[node name="Icon" type="Sprite2D" parent="CharacterBody2D" unique_id=515833198]
+texture = ExtResource("1_e2o6t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=56756013]
+shape = SubResource("RectangleShape2D_ohsbh")
+
+[node name="Label" type="Label" parent="." unique_id=1346866500]
+offset_left = 210.0
+offset_top = 121.0
+offset_right = 250.0
+offset_bottom = 144.0
