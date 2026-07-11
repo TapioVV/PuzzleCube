@@ -10,7 +10,15 @@ class CubeSide
     public CubeSide Right;
     public CubeSide Top;
     public CubeSide Bottom;
+    public Vector3 UpDirection;
+    public Vector3 Normal;
 	public Node2D world;
+    public CubeSide( Vector3 upDirection, Vector3 normal, Node2D world)
+    {
+        UpDirection = upDirection;
+        Normal = normal;
+        this.world = world;
+    }
 }
 
 public partial class CubeManager : Node
@@ -18,15 +26,14 @@ public partial class CubeManager : Node
 	const int CUBE_SIDE_WIDTH = 240;
 	const int CUBE_SIDE_HEIGHT = 240;
 
+
     public enum Direction { Left, Right, Up, Down }
 
 
-
-    [Export] SubViewportContainer[] cubeSideViewports;
+    [Export] Node3D cubeRotationPoint; 
 	[Export] Node2D[] cubeSideWorlds;
 	[Export] Player player;
 	[Export] Player fakePlayer;
-	[Export] Sprite2D otherSprite;
 	CubeSide[] cubeSides = new CubeSide[6];
     CubeSide currentSide;
     public override void _Ready()
@@ -90,7 +97,36 @@ public partial class CubeManager : Node
 
         player.Reparent(currentSide.world);
     }
-	public override void _Process(double delta)
+    Vector2 targetRotation = Vector2.Zero;
+    //public void CubeRotationTween(Vector2 addedRotation)
+    //{
+    //   float rotationSpeed = 1f; //Seconds
+        
+    //   targetRotation += new Vector2(Mathf.DegToRad(addedRotation.X), Mathf.DegToRad(addedRotation.Y));
+    //   Tween tween = CreateTween().SetParallel();
+    //   tween.TweenProperty(cubeRotationPoint, "rotation:x", targetRotation.X, rotationSpeed).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.InOut); 
+    //   tween.TweenProperty(cubeRotationPoint, "rotation:y", targetRotation.Y, rotationSpeed).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.InOut); 
+    //}
+    private Quaternion targetQuaternion = Quaternion.Identity;
+
+    public void CubeRotationTween(Vector2 addedRotation)
+    {
+        float rotationSpeed = 1f;
+
+        // 1. Create rotations for X and Y separately using angles
+        Quaternion xRotation = new Quaternion(Vector3.Right, Mathf.DegToRad(addedRotation.X));
+        Quaternion yRotation = new Quaternion(Vector3.Up, Mathf.DegToRad(addedRotation.Y));
+
+        // 2. Multiply them into your global target (Order matters! Y * X keeps it intuitive)
+        targetQuaternion = yRotation * xRotation * targetQuaternion;
+
+        // 3. Tween the entire basis or quaternion property at once
+        Tween tween = CreateTween();
+        tween.TweenProperty(cubeRotationPoint, "quaternion", targetQuaternion, rotationSpeed)
+            .SetTrans(Tween.TransitionType.Quad)
+            .SetEase(Tween.EaseType.InOut);
+    }
+    public override void _Process(double delta)
 	{
 
 		Rect2 playerSpriteRect = player.CharacterSprite.GetGlobalTransform() * player.CharacterSprite.GetRect();
@@ -114,12 +150,29 @@ public partial class CubeManager : Node
             if (Input.IsActionJustPressed("jump"))
             {
                 ChangePlayerCurrentCubeSide(currentSide.Bottom);
+                //player.ChangeGravityDirection(Vector2.Right);
+
+                CubeRotationTween(new Vector2(-90, 0));
                 player.Position = new Vector2(player.Position.X, 1);
                 return;
             }
-
         }
-
+        if (Input.IsActionJustPressed("gravity_right"))
+        {
+            player.ChangeGravityDirection(Vector2.Right);
+        }
+        if (Input.IsActionJustPressed("gravity_left"))
+        {
+            player.ChangeGravityDirection(Vector2.Left);
+        }
+        if (Input.IsActionJustPressed("gravity_up"))
+        {
+            player.ChangeGravityDirection(Vector2.Up);
+        }
+        if (Input.IsActionJustPressed("gravity_down"))
+        {
+            player.ChangeGravityDirection(Vector2.Down);
+        }
 
 
 
@@ -131,7 +184,11 @@ public partial class CubeManager : Node
             //player.Reparent(cubeSideWorlds[0]);
 
             ChangePlayerCurrentCubeSide(currentSide.Left);
+
+            CubeRotationTween(new Vector2(0, 90));
+
             player.Position = new Vector2(CUBE_SIDE_WIDTH - 1, player.Position.Y);
+
             movedScreen = false;
         }
 
@@ -143,6 +200,17 @@ public partial class CubeManager : Node
             //fakePlayer.Visible = false;
             //player.Reparent(cubeSideWorlds[1]);
             ChangePlayerCurrentCubeSide(currentSide.Right);
+
+
+            //testRotationY -= Mathf.DegToRad(90);
+
+            //Tween tween = CreateTween();
+            //float targetRotationY = cubeRotationPoint.Rotation.Y + Mathf.DegToRad(-90);
+            //float targetRotationY = testRotationY + Mathf.DegToRad(-90);
+
+            //tween.TweenProperty(cubeRotationPoint, "rotation:y", testRotationY, rotationSpeed).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.InOut);
+            CubeRotationTween(new Vector2(0, -90));
+
             player.Position = new Vector2(1, player.Position.Y);
             movedScreen = true;
         }

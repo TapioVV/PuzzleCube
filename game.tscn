@@ -3,7 +3,6 @@
 [ext_resource type="Theme" uid="uid://b60q003iqv1ub" path="res://Scenes/MainUITheme.tres" id="1_eow3j"]
 [ext_resource type="Script" uid="uid://dlmostwcg8ptu" path="res://CubeManager.cs" id="2_eow3j"]
 [ext_resource type="Texture2D" uid="uid://c86rhdri584wo" path="res://Assets/WhiteRectangle.png" id="3_7jktm"]
-[ext_resource type="Script" uid="uid://cbxbesgkaftm6" path="res://CubeRotation.cs" id="3_feb5d"]
 [ext_resource type="PackedScene" uid="uid://dx021s2narbje" path="res://Scenes/player.tscn" id="4_eow3j"]
 [ext_resource type="Texture2D" uid="uid://dd6lq3j6q7hhj" path="res://Assets/Box.png" id="5_ryrav"]
 
@@ -90,15 +89,14 @@ current = true
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=273032221]
 transform = Transform3D(1, 0, 0, 0, 0.9883499, 0.15219867, 0, -0.15219867, 0.9883499, 0, 0, 0)
 
-[node name="Cube" type="Node" parent="." unique_id=289202899 node_paths=PackedStringArray("cubeSideViewports", "cubeSideWorlds", "player", "fakePlayer")]
+[node name="Cube" type="Node" parent="." unique_id=289202899 node_paths=PackedStringArray("cubeRotationPoint", "cubeSideWorlds", "player", "fakePlayer")]
 script = ExtResource("2_eow3j")
-cubeSideViewports = [NodePath("Viewports/Side 1"), NodePath("Viewports/Side 2"), NodePath("Viewports/Side 3"), NodePath("Viewports/Side 4"), NodePath("Viewports/Side 5"), NodePath("Viewports/Side 6")]
+cubeRotationPoint = NodePath("Model")
 cubeSideWorlds = [NodePath("Viewports/Side 1/SubViewport/World"), NodePath("Viewports/Side 2/SubViewport/World"), NodePath("Viewports/Side 3/SubViewport/World"), NodePath("Viewports/Side 4/SubViewport/World"), NodePath("Viewports/Side 5/SubViewport/World"), NodePath("Viewports/Side 6/SubViewport/World")]
 player = NodePath("Viewports/Side 1/SubViewport/World/Player")
 fakePlayer = NodePath("../Player")
 
 [node name="Model" type="Node3D" parent="Cube" unique_id=1364530765]
-script = ExtResource("3_feb5d")
 
 [node name="Side1" type="MeshInstance3D" parent="Cube/Model" unique_id=201861036]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 1)
@@ -207,12 +205,22 @@ texture = ExtResource("3_7jktm")
 
 [node name="Platform8" type="StaticBody2D" parent="Cube/Viewports/Side 1/SubViewport/World" unique_id=1480178209]
 modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
-position = Vector2(132, 132)
+position = Vector2(153, 132)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform8" unique_id=1638033366]
 shape = SubResource("RectangleShape2D_iuuih")
 
 [node name="Icon2" type="Sprite2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform8" unique_id=1681949260]
+texture = ExtResource("3_7jktm")
+
+[node name="Platform12" type="StaticBody2D" parent="Cube/Viewports/Side 1/SubViewport/World" unique_id=1833856008]
+modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
+position = Vector2(102, 132)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform12" unique_id=1104037186]
+shape = SubResource("RectangleShape2D_iuuih")
+
+[node name="Icon2" type="Sprite2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform12" unique_id=727952375]
 texture = ExtResource("3_7jktm")
 
 [node name="Platform9" type="StaticBody2D" parent="Cube/Viewports/Side 1/SubViewport/World" unique_id=1516476452]
@@ -268,6 +276,7 @@ texture = ExtResource("3_7jktm")
 [node name="Player" parent="Cube/Viewports/Side 1/SubViewport/World" unique_id=913397709 node_paths=PackedStringArray("stateLabel") instance=ExtResource("4_eow3j")]
 position = Vector2(207, 199)
 stateLabel = NodePath("../../../../../../Label")
+jumpBufferTime = 0.07
 
 [node name="Box" type="Sprite2D" parent="Cube/Viewports/Side 1/SubViewport/World" unique_id=1825585665]
 modulate = Color(0.09803922, 0.39215687, 0.49411765, 1)
@@ -516,12 +525,36 @@ texture = SubResource("GradientTexture1D_bvmji")
 
 [node name="Platform15" type="StaticBody2D" parent="Cube/Viewports/Side 6/SubViewport/World" unique_id=569437345]
 modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
-position = Vector2(120, 194)
+position = Vector2(45, 114)
+scale = Vector2(1, 6.68)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 6/SubViewport/World/Platform15" unique_id=1177901452]
 shape = SubResource("RectangleShape2D_iuuih")
 
 [node name="Icon2" type="Sprite2D" parent="Cube/Viewports/Side 6/SubViewport/World/Platform15" unique_id=1625208877]
+texture = ExtResource("3_7jktm")
+
+[node name="Platform17" type="StaticBody2D" parent="Cube/Viewports/Side 6/SubViewport/World" unique_id=1189736484]
+modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
+position = Vector2(191.99998, 114)
+scale = Vector2(1, 6.68)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 6/SubViewport/World/Platform17" unique_id=338149105]
+shape = SubResource("RectangleShape2D_iuuih")
+
+[node name="Icon2" type="Sprite2D" parent="Cube/Viewports/Side 6/SubViewport/World/Platform17" unique_id=1347129579]
+texture = ExtResource("3_7jktm")
+
+[node name="Platform18" type="StaticBody2D" parent="Cube/Viewports/Side 6/SubViewport/World" unique_id=2046825721]
+modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
+position = Vector2(140.99998, 183)
+rotation = 1.5707964
+scale = Vector2(1, 3.5199993)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 6/SubViewport/World/Platform18" unique_id=509286414]
+shape = SubResource("RectangleShape2D_iuuih")
+
+[node name="Icon2" type="Sprite2D" parent="Cube/Viewports/Side 6/SubViewport/World/Platform18" unique_id=898417552]
 texture = ExtResource("3_7jktm")
 
 [node name="Label2" type="Label" parent="Cube/Viewports/Side 6/SubViewport/World" unique_id=1709975932]

@@ -16,8 +16,8 @@ public partial class IdleState : State
     {
         //animator.CrossFade("character_idle_animation", 0, 0);
 
-        player.velocity.Y = 2;
-        if (Input.IsActionJustPressed("jump"))
+        player.velocity.Y = 0;
+        if (player.jumpBufferTimer > 0)
         {
             player.ChangeState(new JumpState());
             return;

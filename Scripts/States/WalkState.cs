@@ -12,23 +12,31 @@ public partial class WalkState : State
     public override void Update(float deltaf)
     {
         //animator.CrossFade("character_run_animation", 0, 0);
-        player.velocity.Y = 2;
-        if (Input.IsActionJustPressed("jump"))
-        {
-            player.ChangeState(new JumpState());
-            return;
-        }
-
-
+        player.velocity.Y = 0;
+        //Deacceleration
         if (player.inputAxis == 0)
         {
             player.velocity.X = Mathf.MoveToward(player.velocity.X, 0, player.horizontalDeacceleration * deltaf);
         }
+        //Acceleration
         else
         {
-            player.velocity.X = Mathf.MoveToward(player.velocity.X, player.inputAxis * player.maxHorizontalSpeed, player.horizontalAcceleration * deltaf);
+            //If turning around have increased acceleration
+            if (player.inputAxis > 0 && player.velocity.X < 0) 
+            { 
+                player.velocity.X = Mathf.MoveToward(player.velocity.X, player.inputAxis * player.maxHorizontalSpeed, player.horizontalAcceleration * 4f * deltaf);
+            }
+            else if (player.inputAxis < 0 && player.velocity.X > 0) 
+            {
+                player.velocity.X = Mathf.MoveToward(player.velocity.X, player.inputAxis * player.maxHorizontalSpeed, player.horizontalAcceleration * 4f * deltaf);
+            }
+            else
+            {
+                player.velocity.X = Mathf.MoveToward(player.velocity.X, player.inputAxis * player.maxHorizontalSpeed, player.horizontalAcceleration * deltaf);
+            }
         }
 
+        //Sprite flipping
         if (player.inputAxis > 0)
         {
             player.CharacterSprite.FlipH = false;
@@ -36,6 +44,14 @@ public partial class WalkState : State
         else if (player.inputAxis < 0)
         {
             player.CharacterSprite.FlipH = true;
+        }
+
+
+        //State changing
+        if (player.jumpBufferTimer > 0)
+        {
+            player.ChangeState(new JumpState());
+            return;
         }
 
         if (player.velocity.X >= -0.1f && player.velocity.X <= 0.1f)

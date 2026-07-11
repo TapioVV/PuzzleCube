@@ -5,6 +5,7 @@ public partial class FallState : State
 {
     public override void Enter()
     {
+        
     }
     public override void Exit() 
     { 
@@ -33,7 +34,7 @@ public partial class FallState : State
                 player.ChangeState(new WalkState());
             }
         }
-        player.velocity.Y -= player.gravity * deltaf;
+        player.velocity.Y += player.gravity * deltaf;
     }
 
     public override void JumpInput()

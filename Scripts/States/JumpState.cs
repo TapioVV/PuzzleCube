@@ -10,7 +10,7 @@ public partial class JumpState : State
         releasedJump = false;
         timer = 0.1f;
         player.velocity.Y = 0;
-        player.velocity.Y = player.jumpSpeed;
+        player.velocity.Y = -player.jumpSpeed;
     }
     public override void Exit()
     {
@@ -50,7 +50,7 @@ public partial class JumpState : State
         //    player.velocity.Y = player.velocity.Y * 0.75f;
         //    releasedJump = true;
         //}
-        player.velocity.Y -= player.gravity * deltaf;
+        player.velocity.Y += player.gravity * deltaf;
     }
 
     public override void JumpInput()

@@ -8,14 +8,15 @@ size = Vector2(16, 12)
 
 [node name="Player" type="CharacterBody2D" unique_id=162310026 node_paths=PackedStringArray("CharacterSprite")]
 script = ExtResource("1_cvnsp")
-horizontalAcceleration = 7500.0
-horizontalDeacceleration = 12500.0
-jumpControlAcceleration = 17.0
-jumpControlDeacceleration = 17.0
+horizontalAcceleration = 250.0
+horizontalDeacceleration = 800.0
+jumpControlAcceleration = 1.2
+jumpControlDeacceleration = 4.0
 timeToJumpPeak = 0.3
 jumpHeight = 50.0
 jumpDistance = 49.0
-maxVerticalSpeed = 20000.0
+maxVerticalSpeed = 250.0
+jumpBufferTime = 0.5
 CharacterSprite = NodePath("Sprite")
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1559431002]
