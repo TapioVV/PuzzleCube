@@ -1,0 +1,155 @@
+[gd_resource type="Theme" format=3 uid="uid://b60q003iqv1ub"]
+
+[ext_resource type="FontFile" uid="uid://csygf8jisnwgp" path="res://Assets/Fonts/Spartan/LeagueSpartan-SemiBold.ttf" id="1_uvc6m"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uvc6m"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.19607843, 0.19607843, 0.19607843, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+expand_margin_left = 3.0
+expand_margin_top = 6.0
+expand_margin_right = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yj1kb"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.78431374, 0.78431374, 0.78431374, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+expand_margin_left = 3.0
+expand_margin_top = 6.0
+expand_margin_right = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mspbf"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.78431374, 0.78431374, 0.78431374, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+expand_margin_left = 3.0
+expand_margin_top = 6.0
+expand_margin_right = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3sdrt"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+expand_margin_left = 3.0
+expand_margin_top = 6.0
+expand_margin_right = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4htq3"]
+bg_color = Color(1, 0.3254902, 0.39607844, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.98039216, 0.98039216, 0.98039216, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+expand_margin_left = 3.0
+expand_margin_top = 6.0
+expand_margin_right = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_86kfc"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.39215687, 0.39215687, 0.39215687, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+expand_margin_left = 3.0
+expand_margin_top = 6.0
+expand_margin_right = 3.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8lgte"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cm1bx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1iytr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wh2ge"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_eca7d"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4cxsk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1umtg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mcygk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1v65n"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qudcs"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xwg46"]
+
+[resource]
+default_font = ExtResource("1_uvc6m")
+default_font_size = 25
+BorderedButton/base_type = &"TextOnlyButton"
+BorderedButton/styles/disabled = SubResource("StyleBoxFlat_uvc6m")
+BorderedButton/styles/focus = SubResource("StyleBoxFlat_yj1kb")
+BorderedButton/styles/hover = SubResource("StyleBoxFlat_mspbf")
+BorderedButton/styles/hover_pressed = SubResource("StyleBoxFlat_3sdrt")
+BorderedButton/styles/normal = SubResource("StyleBoxFlat_4htq3")
+BorderedButton/styles/pressed = SubResource("StyleBoxFlat_86kfc")
+TextOnlyButton/base_type = &"Button"
+TextOnlyButton/colors/font_color = Color(0.98039216, 0.98039216, 0.98039216, 1)
+TextOnlyButton/colors/font_disabled_color = Color(0.19607843, 0.19607843, 0.19607843, 1)
+TextOnlyButton/colors/font_focus_color = Color(0.78431374, 0.78431374, 0.78431374, 1)
+TextOnlyButton/colors/font_hover_color = Color(0.78431374, 0.78431374, 0.78431374, 1)
+TextOnlyButton/colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+TextOnlyButton/colors/font_outline_color = Color(0, 0, 0, 1)
+TextOnlyButton/colors/font_pressed_color = Color(0.39215687, 0.39215687, 0.39215687, 1)
+TextOnlyButton/colors/icon_disabled_color = Color(0, 0, 0, 1)
+TextOnlyButton/colors/icon_focus_color = Color(0, 0, 0, 1)
+TextOnlyButton/colors/icon_hover_color = Color(0, 0, 0, 1)
+TextOnlyButton/colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
+TextOnlyButton/colors/icon_normal_color = Color(0, 0, 0, 1)
+TextOnlyButton/colors/icon_pressed_color = Color(0, 0, 0, 1)
+TextOnlyButton/constants/h_separation = 0
+TextOnlyButton/constants/icon_max_width = 0
+TextOnlyButton/constants/outline_size = 0
+TextOnlyButton/font_sizes/font_size = 30
+TextOnlyButton/styles/disabled = SubResource("StyleBoxEmpty_8lgte")
+TextOnlyButton/styles/disabled_mirrored = SubResource("StyleBoxEmpty_cm1bx")
+TextOnlyButton/styles/focus = SubResource("StyleBoxEmpty_1iytr")
+TextOnlyButton/styles/hover = SubResource("StyleBoxEmpty_wh2ge")
+TextOnlyButton/styles/hover_mirrored = SubResource("StyleBoxEmpty_eca7d")
+TextOnlyButton/styles/hover_pressed = SubResource("StyleBoxEmpty_4cxsk")
+TextOnlyButton/styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_1umtg")
+TextOnlyButton/styles/normal = SubResource("StyleBoxEmpty_mcygk")
+TextOnlyButton/styles/normal_mirrored = SubResource("StyleBoxEmpty_1v65n")
+TextOnlyButton/styles/pressed = SubResource("StyleBoxEmpty_qudcs")
+TextOnlyButton/styles/pressed_mirrored = SubResource("StyleBoxEmpty_xwg46")

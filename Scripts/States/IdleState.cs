@@ -20,15 +20,18 @@ public partial class IdleState : State
         if (Input.IsActionJustPressed("jump"))
         {
             player.ChangeState(new JumpState());
+            return;
         }
 
         if (player.inputAxis != 0)
         {
             player.ChangeState(new WalkState());
+            return;
         }
         if (!player.IsOnFloor())
         {
             player.ChangeState(new FallState());
+            return;
         }
     }
 

@@ -16,6 +16,7 @@ public partial class WalkState : State
         if (Input.IsActionJustPressed("jump"))
         {
             player.ChangeState(new JumpState());
+            return;
         }
 
 
@@ -28,23 +29,25 @@ public partial class WalkState : State
             player.velocity.X = Mathf.MoveToward(player.velocity.X, player.inputAxis * player.maxHorizontalSpeed, player.horizontalAcceleration * deltaf);
         }
 
-        if (player.inputAxis == 1)
+        if (player.inputAxis > 0)
         {
-            //spriteRenderer.flipX = false;
+            player.CharacterSprite.FlipH = false;
         }
-        else if (player.inputAxis == -1)
+        else if (player.inputAxis < 0)
         {
-            //spriteRenderer.flipX = true;
+            player.CharacterSprite.FlipH = true;
         }
 
         if (player.velocity.X >= -0.1f && player.velocity.X <= 0.1f)
         {
             player.velocity.X = 0;
             player.ChangeState(new IdleState());
+            return;
         }
         if (!player.IsOnFloor())
         {
             player.ChangeState(new FallState());
+            return;
         }
     }
     public override void JumpInput()

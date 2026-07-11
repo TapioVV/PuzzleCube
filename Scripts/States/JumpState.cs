@@ -4,9 +4,12 @@ using System;
 public partial class JumpState : State
 {
     float timer = 0.1f;
+    bool releasedJump = false;
     public override void Enter()
     {
+        releasedJump = false;
         timer = 0.1f;
+        player.velocity.Y = 0;
         player.velocity.Y = player.jumpSpeed;
     }
     public override void Exit()
@@ -25,8 +28,6 @@ public partial class JumpState : State
         }
 
         timer -= deltaf;
-        if( timer < 0)
-        {
             if (player.IsOnFloor())
             {
                 if (player.velocity.X >= -0.1f && player.velocity.X <= 0.1f)
@@ -39,7 +40,16 @@ public partial class JumpState : State
                     player.ChangeState(new WalkState());
                 }
             }
+        
+        if (player.IsOnCeiling())
+        {
+            player.velocity.Y = 0;
         }
+        //if (Input.IsActionJustReleased("jump") && releasedJump == false)
+        //{
+        //    player.velocity.Y = player.velocity.Y * 0.75f;
+        //    releasedJump = true;
+        //}
         player.velocity.Y -= player.gravity * deltaf;
     }
 

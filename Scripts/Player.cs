@@ -6,6 +6,7 @@ public partial class Player : CharacterBody2D
     //public uint GroundLayerMask;
 
     [Export] Label stateLabel;
+    
     public State CurrentState;
 
     //public IdleState idleState;
@@ -16,6 +17,7 @@ public partial class Player : CharacterBody2D
 
 
 
+    [ExportCategory("Movement variables")]
     [Export] public float horizontalAcceleration;
     [Export] public float horizontalDeacceleration;
     [Export] public float jumpControlAcceleration;
@@ -35,24 +37,15 @@ public partial class Player : CharacterBody2D
 
     public Vector2 velocity;
 
-    public int inputAxis;
+    public float inputAxis;
 
     float jumpBufferTimer = 0;
     //[SerializeField] float jumpInputBuffer;
 
-    //[HideInInspector] public Rigidbody2D rb2D;
-    //BoxCollider2D boxCollider;
     //[HideInInspector] public Animator animator;
     //SpriteRenderer spriteRenderer;
-    //[SerializeField] ParticleSystem particleSystem;
-
-    //[Header("Inputs")]
-    //[SerializeField] InputActionReference move;
-    //[SerializeField] InputActionReference jump;
-
-    //[Header("SoundEvents")]
-    //public UnityEvent OnPlayerNormalJump;
-    //[SerializeField] UnityEvent OnPlayerBouncePadJump;
+    [ExportCategory("Visuals")]
+    [Export] public Sprite2D CharacterSprite;
 
     public override void _Ready()
     {
@@ -112,15 +105,21 @@ public partial class Player : CharacterBody2D
     //   //}
     public override void _Process(double delta)
     {
-        stateLabel.Text = $"Current State: {CurrentState.GetType().Name}";
-        CurrentState.Update((float)delta);
-        inputAxis = (int)Input.GetAxis("move_left", "move_right");
+        
+        if(stateLabel != null)
+        {
+            stateLabel.Text = $"Current State: {CurrentState.GetType().Name}";
+        }
+        //Velocity = velocity;
+        inputAxis = Input.GetAxis("move_left", "move_right");
 
         //JumpBuffer();
         velocity.Y = Mathf.Clamp(velocity.Y, -maxVerticalSpeed, 10000000);
     }
     public override void _PhysicsProcess(double delta)
     {
+        
+        CurrentState.Update((float)delta);
         Velocity = velocity;
         MoveAndSlide();
     }
