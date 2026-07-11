@@ -154,8 +154,8 @@ texture = SubResource("GradientTexture1D_bvmji")
 
 [node name="Platform" type="StaticBody2D" parent="Cube/Viewports/Side 1/SubViewport/World" unique_id=660531255]
 modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
-position = Vector2(236, 252)
-scale = Vector2(38.08, 0.936)
+position = Vector2(260, 246)
+scale = Vector2(12.12, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform" unique_id=537219879]
 shape = SubResource("RectangleShape2D_iuuih")
@@ -255,12 +255,42 @@ texture = ExtResource("3_7jktm")
 
 [node name="Platform14" type="StaticBody2D" parent="Cube/Viewports/Side 1/SubViewport/World" unique_id=375134275]
 modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
-position = Vector2(60, 80)
+position = Vector2(63, 77)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform14" unique_id=546025967]
 shape = SubResource("RectangleShape2D_iuuih")
 
 [node name="Icon2" type="Sprite2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform14" unique_id=871100900]
+texture = ExtResource("3_7jktm")
+
+[node name="Platform17" type="StaticBody2D" parent="Cube/Viewports/Side 1/SubViewport/World" unique_id=1888077003]
+modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
+position = Vector2(12, 106)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform17" unique_id=1572400585]
+shape = SubResource("RectangleShape2D_iuuih")
+
+[node name="Icon2" type="Sprite2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform17" unique_id=1840110537]
+texture = ExtResource("3_7jktm")
+
+[node name="Platform15" type="StaticBody2D" parent="Cube/Viewports/Side 1/SubViewport/World" unique_id=447362589]
+modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
+position = Vector2(102, 42)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform15" unique_id=1920711808]
+shape = SubResource("RectangleShape2D_iuuih")
+
+[node name="Icon2" type="Sprite2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform15" unique_id=1331063062]
+texture = ExtResource("3_7jktm")
+
+[node name="Platform16" type="StaticBody2D" parent="Cube/Viewports/Side 1/SubViewport/World" unique_id=1319486410]
+modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
+position = Vector2(132, 14)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform16" unique_id=1004802148]
+shape = SubResource("RectangleShape2D_iuuih")
+
+[node name="Icon2" type="Sprite2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform16" unique_id=1533177784]
 texture = ExtResource("3_7jktm")
 
 [node name="Platform13" type="StaticBody2D" parent="Cube/Viewports/Side 1/SubViewport/World" unique_id=1333610187]
@@ -473,7 +503,7 @@ texture = SubResource("GradientTexture1D_bvmji")
 
 [node name="Platform15" type="StaticBody2D" parent="Cube/Viewports/Side 5/SubViewport/World" unique_id=869615750]
 modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
-position = Vector2(158, 162)
+position = Vector2(132, 229)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 5/SubViewport/World/Platform15" unique_id=1816431242]
 shape = SubResource("RectangleShape2D_iuuih")

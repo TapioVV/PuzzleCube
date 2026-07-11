@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "New Game Project": {
+      "commandName": "Project"
+    },
+    "Profile 1": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Users\\tapio\\Documents\\Godot\\4.7\\Godot_v4.7.exe",
+      "commandLineArgs": "--path $(ProjectDir)",
+      "workingDirectory": "$(ProjectDir)",
+      "debugEngines": "managed"
+    }
+  }
+}

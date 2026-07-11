@@ -7,6 +7,10 @@
       "RelativeMoniker": "D:0:0:{3BA89592-9EF3-4ECB-8BA1-AAF5D3BEB655}|New Game Project.csproj|solutionrelative:cubemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{3BA89592-9EF3-4ECB-8BA1-AAF5D3BEB655}|New Game Project.csproj|c:\\users\\tapio\\documents\\games\\godot\\puzzlecube\\scripts\\states\\jumpstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3BA89592-9EF3-4ECB-8BA1-AAF5D3BEB655}|New Game Project.csproj|solutionrelative:scripts\\states\\jumpstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{3BA89592-9EF3-4ECB-8BA1-AAF5D3BEB655}|New Game Project.csproj|c:\\users\\tapio\\documents\\games\\godot\\puzzlecube\\scripts\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3BA89592-9EF3-4ECB-8BA1-AAF5D3BEB655}|New Game Project.csproj|solutionrelative:scripts\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -21,10 +25,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{3BA89592-9EF3-4ECB-8BA1-AAF5D3BEB655}|New Game Project.csproj|c:\\users\\tapio\\documents\\games\\godot\\puzzlecube\\scripts\\states\\fallstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3BA89592-9EF3-4ECB-8BA1-AAF5D3BEB655}|New Game Project.csproj|solutionrelative:scripts\\states\\fallstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3BA89592-9EF3-4ECB-8BA1-AAF5D3BEB655}|New Game Project.csproj|c:\\users\\tapio\\documents\\games\\godot\\puzzlecube\\scripts\\states\\jumpstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3BA89592-9EF3-4ECB-8BA1-AAF5D3BEB655}|New Game Project.csproj|solutionrelative:scripts\\states\\jumpstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3BA89592-9EF3-4ECB-8BA1-AAF5D3BEB655}|New Game Project.csproj|c:\\users\\tapio\\documents\\games\\godot\\puzzlecube\\scripts\\cubeside.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -60,14 +60,14 @@
               "RelativeDocumentMoniker": "CubeManager.cs",
               "ToolTip": "C:\\Users\\tapio\\Documents\\Games\\Godot\\PuzzleCube\\CubeManager.cs",
               "RelativeToolTip": "CubeManager.cs",
-              "ViewState": "AgIAAAQAAAAAAAAAAAAxwBEAAAAhAAAAAAAAAA==",
+              "ViewState": "AgIAAIUAAAAAAAAAAAAgwI0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-07-10T20:54:10.841Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "IdleState.cs",
               "DocumentMoniker": "C:\\Users\\tapio\\Documents\\Games\\Godot\\PuzzleCube\\Scripts\\States\\IdleState.cs",
               "RelativeDocumentMoniker": "Scripts\\States\\IdleState.cs",
@@ -75,12 +75,11 @@
               "RelativeToolTip": "Scripts\\States\\IdleState.cs",
               "ViewState": "AgIAAAQAAAAAAAAAAAAzwBIAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-11T15:15:28.533Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-11T15:15:28.533Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "WalkState.cs",
               "DocumentMoniker": "C:\\Users\\tapio\\Documents\\Games\\Godot\\PuzzleCube\\Scripts\\States\\WalkState.cs",
               "RelativeDocumentMoniker": "Scripts\\States\\WalkState.cs",
@@ -88,25 +87,24 @@
               "RelativeToolTip": "Scripts\\States\\WalkState.cs",
               "ViewState": "AgIAAA0AAAAAAAAAAAAwwA4AAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-10T15:37:43.41Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-10T15:37:43.41Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "JumpState.cs",
               "DocumentMoniker": "C:\\Users\\tapio\\Documents\\Games\\Godot\\PuzzleCube\\Scripts\\States\\JumpState.cs",
               "RelativeDocumentMoniker": "Scripts\\States\\JumpState.cs",
               "ToolTip": "C:\\Users\\tapio\\Documents\\Games\\Godot\\PuzzleCube\\Scripts\\States\\JumpState.cs",
               "RelativeToolTip": "Scripts\\States\\JumpState.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAdAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-07-10T15:29:17.644Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "FallState.cs",
               "DocumentMoniker": "C:\\Users\\tapio\\Documents\\Games\\Godot\\PuzzleCube\\Scripts\\States\\FallState.cs",
               "RelativeDocumentMoniker": "Scripts\\States\\FallState.cs",
@@ -114,18 +112,17 @@
               "RelativeToolTip": "Scripts\\States\\FallState.cs",
               "ViewState": "AgIAAAEAAAAAAAAAAAAywAgAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-10T15:29:16.153Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-10T15:29:16.153Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Player.cs",
               "DocumentMoniker": "C:\\Users\\tapio\\Documents\\Games\\Godot\\PuzzleCube\\Scripts\\Player.cs",
               "RelativeDocumentMoniker": "Scripts\\Player.cs",
               "ToolTip": "C:\\Users\\tapio\\Documents\\Games\\Godot\\PuzzleCube\\Scripts\\Player.cs",
               "RelativeToolTip": "Scripts\\Player.cs",
-              "ViewState": "AgIAAHAAAAAAAAAAAAAywIkAAAAsAAAAAAAAAA==",
+              "ViewState": "AgIAAJEAAAAAAAAAAAAowLAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-07-10T14:44:50.019Z",
               "EditorCaption": ""

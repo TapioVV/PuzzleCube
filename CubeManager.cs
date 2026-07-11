@@ -4,27 +4,25 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices.JavaScript;
 
 
-class CubeSide
+class CubeFace
 {
-    public CubeSide Left;
-    public CubeSide Right;
-    public CubeSide Top;
-    public CubeSide Bottom;
+    public String Name;
     public Vector3 UpDirection;
     public Vector3 Normal;
-	public Node2D world;
-    public CubeSide( Vector3 upDirection, Vector3 normal, Node2D world)
+	public Node2D World;
+    public CubeFace(string name,  Vector3 normal, Vector3 upDirection, Node2D world)
     {
-        UpDirection = upDirection;
+        Name = name;
         Normal = normal;
-        this.world = world;
+        UpDirection = upDirection;
+        World = world;
     }
 }
 
 public partial class CubeManager : Node
 {
 	const int CUBE_SIDE_WIDTH = 240;
-	const int CUBE_SIDE_HEIGHT = 240;
+	const int CUBE_SIDE_LENGTH = 240;
 
 
     public enum Direction { Left, Right, Up, Down }
@@ -34,129 +32,34 @@ public partial class CubeManager : Node
 	[Export] Node2D[] cubeSideWorlds;
 	[Export] Player player;
 	[Export] Player fakePlayer;
-	CubeSide[] cubeSides = new CubeSide[6];
-    CubeSide currentSide;
+	CubeFace[] cubeFaces = new CubeFace[6];
+    CubeFace currentFace;
+    Quaternion targetQuaternion = Quaternion.Identity;
     public override void _Ready()
 	{
-        cubeSides[0] = new CubeSide();
-        cubeSides[1] = new CubeSide();
-        cubeSides[2] = new CubeSide();
-        cubeSides[3] = new CubeSide();
-        cubeSides[4] = new CubeSide();
-        cubeSides[5] = new CubeSide();
-        for (int i = 0; i < cubeSideWorlds.Length; i++)
-        {
-            CubeSide side = cubeSides[i];
-            side.world = cubeSideWorlds[i];
-        }
+        cubeFaces[0] = new CubeFace("Front", Vector3.Forward, Vector3.Up, cubeSideWorlds[0]);
+        cubeFaces[1] = new CubeFace("Right", Vector3.Right, Vector3.Up, cubeSideWorlds[1]);
+        cubeFaces[2] = new CubeFace("Back", Vector3.Back, Vector3.Up, cubeSideWorlds[2]);
+        cubeFaces[3] = new CubeFace("Left", Vector3.Left, Vector3.Up, cubeSideWorlds[3]);
+        cubeFaces[4] = new CubeFace("Top", Vector3.Up, Vector3.Back, cubeSideWorlds[4]);
+        cubeFaces[5] = new CubeFace("Bottom", Vector3.Down, Vector3.Forward, cubeSideWorlds[5]);
 
-        cubeSides[0].Left = cubeSides[4 - 1]; // Left
-        cubeSides[0].Right = cubeSides[2 - 1]; // Right
-        cubeSides[0].Top = cubeSides[5 - 1]; // Top
-        cubeSides[0].Bottom = cubeSides[6 - 1]; // Bottom
-
-        // Right (2)
-        cubeSides[1].Left = cubeSides[1 - 1]; // Front
-        cubeSides[1].Right = cubeSides[3 - 1]; // Back
-        cubeSides[1].Top = cubeSides[5 - 1]; // Top
-        cubeSides[1].Bottom = cubeSides[6 - 1]; // Bottom
-
-        // Back (3)
-        cubeSides[2].Left = cubeSides[2- 1]; // Right
-        cubeSides[2].Right = cubeSides[4 - 1]; // Left
-        cubeSides[2].Top = cubeSides[5 - 1]; // Top
-        cubeSides[2].Bottom = cubeSides[6 - 1]; // Bottom
-
-        // Left (4)
-        cubeSides[3].Left = cubeSides[3 - 1]; // Back
-        cubeSides[3].Right = cubeSides[1 - 1]; // Front
-        cubeSides[3].Top = cubeSides[5 - 1]; // Top
-        cubeSides[3].Bottom = cubeSides[6 - 1]; // Bottom
-
-        // Bottom (5) - Assuming Top of Bottom points to Front
-        cubeSides[4].Left = cubeSides[4 - 1];
-        cubeSides[4].Right = cubeSides[2 - 1];
-        cubeSides[4].Top = cubeSides[3 - 1];
-        cubeSides[4].Bottom = cubeSides[1 - 1];
-
-        // Top (6) - Assuming Bottom of Top points to Front
-        cubeSides[5].Left = cubeSides[4 - 1];
-        cubeSides[5].Right = cubeSides[2 - 1];
-        cubeSides[5].Top = cubeSides[1 - 1];
-        cubeSides[5].Bottom = cubeSides[3 - 1];
-
-
-        currentSide = cubeSides[0];
-    }
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	bool movedScreen = false;
-    void ChangePlayerCurrentCubeSide(CubeSide side)
-    {
-        currentSide = side;
-
-        player.Reparent(currentSide.world);
-    }
-    Vector2 targetRotation = Vector2.Zero;
-    //public void CubeRotationTween(Vector2 addedRotation)
-    //{
-    //   float rotationSpeed = 1f; //Seconds
-        
-    //   targetRotation += new Vector2(Mathf.DegToRad(addedRotation.X), Mathf.DegToRad(addedRotation.Y));
-    //   Tween tween = CreateTween().SetParallel();
-    //   tween.TweenProperty(cubeRotationPoint, "rotation:x", targetRotation.X, rotationSpeed).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.InOut); 
-    //   tween.TweenProperty(cubeRotationPoint, "rotation:y", targetRotation.Y, rotationSpeed).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.InOut); 
-    //}
-    private Quaternion targetQuaternion = Quaternion.Identity;
-
-    public void CubeRotationTween(Vector2 addedRotation)
-    {
-        float rotationSpeed = 1f;
-
-        // 1. Create rotations for X and Y separately using angles
-        Quaternion xRotation = new Quaternion(Vector3.Right, Mathf.DegToRad(addedRotation.X));
-        Quaternion yRotation = new Quaternion(Vector3.Up, Mathf.DegToRad(addedRotation.Y));
-
-        // 2. Multiply them into your global target (Order matters! Y * X keeps it intuitive)
-        targetQuaternion = yRotation * xRotation * targetQuaternion;
-
-        // 3. Tween the entire basis or quaternion property at once
-        Tween tween = CreateTween();
-        tween.TweenProperty(cubeRotationPoint, "quaternion", targetQuaternion, rotationSpeed)
-            .SetTrans(Tween.TransitionType.Quad)
-            .SetEase(Tween.EaseType.InOut);
+        currentFace = cubeFaces[0];
     }
     public override void _Process(double delta)
 	{
+        //if (Input.IsActionPressed("down"))
+        //{
+        //    if (Input.IsActionJustPressed("jump"))
+        //    {
+        //        ChangePlayerCurrentCubeSide(currentFace.);
+        //        //player.ChangeGravityDirection(Vector2.Right);
 
-		Rect2 playerSpriteRect = player.CharacterSprite.GetGlobalTransform() * player.CharacterSprite.GetRect();
-		//if(movedScreen == true)
-		//{
-  // //         fakePlayer.Reparent(cubeSideWorlds[0]);
-		//	//fakePlayer.Position = Vector2.Zero;
-		//	//fakePlayer.Visible = true;
-		//	//fakePlayer.Position = new Vector2(player.Position.X + 240, player.Position.Y);
-  //          return;
-		//}
-		if(playerSpriteRect.Position.X < 0 || playerSpriteRect.End.X > CUBE_SIDE_WIDTH)
-		{
-			//fakePlayer.Reparent(cubeSideWorlds[1]);
-			//fakePlayer.Position = Vector2.Zero;
-			//fakePlayer.Visible = true;
-			//fakePlayer.Position = new Vector2(player.Position.X - 240, player.Position.Y);
-		}
-        if (Input.IsActionPressed("down"))
-        {
-            if (Input.IsActionJustPressed("jump"))
-            {
-                ChangePlayerCurrentCubeSide(currentSide.Bottom);
-                //player.ChangeGravityDirection(Vector2.Right);
-
-                CubeRotationTween(new Vector2(-90, 0));
-                player.Position = new Vector2(player.Position.X, 1);
-                return;
-            }
-        }
+        //        CubeRotationTween(new Vector2(-90, 0));
+        //        player.Position = new Vector2(player.Position.X, 1);
+        //        return;
+        //    }
+        //}
         if (Input.IsActionJustPressed("gravity_right"))
         {
             player.ChangeGravityDirection(Vector2.Right);
@@ -173,57 +76,120 @@ public partial class CubeManager : Node
         {
             player.ChangeGravityDirection(Vector2.Down);
         }
-
-
-
-
-        if (player.Position.X < 0)
-        {
-            //fakePlayer.Position = Vector2.Zero;
-            //fakePlayer.Visible = false;
-            //player.Reparent(cubeSideWorlds[0]);
-
-            ChangePlayerCurrentCubeSide(currentSide.Left);
-
-            CubeRotationTween(new Vector2(0, 90));
-
-            player.Position = new Vector2(CUBE_SIDE_WIDTH - 1, player.Position.Y);
-
-            movedScreen = false;
-        }
-
-
-
-        if(player.Position.X > CUBE_SIDE_WIDTH)
-        {
-            //fakePlayer.Position = Vector2.Zero;
-            //fakePlayer.Visible = false;
-            //player.Reparent(cubeSideWorlds[1]);
-            ChangePlayerCurrentCubeSide(currentSide.Right);
-
-
-            //testRotationY -= Mathf.DegToRad(90);
-
-            //Tween tween = CreateTween();
-            //float targetRotationY = cubeRotationPoint.Rotation.Y + Mathf.DegToRad(-90);
-            //float targetRotationY = testRotationY + Mathf.DegToRad(-90);
-
-            //tween.TweenProperty(cubeRotationPoint, "rotation:y", testRotationY, rotationSpeed).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.InOut);
-            CubeRotationTween(new Vector2(0, -90));
-
-            player.Position = new Vector2(1, player.Position.Y);
-            movedScreen = true;
-        }
-
-
-
-
-
-
-
-		else
-		{
-			fakePlayer.Visible = false;
-		}
+        HandeFaceTransitions();
 	}
+
+    //void ChangePlayerCurrentCubeSide(CubeFace face)
+    //{
+    //    currentFace = face;
+
+    //    player.Reparent(currentFace.World);
+    //}
+    private void TweenCubeRotation()
+    {
+        float rotationSpeed = 1f;
+        Tween tween = CreateTween();
+        tween.TweenProperty(cubeRotationPoint, "quaternion", targetQuaternion, rotationSpeed)
+             .SetTrans(Tween.TransitionType.Quad)
+             .SetEase(Tween.EaseType.InOut);
+    }
+    void HandeFaceTransitions()
+    {
+        Vector2 position = player.Position;
+        Vector2 moveDirection = Vector2.Zero;
+        Vector2 newPlayerPosition = position;
+        int newPositionOffset = 1;
+        if(position.X < 0)
+        {
+            moveDirection = Vector2.Left;
+            newPlayerPosition = new Vector2(CUBE_SIDE_LENGTH - newPositionOffset, newPlayerPosition.Y);
+        }
+        if(position.X > CUBE_SIDE_LENGTH)
+        {
+            moveDirection = Vector2.Right;
+            newPlayerPosition = new Vector2(newPositionOffset, newPlayerPosition.Y);
+        }
+        if(position.Y < 0)
+        {
+            moveDirection = Vector2.Up;
+            newPlayerPosition = new Vector2(newPlayerPosition.X, CUBE_SIDE_LENGTH + newPlayerPosition.Y);
+        }
+        if(position.Y > CUBE_SIDE_LENGTH)
+        {
+
+            moveDirection = Vector2.Down;
+            newPlayerPosition = new Vector2(newPlayerPosition.X, CUBE_SIDE_LENGTH);
+        }
+        if(moveDirection != Vector2.Zero)
+        {
+            TransitionToFace(moveDirection, newPlayerPosition);
+        }
+    }
+    private void TransitionToFace(Vector2 screenMovement, Vector2 newPosition)
+    {
+        // 1. Calculate the 3D direction vector of the player's screen movement relative to the current face
+        // 2. The target face's normal will be matching our local 3D movement path off the edge
+        Vector3 _3dMoveDirection = Convert2DMovementTo3D(screenMovement, currentFace);
+        CubeFace nextFace = FindFaceByNormal(_3dMoveDirection);
+
+        if (nextFace == null) return;
+
+        // 3. Compute the structural 3D rotation step required to center the new face
+        Quaternion faceRotation = new Quaternion(currentFace.Normal, nextFace.Normal);
+
+        // Accumulate rotation smoothly globally
+        targetQuaternion = faceRotation * targetQuaternion;
+
+        TweenCubeRotation();
+
+        // 4. Transform gravity direction smoothly based on the surface shift
+        UpdatePlayerGravity(nextFace);
+
+        // 5. Update viewport parents
+        currentFace = nextFace;
+        player.Reparent(currentFace.World);
+        player.Position = newPosition;
+    }
+
+    private Vector3 Convert2DMovementTo3D(Vector2 screenMovement, CubeFace face)
+    {
+        // Derive standard basis vectors for the local 2D screen coordinate planes inside 3D space
+        Vector3 screenUp3D = face.UpDirection;
+        Vector3 screenRight3D = face.Normal.Cross(screenUp3D).Normalized();
+
+        // Combine inputs to scale our 3D vector accurately
+        return (screenRight3D * screenMovement.X) + (screenUp3D * -screenMovement.Y);
+    }
+
+    private CubeFace FindFaceByNormal(Vector3 normal)
+    {
+        foreach (var face in cubeFaces)
+        {
+            // Allow minor floating point tolerances
+            if (face.Normal.DistanceSquaredTo(normal.Normalized()) < 0.01f)
+            {
+                return face;
+            }
+        }
+        return null;
+    }
+
+    private void UpdatePlayerGravity(CubeFace nextFace)
+    {
+        // Find the absolute difference in world orientation between the two viewports
+        // project the world down vector into the new screen space layout
+        Vector3 gravity3D = Vector3.Down; // Base gravity world context
+
+        // Find out what direction local "Down" is in terms of the new viewport layout
+        Vector3 localUp3D = nextFace.UpDirection;
+        Vector3 localRight3D = nextFace.Normal.Cross(localUp3D).Normalized();
+
+        // Project the world down vector to a flat 2D vector relative to the viewport surface maps
+        float gravity2DX = gravity3D.Dot(localRight3D);
+        float gravity2DY = -gravity3D.Dot(localUp3D);
+
+        Vector2 calculatedGravity2D = new Vector2(gravity2DX, gravity2DY).Normalized();
+
+        player.ChangeGravityDirection(calculatedGravity2D);
+    }
 }

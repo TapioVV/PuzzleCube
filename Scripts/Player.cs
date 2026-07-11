@@ -170,23 +170,8 @@ public partial class Player : CharacterBody2D
     {
         CurrentState.Exit();
         CurrentState = newState;
-        GD.Print(CurrentState.GetType().Name);
+        //GD.Print(CurrentState.GetType().Name);
         CurrentState.player = this;
         CurrentState.Enter();
     }
-    //   //public void JumpOnBouncePad(float bigJump, float smallJump)
-    //   //{
-    //   //    OnPlayerBouncePadJump?.Invoke();
-
-    //   //    if (jumpPressed)
-    //   //    {
-    //   //        Jump(bigJump);
-    //   //    }
-    //   //    if (!jumpPressed)
-    //   //    {
-    //   //        Jump(smallJump);
-    //   //    }
-    //   //}
-
-
 }
