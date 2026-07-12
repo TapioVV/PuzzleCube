@@ -1,0 +1,16 @@
+[gd_scene format=4 uid="uid://crnpry4vvwc1"]
+
+[ext_resource type="Texture2D" uid="uid://c86rhdri584wo" path="res://Assets/WhiteRectangle.png" id="1_8sx7v"]
+[ext_resource type="TileSet" uid="uid://c8g4w0spp8jta" path="res://Scenes/base_tileset.tres" id="2_nbg84"]
+
+[node name="Level" type="Node2D" unique_id=1288852080]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1227483418]
+modulate = Color(0.25828493, 0.17874566, 0.1968854, 1)
+position = Vector2(120, 120)
+scale = Vector2(10, 10)
+texture = ExtResource("1_8sx7v")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=2027269397]
+tile_map_data = PackedByteArray("AAAIAAkAAAAAAAAAAAAHAAkAAAAAAAAAAAAGAAkAAAAAAAAAAAAFAAkAAAAAAAAAAAAEAAkAAAAAAAAAAAADAAkAAAAAAAAAAAACAAkAAAAAAAAAAAABAAkAAAAAAAAAAAAJAAkAAAAAAAAAAAAAAAkAAAAAAAAAAAA=")
+tile_set = ExtResource("2_nbg84")

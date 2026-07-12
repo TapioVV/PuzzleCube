@@ -21,15 +21,11 @@ class CubeFace
 
 public partial class CubeManager : Node
 {
-	const int CUBE_SIDE_WIDTH = 240;
 	const int CUBE_SIDE_LENGTH = 240;
 
-
-    public enum Direction { Left, Right, Up, Down }
-
-
+    [Export] Label currentFaceText;
     [Export] Node3D cubeRotationPoint; 
-	[Export] Node2D[] cubeSideWorlds;
+	[Export] SubViewportContainer[] cubeSideViewports;
 	[Export] Player player;
 	[Export] Player fakePlayer;
 	CubeFace[] cubeFaces = new CubeFace[6];
@@ -37,135 +33,139 @@ public partial class CubeManager : Node
     Quaternion targetQuaternion = Quaternion.Identity;
     public override void _Ready()
 	{
-        cubeFaces[0] = new CubeFace("Front", Vector3.Forward, Vector3.Up, cubeSideWorlds[0]);
-        cubeFaces[1] = new CubeFace("Right", Vector3.Right, Vector3.Up, cubeSideWorlds[1]);
-        cubeFaces[2] = new CubeFace("Back", Vector3.Back, Vector3.Up, cubeSideWorlds[2]);
-        cubeFaces[3] = new CubeFace("Left", Vector3.Left, Vector3.Up, cubeSideWorlds[3]);
-        cubeFaces[4] = new CubeFace("Top", Vector3.Up, Vector3.Back, cubeSideWorlds[4]);
-        cubeFaces[5] = new CubeFace("Bottom", Vector3.Down, Vector3.Forward, cubeSideWorlds[5]);
+        cubeFaces[0] = new CubeFace("Front", Vector3.Forward, Vector3.Up, getCubeSubViewportContainerChildWorld(cubeSideViewports[0]));
+        cubeFaces[1] = new CubeFace("Right", Vector3.Right, Vector3.Up, getCubeSubViewportContainerChildWorld(cubeSideViewports[1]));
+        cubeFaces[2] = new CubeFace("Back", Vector3.Back, Vector3.Up, getCubeSubViewportContainerChildWorld(cubeSideViewports[2]));
+        cubeFaces[3] = new CubeFace("Left", Vector3.Left, Vector3.Up, getCubeSubViewportContainerChildWorld(cubeSideViewports[3]));
+        cubeFaces[4] = new CubeFace("Top", Vector3.Up, Vector3.Back, getCubeSubViewportContainerChildWorld(cubeSideViewports[4]));
+        cubeFaces[5] = new CubeFace("Bottom", Vector3.Down, Vector3.Forward, getCubeSubViewportContainerChildWorld(cubeSideViewports[5]));
 
         currentFace = cubeFaces[0];
     }
+    Node2D getCubeSubViewportContainerChildWorld(Node subViewportContaienr)
+    {
+        Node subViewport = subViewportContaienr.GetChild(0);
+        Node2D world = (Node2D)subViewport.GetChild(0);
+        return world;
+    }
     public override void _Process(double delta)
 	{
-        //if (Input.IsActionPressed("down"))
-        //{
-        //    if (Input.IsActionJustPressed("jump"))
-        //    {
-        //        ChangePlayerCurrentCubeSide(currentFace.);
-        //        //player.ChangeGravityDirection(Vector2.Right);
-
-        //        CubeRotationTween(new Vector2(-90, 0));
-        //        player.Position = new Vector2(player.Position.X, 1);
-        //        return;
-        //    }
-        //}
-        if (Input.IsActionJustPressed("gravity_right"))
-        {
-            player.ChangeGravityDirection(Vector2.Right);
-        }
-        if (Input.IsActionJustPressed("gravity_left"))
-        {
-            player.ChangeGravityDirection(Vector2.Left);
-        }
-        if (Input.IsActionJustPressed("gravity_up"))
-        {
-            player.ChangeGravityDirection(Vector2.Up);
-        }
-        if (Input.IsActionJustPressed("gravity_down"))
-        {
-            player.ChangeGravityDirection(Vector2.Down);
-        }
-        HandeFaceTransitions();
+        currentFaceText.Text = currentFace.Name;
+        HandleFaceTransitions();
 	}
 
-    //void ChangePlayerCurrentCubeSide(CubeFace face)
-    //{
-    //    currentFace = face;
-
-    //    player.Reparent(currentFace.World);
-    //}
-    private void TweenCubeRotation()
+    private void TweenCubeRotation(Quaternion target)
     {
         float rotationSpeed = 1f;
         Tween tween = CreateTween();
-        tween.TweenProperty(cubeRotationPoint, "quaternion", targetQuaternion, rotationSpeed)
+        tween.TweenProperty(cubeRotationPoint, "quaternion", target, rotationSpeed)
              .SetTrans(Tween.TransitionType.Quad)
              .SetEase(Tween.EaseType.InOut);
     }
-    void HandeFaceTransitions()
+    Quaternion GetQuaternionThatFacesCamera()
+    {
+        Basis cameraBasis = Basis.LookingAt(Vector3.Forward, Vector3.Up);
+        Basis faceBasis = Basis.LookingAt(currentFace.Normal, currentFace.UpDirection);
+        Basis targetCubeBasis = cameraBasis * faceBasis;
+        Vector2 playerUp2D = -player.GravityDirection;
+
+        // twist so the player always visually falls down the screen.
+        float twistAngle = Vector2.Up.AngleTo(playerUp2D);
+        return targetCubeBasis.Rotated(Vector3.Forward, -twistAngle).GetRotationQuaternion();
+    }
+    void HandleFaceTransitions()
     {
         Vector2 position = player.Position;
-        Vector2 moveDirection = Vector2.Zero;
-        Vector2 newPlayerPosition = position;
-        int newPositionOffset = 1;
-        if(position.X < 0)
-        {
-            moveDirection = Vector2.Left;
-            newPlayerPosition = new Vector2(CUBE_SIDE_LENGTH - newPositionOffset, newPlayerPosition.Y);
-        }
-        if(position.X > CUBE_SIDE_LENGTH)
-        {
-            moveDirection = Vector2.Right;
-            newPlayerPosition = new Vector2(newPositionOffset, newPlayerPosition.Y);
-        }
-        if(position.Y < 0)
-        {
-            moveDirection = Vector2.Up;
-            newPlayerPosition = new Vector2(newPlayerPosition.X, CUBE_SIDE_LENGTH + newPlayerPosition.Y);
-        }
-        if(position.Y > CUBE_SIDE_LENGTH)
-        {
+        Vector2 screenMoveDirection = Vector2.Zero;
 
-            moveDirection = Vector2.Down;
-            newPlayerPosition = new Vector2(newPlayerPosition.X, CUBE_SIDE_LENGTH);
-        }
-        if(moveDirection != Vector2.Zero)
+        // 1. Detect if the player crossed a boundary edge
+        if (position.X < 0) screenMoveDirection = Vector2.Left;
+        else if (position.X > CUBE_SIDE_LENGTH) screenMoveDirection = Vector2.Right;
+        else if (position.Y < 0) screenMoveDirection = Vector2.Up;
+        else if (position.Y > CUBE_SIDE_LENGTH) screenMoveDirection = Vector2.Down;
+
+        if (screenMoveDirection != Vector2.Zero)
         {
-            TransitionToFace(moveDirection, newPlayerPosition);
+            TransitionToFace(screenMoveDirection);
         }
     }
-    private void TransitionToFace(Vector2 screenMovement, Vector2 newPosition)
+    private void TransitionToFace(Vector2 screenMoveDirection)
     {
-        // 1. Calculate the 3D direction vector of the player's screen movement relative to the current face
-        // 2. The target face's normal will be matching our local 3D movement path off the edge
-        Vector3 _3dMoveDirection = Convert2DMovementTo3D(screenMovement, currentFace);
+        //Get the face and position to move to 
+        Vector3 _3dMoveDirection = Convert2DMovementTo3D(screenMoveDirection, currentFace);
         CubeFace nextFace = FindFaceByNormal(_3dMoveDirection);
-
         if (nextFace == null) return;
 
-        // 3. Compute the structural 3D rotation step required to center the new face
-        Quaternion faceRotation = new Quaternion(currentFace.Normal, nextFace.Normal);
+        Vector3 exitWorldPos = Convert2DPositionTo3D(player.Position, currentFace);
 
-        // Accumulate rotation smoothly globally
-        targetQuaternion = faceRotation * targetQuaternion;
-
-        TweenCubeRotation();
-
-        // 4. Transform gravity direction smoothly based on the surface shift
+        // Applying the things
         UpdatePlayerGravity(nextFace);
 
-        // 5. Update viewport parents
-        currentFace = nextFace;
+        Vector2 newPlayerPosition = Convert3DPositionTo2D(exitWorldPos, nextFace);
+        MovePlayerToFace(exitWorldPos, nextFace);
+        TweenCubeRotation(GetQuaternionThatFacesCamera());
+     }
+    void MovePlayerToFace(Vector3 facePosition, CubeFace face)
+    {
+        Vector2 newPlayerPosition = Convert3DPositionTo2D(facePosition, face);
+
+        // Nudge the player slightly onto the new face so they don't instantly re-trigger a transition
+        int edgeOffset = 1;
+        if (newPlayerPosition.X <= 0) newPlayerPosition.X = edgeOffset;
+        if (newPlayerPosition.X >= CUBE_SIDE_LENGTH) newPlayerPosition.X = CUBE_SIDE_LENGTH - edgeOffset;
+        if (newPlayerPosition.Y <= 0) newPlayerPosition.Y = edgeOffset;
+        if (newPlayerPosition.Y >= CUBE_SIDE_LENGTH) newPlayerPosition.Y = CUBE_SIDE_LENGTH - edgeOffset;
+
+        //Update the things to the player node
+        currentFace = face;
         player.Reparent(currentFace.World);
-        player.Position = newPosition;
+        player.Position = newPlayerPosition;
     }
 
-    private Vector3 Convert2DMovementTo3D(Vector2 screenMovement, CubeFace face)
+    private Vector3 Convert2DPositionTo3D(Vector2 pos2D, CubeFace face)
+    {
+        // Normalize 2D position to range [-0.5, 0.5]
+        float pctX = (pos2D.X / CUBE_SIDE_LENGTH) - 0.5f;
+        float pctY = (pos2D.Y / CUBE_SIDE_LENGTH) - 0.5f;
+
+        // Face surface sits at exactly 0.5 units along its normal vector
+        Vector3 faceCenter = face.Normal * 0.5f;
+
+        // 2D Y goes downwards on screen, so invert it relative to 3D Up
+        return faceCenter + Convert2DMovementTo3D(new Vector2(pctX, pctY), face);
+
+    }
+
+    // Helper: Map a 3D boundary coordinate back down onto the new face's local 2D screen plane
+    private Vector2 Convert3DPositionTo2D(Vector3 pos3D, CubeFace face)
+    {
+        Vector3 screenUp3D = face.UpDirection;
+        Vector3 screenRight3D = face.Normal.Cross(screenUp3D).Normalized();
+         // Project the 3D point onto our face basis vectors
+        float pctX = pos3D.Dot(screenRight3D);
+        float pctY = -pos3D.Dot(screenUp3D); // Invert back to screen space down
+
+        // Convert back from [-0.5, 0.5] to [0, CUBE_SIDE_WIDTH/LENGTH]
+        float x2D = (pctX + 0.5f) * CUBE_SIDE_LENGTH;
+        float y2D = (pctY + 0.5f) * CUBE_SIDE_LENGTH;
+
+        return new Vector2(x2D, y2D);
+    }
+
+    private Vector3 Convert2DMovementTo3D(Vector2 screenMoveDirection, CubeFace face)
     {
         // Derive standard basis vectors for the local 2D screen coordinate planes inside 3D space
         Vector3 screenUp3D = face.UpDirection;
         Vector3 screenRight3D = face.Normal.Cross(screenUp3D).Normalized();
 
         // Combine inputs to scale our 3D vector accurately
-        return (screenRight3D * screenMovement.X) + (screenUp3D * -screenMovement.Y);
+        return (screenRight3D * screenMoveDirection.X) + (screenUp3D * -screenMoveDirection.Y);
     }
 
     private CubeFace FindFaceByNormal(Vector3 normal)
     {
         foreach (var face in cubeFaces)
         {
-            // Allow minor floating point tolerances
             if (face.Normal.DistanceSquaredTo(normal.Normalized()) < 0.01f)
             {
                 return face;
@@ -174,22 +174,23 @@ public partial class CubeManager : Node
         return null;
     }
 
-    private void UpdatePlayerGravity(CubeFace nextFace)
+        private void UpdatePlayerGravity(CubeFace nextFace)
     {
-        // Find the absolute difference in world orientation between the two viewports
-        // project the world down vector into the new screen space layout
-        Vector3 gravity3D = Vector3.Down; // Base gravity world context
+        // Changes the players gravity to the correct one when moving between faces.
 
-        // Find out what direction local "Down" is in terms of the new viewport layout
-        Vector3 localUp3D = nextFace.UpDirection;
-        Vector3 localRight3D = nextFace.Normal.Cross(localUp3D).Normalized();
+        Vector3 gravity3D = Convert2DMovementTo3D(player.GravityDirection, currentFace);
+        Quaternion faceRotation = new Quaternion(currentFace.Normal, nextFace.Normal);
 
-        // Project the world down vector to a flat 2D vector relative to the viewport surface maps
-        float gravity2DX = gravity3D.Dot(localRight3D);
-        float gravity2DY = -gravity3D.Dot(localUp3D);
+        Vector3 currentGravity3D = faceRotation * gravity3D;
 
-        Vector2 calculatedGravity2D = new Vector2(gravity2DX, gravity2DY).Normalized();
+        Vector3 nextRight3D = nextFace.Normal.Cross(nextFace.UpDirection).Normalized();
 
-        player.ChangeGravityDirection(calculatedGravity2D);
+        float nextGravity3DX = currentGravity3D.Dot(nextRight3D);
+        float nextGravity3DY = -currentGravity3D.Dot(nextFace.UpDirection);
+
+        Vector2 calculatedGravity2D = new Vector2(nextGravity3DX, nextGravity3DY);
+
+
+        player.ChangeGravityDirection(calculatedGravity2D.Normalized());
     }
 }

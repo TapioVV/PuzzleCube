@@ -8,6 +8,7 @@ public partial class JumpState : State
     public override void Enter()
     {
         releasedJump = false;
+        player.jumpBufferTimer = -1;
         timer = 0.1f;
         player.velocity.Y = 0;
         player.velocity.Y = -player.jumpSpeed;

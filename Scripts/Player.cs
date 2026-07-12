@@ -118,12 +118,12 @@ public partial class Player : CharacterBody2D
         //JumpBuffer();
         velocity.Y = Mathf.Clamp(velocity.Y, -maxVerticalSpeed, 10000000);
     }
-    Vector2 gravityDirection = Vector2.Down;
+    public Vector2 GravityDirection = Vector2.Down;
     public void ChangeGravityDirection(Vector2 direction)
     {
 
-        gravityDirection = direction.Normalized();
-        switch (gravityDirection)
+        GravityDirection = direction.Normalized();
+        switch (GravityDirection)
         {
             case (0, -1): // Up
                 Rotation = Mathf.DegToRad(180);
@@ -142,7 +142,7 @@ public partial class Player : CharacterBody2D
     }
     public override void _PhysicsProcess(double delta)
     {
-        UpDirection = -gravityDirection;
+        UpDirection = -GravityDirection;
         CurrentState.Update((float)delta);
         //Vector2 localRight = new Vector2(-gravityDirection.Y, gravityDirection.X);
         //Vector2 localUp = -gravityDirection;
@@ -155,7 +155,7 @@ public partial class Player : CharacterBody2D
     private Vector2 ToGlobalVelocity(Vector2 localVelocity)
     {
         // Local Up is directly against gravity
-        Vector2 globalUp = -gravityDirection;
+        Vector2 globalUp = -GravityDirection;
 
         // Local Right is 90 degrees clockwise from Local Up
         Vector2 globalRight = new Vector2(-globalUp.Y, globalUp.X);

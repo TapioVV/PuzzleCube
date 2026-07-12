@@ -1,83 +1,98 @@
 [gd_scene format=3 uid="uid://4pqund3nukl7"]
 
 [ext_resource type="Theme" uid="uid://b60q003iqv1ub" path="res://Scenes/MainUITheme.tres" id="1_eow3j"]
-[ext_resource type="Script" uid="uid://dlmostwcg8ptu" path="res://CubeManager.cs" id="2_eow3j"]
-[ext_resource type="Texture2D" uid="uid://c86rhdri584wo" path="res://Assets/WhiteRectangle.png" id="3_7jktm"]
+[ext_resource type="PackedScene" uid="uid://crfros7j53udq" path="res://stage_template.tscn" id="3_feb5d"]
+[ext_resource type="PackedScene" uid="uid://crnpry4vvwc1" path="res://Scenes/Stages/1/1_front.tscn" id="4_7jktm"]
 [ext_resource type="PackedScene" uid="uid://dx021s2narbje" path="res://Scenes/player.tscn" id="4_eow3j"]
-[ext_resource type="Texture2D" uid="uid://dd6lq3j6q7hhj" path="res://Assets/Box.png" id="5_ryrav"]
+[ext_resource type="TileSet" uid="uid://c8g4w0spp8jta" path="res://Scenes/base_tileset.tres" id="4_fc0e3"]
+[ext_resource type="PackedScene" uid="uid://mqhstv0ob6ax" path="res://Scenes/Stages/1/1_left_and_right.tscn" id="5_ryrav"]
+[ext_resource type="PackedScene" uid="uid://c7fy2oafgl7gp" path="res://Scenes/Stages/1/1_back.tscn" id="6_eow3j"]
 
 [sub_resource type="Environment" id="Environment_iuuih"]
 background_mode = 1
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_j5wjh"]
-viewport_path = NodePath("Cube/Viewports/Side 1/SubViewport")
+viewport_path = NodePath("2D sides/Side 1/SubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ryrav"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vef74"]
 resource_local_to_scene = true
+diffuse_mode = 3
+specular_mode = 1
 albedo_texture = SubResource("ViewportTexture_j5wjh")
 texture_filter = 0
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_ohsbh"]
-
 [sub_resource type="ViewportTexture" id="ViewportTexture_hve3p"]
-viewport_path = NodePath("Cube/Viewports/Side 2/SubViewport")
+viewport_path = NodePath("2D sides/Side 2/SubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j5wjh"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mfdv2"]
 resource_local_to_scene = true
+diffuse_mode = 3
+specular_mode = 1
 albedo_texture = SubResource("ViewportTexture_hve3p")
 texture_filter = 0
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_vef74"]
-viewport_path = NodePath("Cube/Viewports/Side 3/SubViewport")
+[sub_resource type="ViewportTexture" id="ViewportTexture_iotsf"]
+viewport_path = NodePath("2D sides/Side 3/SubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m68ti"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lc2xo"]
 resource_local_to_scene = true
 diffuse_mode = 3
-albedo_texture = SubResource("ViewportTexture_vef74")
+specular_mode = 1
+albedo_texture = SubResource("ViewportTexture_iotsf")
 texture_filter = 0
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_mfdv2"]
-viewport_path = NodePath("Cube/Viewports/Side 4/SubViewport")
+[sub_resource type="ViewportTexture" id="ViewportTexture_215e1"]
+viewport_path = NodePath("2D sides/Side 4/SubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hve3p"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7sc4i"]
 resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_mfdv2")
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = SubResource("ViewportTexture_215e1")
 texture_filter = 0
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_lc2xo"]
-viewport_path = NodePath("Cube/Viewports/Side 5/SubViewport")
+[sub_resource type="ViewportTexture" id="ViewportTexture_80cx4"]
+viewport_path = NodePath("2D sides/Side 5/SubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iotsf"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e8heu"]
 resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_lc2xo")
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = SubResource("ViewportTexture_80cx4")
 texture_filter = 0
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_7sc4i"]
-viewport_path = NodePath("Cube/Viewports/Side 6/SubViewport")
+[sub_resource type="ViewportTexture" id="ViewportTexture_rvswv"]
+viewport_path = NodePath("2D sides/Side 6/SubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_215e1"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_boyg6"]
 resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_7sc4i")
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = SubResource("ViewportTexture_rvswv")
 texture_filter = 0
-
-[sub_resource type="Gradient" id="Gradient_e2o6t"]
-offsets = PackedFloat32Array(0.06376984)
-colors = PackedColorArray(0.8666667, 0.80784315, 0.8039216, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_bvmji"]
-gradient = SubResource("Gradient_e2o6t")
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_iuuih"]
-size = Vector2(24.000061, 24)
 
 [node name="Game" type="Node2D" unique_id=753927107]
 
-[node name="Player" parent="." unique_id=162310026 instance=ExtResource("4_eow3j")]
+[node name="Fakeplayer" parent="." unique_id=162310026 instance=ExtResource("4_eow3j")]
 modulate = Color(0.16261658, 0.16261658, 0.16261658, 1)
 
-[node name="Label" type="Label" parent="." unique_id=1346866500]
+[node name="State label" type="Label" parent="." unique_id=1346866500]
 offset_right = 142.0
 offset_bottom = 24.0
+theme = ExtResource("1_eow3j")
+text = "Current state"
+
+[node name="CurrentFace" type="Label" parent="." unique_id=1062537569]
+offset_top = 27.0
+offset_right = 142.0
+offset_bottom = 51.0
+theme = ExtResource("1_eow3j")
+text = "Current face"
+
+[node name="CurrentFace2" type="Label" parent="." unique_id=2011286740]
+offset_top = 46.0
+offset_right = 142.0
+offset_bottom = 70.0
 theme = ExtResource("1_eow3j")
 text = "Current state"
 
@@ -89,519 +104,61 @@ current = true
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=273032221]
 transform = Transform3D(1, 0, 0, 0, 0.9883499, 0.15219867, 0, -0.15219867, 0.9883499, 0, 0, 0)
 
-[node name="Cube" type="Node" parent="." unique_id=289202899 node_paths=PackedStringArray("cubeRotationPoint", "cubeSideWorlds", "player", "fakePlayer")]
-script = ExtResource("2_eow3j")
-cubeRotationPoint = NodePath("Model")
-cubeSideWorlds = [NodePath("Viewports/Side 1/SubViewport/World"), NodePath("Viewports/Side 2/SubViewport/World"), NodePath("Viewports/Side 3/SubViewport/World"), NodePath("Viewports/Side 4/SubViewport/World"), NodePath("Viewports/Side 5/SubViewport/World"), NodePath("Viewports/Side 6/SubViewport/World")]
-player = NodePath("Viewports/Side 1/SubViewport/World/Player")
-fakePlayer = NodePath("../Player")
+[node name="Cube" parent="." unique_id=597612352 node_paths=PackedStringArray("currentFaceText", "player", "fakePlayer") instance=ExtResource("3_feb5d")]
+currentFaceText = NodePath("../CurrentFace2")
+player = NodePath("Player")
+fakePlayer = NodePath("../Fakeplayer")
 
-[node name="Model" type="Node3D" parent="Cube" unique_id=1364530765]
+[node name="Side1" parent="Cube/Model" parent_id_path=PackedInt32Array(597612352, 1599131250) index="0" unique_id=981437601]
+surface_material_override/0 = SubResource("StandardMaterial3D_vef74")
 
-[node name="Side1" type="MeshInstance3D" parent="Cube/Model" unique_id=201861036]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 1)
-material_override = SubResource("StandardMaterial3D_ryrav")
-mesh = SubResource("PlaneMesh_ohsbh")
+[node name="Side2" parent="Cube/Model" parent_id_path=PackedInt32Array(597612352, 1599131250) index="1" unique_id=905211246]
+surface_material_override/0 = SubResource("StandardMaterial3D_mfdv2")
 
-[node name="Side2" type="MeshInstance3D" parent="Cube/Model" unique_id=546861169]
-transform = Transform3D(-4.371139e-08, 1, -4.371139e-08, 0, -4.371139e-08, -1, -1, -4.371139e-08, 1.9106855e-15, 1, 0, 0)
-material_override = SubResource("StandardMaterial3D_j5wjh")
-mesh = SubResource("PlaneMesh_ohsbh")
+[node name="Side3" parent="Cube/Model" parent_id_path=PackedInt32Array(597612352, 1599131250) index="2" unique_id=244488962]
+surface_material_override/0 = SubResource("StandardMaterial3D_lc2xo")
 
-[node name="Side3" type="MeshInstance3D" parent="Cube/Model" unique_id=66981321]
-transform = Transform3D(-1, 8.742278e-08, 0, 3.821371e-15, 4.371139e-08, -1, -8.742278e-08, -1, -4.371139e-08, 0, 0, -1)
-material_override = SubResource("StandardMaterial3D_m68ti")
-mesh = SubResource("PlaneMesh_ohsbh")
+[node name="Side4" parent="Cube/Model" parent_id_path=PackedInt32Array(597612352, 1599131250) index="3" unique_id=1241165880]
+surface_material_override/0 = SubResource("StandardMaterial3D_7sc4i")
 
-[node name="Side4" type="MeshInstance3D" parent="Cube/Model" unique_id=591034400]
-transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 1.9106855e-15, -1, 1, -4.371139e-08, -4.371139e-08, -1, 0, 0)
-mesh = SubResource("PlaneMesh_ohsbh")
-surface_material_override/0 = SubResource("StandardMaterial3D_hve3p")
+[node name="Side5" parent="Cube/Model" parent_id_path=PackedInt32Array(597612352, 1599131250) index="4" unique_id=719241736]
+surface_material_override/0 = SubResource("StandardMaterial3D_e8heu")
 
-[node name="Side5" type="MeshInstance3D" parent="Cube/Model" unique_id=115678988]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("PlaneMesh_ohsbh")
-surface_material_override/0 = SubResource("StandardMaterial3D_iotsf")
+[node name="Side6" parent="Cube/Model" parent_id_path=PackedInt32Array(597612352, 1599131250) index="5" unique_id=1185197806]
+surface_material_override/0 = SubResource("StandardMaterial3D_boyg6")
 
-[node name="Side6" type="MeshInstance3D" parent="Cube/Model" unique_id=1871748791]
-transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 0, -1, 0)
-mesh = SubResource("PlaneMesh_ohsbh")
-surface_material_override/0 = SubResource("StandardMaterial3D_215e1")
+[node name="Side 1" parent="Cube/2D sides" parent_id_path=PackedInt32Array(597612352, 2095245727) index="0" unique_id=533278270]
+mouse_target = true
 
-[node name="Viewports" type="Node2D" parent="Cube" unique_id=562300578]
+[node name="SubViewport" parent="Cube/2D sides/Side 1" index="0" unique_id=1479968897]
+disable_3d = false
+physics_object_picking = true
 
-[node name="Side 1" type="SubViewportContainer" parent="Cube/Viewports" unique_id=437183614]
-offset_left = -756.0
-offset_top = -60.0
-offset_right = -516.0
-offset_bottom = 180.0
+[node name="Level" parent="Cube/2D sides/Side 1/SubViewport/World" parent_id_path=PackedInt32Array(597612352, 661390160) index="1" unique_id=1288852080 instance=ExtResource("4_7jktm")]
 
-[node name="SubViewport" type="SubViewport" parent="Cube/Viewports/Side 1" unique_id=1564986612]
-disable_3d = true
-handle_input_locally = false
-snap_2d_vertices_to_pixel = true
-canvas_item_default_texture_filter = 0
-size = Vector2i(240, 240)
-render_target_update_mode = 4
+[node name="Label" parent="Cube/2D sides/Side 1/SubViewport" index="1" unique_id=1618615213]
+visible = false
 
-[node name="World" type="Node2D" parent="Cube/Viewports/Side 1/SubViewport" unique_id=792319047]
+[node name="Level" parent="Cube/2D sides/Side 2/SubViewport/World" parent_id_path=PackedInt32Array(597612352, 2073108319) index="1" unique_id=1933999079 instance=ExtResource("5_ryrav")]
 
-[node name="Background" type="Sprite2D" parent="Cube/Viewports/Side 1/SubViewport/World" unique_id=2110185969]
-z_index = -1
-position = Vector2(77, -216)
-scale = Vector2(10000, 10000)
-texture = SubResource("GradientTexture1D_bvmji")
+[node name="Label" parent="Cube/2D sides/Side 2/SubViewport" parent_id_path=PackedInt32Array(597612352, 1642325097) index="1" unique_id=1033971350]
+visible = false
 
-[node name="Platform" type="StaticBody2D" parent="Cube/Viewports/Side 1/SubViewport/World" unique_id=660531255]
-modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
-position = Vector2(260, 246)
-scale = Vector2(12.12, 1)
+[node name="Level" parent="Cube/2D sides/Side 3/SubViewport/World" parent_id_path=PackedInt32Array(597612352, 303351953) index="1" unique_id=363699288 instance=ExtResource("6_eow3j")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform" unique_id=537219879]
-shape = SubResource("RectangleShape2D_iuuih")
+[node name="Label" parent="Cube/2D sides/Side 3/SubViewport" parent_id_path=PackedInt32Array(597612352, 741036358) index="1" unique_id=562360693]
+visible = false
 
-[node name="Icon2" type="Sprite2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform" unique_id=637698691]
-texture = ExtResource("3_7jktm")
+[node name="Level" parent="Cube/2D sides/Side 4/SubViewport/World" parent_id_path=PackedInt32Array(597612352, 598623097) index="1" unique_id=1717205634 instance=ExtResource("5_ryrav")]
 
-[node name="Platform4" type="StaticBody2D" parent="Cube/Viewports/Side 1/SubViewport/World" unique_id=1649618601]
-modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
-position = Vector2(203.99997, 228)
+[node name="Label" parent="Cube/2D sides/Side 4/SubViewport" parent_id_path=PackedInt32Array(597612352, 28251544) index="1" unique_id=2014910482]
+visible = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform4" unique_id=286360642]
-shape = SubResource("RectangleShape2D_iuuih")
+[node name="Player" parent="Cube" unique_id=369105044 node_paths=PackedStringArray("stateLabel") instance=ExtResource("4_eow3j")]
+stateLabel = NodePath("../../State label")
+jumpBufferTime = 0.08
 
-[node name="Icon2" type="Sprite2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform4" unique_id=99646333]
-texture = ExtResource("3_7jktm")
+[node name="TileMapLayer" type="TileMapLayer" parent="Cube" unique_id=980145976]
+tile_set = ExtResource("4_fc0e3")
 
-[node name="Platform5" type="StaticBody2D" parent="Cube/Viewports/Side 1/SubViewport/World" unique_id=1571173102]
-modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
-position = Vector2(180, 228)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform5" unique_id=1918779745]
-shape = SubResource("RectangleShape2D_iuuih")
-
-[node name="Icon2" type="Sprite2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform5" unique_id=461105688]
-texture = ExtResource("3_7jktm")
-
-[node name="Platform6" type="StaticBody2D" parent="Cube/Viewports/Side 1/SubViewport/World" unique_id=2042501877]
-modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
-position = Vector2(228, 180)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform6" unique_id=1150311380]
-shape = SubResource("RectangleShape2D_iuuih")
-
-[node name="Icon2" type="Sprite2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform6" unique_id=1533759626]
-texture = ExtResource("3_7jktm")
-
-[node name="Platform7" type="StaticBody2D" parent="Cube/Viewports/Side 1/SubViewport/World" unique_id=1072668012]
-modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
-position = Vector2(204, 132)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform7" unique_id=1912932189]
-shape = SubResource("RectangleShape2D_iuuih")
-
-[node name="Icon2" type="Sprite2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform7" unique_id=294801555]
-texture = ExtResource("3_7jktm")
-
-[node name="Platform8" type="StaticBody2D" parent="Cube/Viewports/Side 1/SubViewport/World" unique_id=1480178209]
-modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
-position = Vector2(153, 132)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform8" unique_id=1638033366]
-shape = SubResource("RectangleShape2D_iuuih")
-
-[node name="Icon2" type="Sprite2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform8" unique_id=1681949260]
-texture = ExtResource("3_7jktm")
-
-[node name="Platform12" type="StaticBody2D" parent="Cube/Viewports/Side 1/SubViewport/World" unique_id=1833856008]
-modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
-position = Vector2(102, 132)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform12" unique_id=1104037186]
-shape = SubResource("RectangleShape2D_iuuih")
-
-[node name="Icon2" type="Sprite2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform12" unique_id=727952375]
-texture = ExtResource("3_7jktm")
-
-[node name="Platform9" type="StaticBody2D" parent="Cube/Viewports/Side 1/SubViewport/World" unique_id=1516476452]
-modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
-position = Vector2(60, 132)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform9" unique_id=1260335394]
-shape = SubResource("RectangleShape2D_iuuih")
-
-[node name="Icon2" type="Sprite2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform9" unique_id=200237083]
-texture = ExtResource("3_7jktm")
-
-[node name="Platform10" type="StaticBody2D" parent="Cube/Viewports/Side 1/SubViewport/World" unique_id=1612226601]
-modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
-position = Vector2(12, 132)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform10" unique_id=1148055106]
-shape = SubResource("RectangleShape2D_iuuih")
-
-[node name="Icon2" type="Sprite2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform10" unique_id=525973524]
-texture = ExtResource("3_7jktm")
-
-[node name="Platform11" type="StaticBody2D" parent="Cube/Viewports/Side 1/SubViewport/World" unique_id=2118240763]
-modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
-position = Vector2(36, 132)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform11" unique_id=640584496]
-shape = SubResource("RectangleShape2D_iuuih")
-
-[node name="Icon2" type="Sprite2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform11" unique_id=1445381587]
-texture = ExtResource("3_7jktm")
-
-[node name="Platform14" type="StaticBody2D" parent="Cube/Viewports/Side 1/SubViewport/World" unique_id=375134275]
-modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
-position = Vector2(63, 77)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform14" unique_id=546025967]
-shape = SubResource("RectangleShape2D_iuuih")
-
-[node name="Icon2" type="Sprite2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform14" unique_id=871100900]
-texture = ExtResource("3_7jktm")
-
-[node name="Platform17" type="StaticBody2D" parent="Cube/Viewports/Side 1/SubViewport/World" unique_id=1888077003]
-modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
-position = Vector2(12, 106)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform17" unique_id=1572400585]
-shape = SubResource("RectangleShape2D_iuuih")
-
-[node name="Icon2" type="Sprite2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform17" unique_id=1840110537]
-texture = ExtResource("3_7jktm")
-
-[node name="Platform15" type="StaticBody2D" parent="Cube/Viewports/Side 1/SubViewport/World" unique_id=447362589]
-modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
-position = Vector2(102, 42)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform15" unique_id=1920711808]
-shape = SubResource("RectangleShape2D_iuuih")
-
-[node name="Icon2" type="Sprite2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform15" unique_id=1331063062]
-texture = ExtResource("3_7jktm")
-
-[node name="Platform16" type="StaticBody2D" parent="Cube/Viewports/Side 1/SubViewport/World" unique_id=1319486410]
-modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
-position = Vector2(132, 14)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform16" unique_id=1004802148]
-shape = SubResource("RectangleShape2D_iuuih")
-
-[node name="Icon2" type="Sprite2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform16" unique_id=1533177784]
-texture = ExtResource("3_7jktm")
-
-[node name="Platform13" type="StaticBody2D" parent="Cube/Viewports/Side 1/SubViewport/World" unique_id=1333610187]
-modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
-position = Vector2(12, 204)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform13" unique_id=349244118]
-shape = SubResource("RectangleShape2D_iuuih")
-
-[node name="Icon2" type="Sprite2D" parent="Cube/Viewports/Side 1/SubViewport/World/Platform13" unique_id=17335055]
-texture = ExtResource("3_7jktm")
-
-[node name="Player" parent="Cube/Viewports/Side 1/SubViewport/World" unique_id=913397709 node_paths=PackedStringArray("stateLabel") instance=ExtResource("4_eow3j")]
-position = Vector2(207, 199)
-stateLabel = NodePath("../../../../../../Label")
-jumpBufferTime = 0.07
-
-[node name="Box" type="Sprite2D" parent="Cube/Viewports/Side 1/SubViewport/World" unique_id=1825585665]
-modulate = Color(0.09803922, 0.39215687, 0.49411765, 1)
-position = Vector2(141, 204)
-texture = ExtResource("5_ryrav")
-
-[node name="Camera2D2" type="Camera2D" parent="Cube/Viewports/Side 1/SubViewport/World" unique_id=1911830315]
-position = Vector2(120, 120)
-
-[node name="Label" type="Label" parent="Cube/Viewports/Side 1/SubViewport/World" unique_id=1380724500]
-modulate = Color(0, 0, 0, 1)
-offset_right = 40.0
-offset_bottom = 23.0
-theme = ExtResource("1_eow3j")
-text = "1"
-
-[node name="Side 2" type="SubViewportContainer" parent="Cube/Viewports" unique_id=416045272]
-offset_left = -516.0
-offset_top = -60.0
-offset_right = -276.0
-offset_bottom = 180.0
-
-[node name="SubViewport" type="SubViewport" parent="Cube/Viewports/Side 2" unique_id=957601143]
-disable_3d = true
-handle_input_locally = false
-snap_2d_transforms_to_pixel = true
-snap_2d_vertices_to_pixel = true
-canvas_item_default_texture_filter = 0
-size = Vector2i(240, 240)
-render_target_update_mode = 4
-
-[node name="World" type="Node2D" parent="Cube/Viewports/Side 2/SubViewport" unique_id=762828102]
-
-[node name="Background" type="Sprite2D" parent="Cube/Viewports/Side 2/SubViewport/World" unique_id=1988040711]
-z_index = -1
-position = Vector2(77, -216)
-scale = Vector2(10000, 10000)
-texture = SubResource("GradientTexture1D_bvmji")
-
-[node name="Platform15" type="StaticBody2D" parent="Cube/Viewports/Side 2/SubViewport/World" unique_id=1726777713]
-modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
-position = Vector2(55, 227)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 2/SubViewport/World/Platform15" unique_id=1394820907]
-shape = SubResource("RectangleShape2D_iuuih")
-
-[node name="Icon2" type="Sprite2D" parent="Cube/Viewports/Side 2/SubViewport/World/Platform15" unique_id=440125758]
-texture = ExtResource("3_7jktm")
-
-[node name="Platform16" type="StaticBody2D" parent="Cube/Viewports/Side 2/SubViewport/World" unique_id=1199431445]
-modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
-position = Vector2(120, 253)
-scale = Vector2(89.27999, 1)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 2/SubViewport/World/Platform16" unique_id=62301197]
-shape = SubResource("RectangleShape2D_iuuih")
-
-[node name="Icon2" type="Sprite2D" parent="Cube/Viewports/Side 2/SubViewport/World/Platform16" unique_id=276000181]
-texture = ExtResource("3_7jktm")
-
-[node name="Label2" type="Label" parent="Cube/Viewports/Side 2/SubViewport/World" unique_id=1679798258]
-modulate = Color(0, 0, 0, 1)
-offset_right = 40.0
-offset_bottom = 24.0
-theme = ExtResource("1_eow3j")
-text = "2"
-
-[node name="Side 3" type="SubViewportContainer" parent="Cube/Viewports" unique_id=953912660]
-offset_left = -276.0
-offset_top = -60.0
-offset_right = -36.0
-offset_bottom = 180.0
-
-[node name="SubViewport" type="SubViewport" parent="Cube/Viewports/Side 3" unique_id=2014808677]
-disable_3d = true
-handle_input_locally = false
-snap_2d_transforms_to_pixel = true
-snap_2d_vertices_to_pixel = true
-canvas_item_default_texture_filter = 0
-size = Vector2i(240, 240)
-render_target_update_mode = 4
-
-[node name="World" type="Node2D" parent="Cube/Viewports/Side 3/SubViewport" unique_id=1849278272]
-
-[node name="Background" type="Sprite2D" parent="Cube/Viewports/Side 3/SubViewport/World" unique_id=1168041130]
-z_index = -1
-position = Vector2(77, -216)
-scale = Vector2(10000, 10000)
-texture = SubResource("GradientTexture1D_bvmji")
-
-[node name="Platform15" type="StaticBody2D" parent="Cube/Viewports/Side 3/SubViewport/World" unique_id=1693175455]
-modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
-position = Vector2(120, 153)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 3/SubViewport/World/Platform15" unique_id=1677695941]
-shape = SubResource("RectangleShape2D_iuuih")
-
-[node name="Icon2" type="Sprite2D" parent="Cube/Viewports/Side 3/SubViewport/World/Platform15" unique_id=778042761]
-texture = ExtResource("3_7jktm")
-
-[node name="Label2" type="Label" parent="Cube/Viewports/Side 3/SubViewport/World" unique_id=1684686718]
-modulate = Color(0, 0, 0, 1)
-offset_right = 40.0
-offset_bottom = 24.0
-theme = ExtResource("1_eow3j")
-text = "3
-"
-
-[node name="Platform16" type="StaticBody2D" parent="Cube/Viewports/Side 3/SubViewport/World" unique_id=98640972]
-modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
-position = Vector2(120, 253)
-scale = Vector2(89.27999, 1)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 3/SubViewport/World/Platform16" unique_id=1029663235]
-shape = SubResource("RectangleShape2D_iuuih")
-
-[node name="Icon2" type="Sprite2D" parent="Cube/Viewports/Side 3/SubViewport/World/Platform16" unique_id=565588369]
-texture = ExtResource("3_7jktm")
-
-[node name="Side 4" type="SubViewportContainer" parent="Cube/Viewports" unique_id=32213028]
-offset_left = -1006.0
-offset_top = -64.0
-offset_right = -766.0
-offset_bottom = 176.0
-
-[node name="SubViewport" type="SubViewport" parent="Cube/Viewports/Side 4" unique_id=739331568]
-disable_3d = true
-handle_input_locally = false
-snap_2d_transforms_to_pixel = true
-snap_2d_vertices_to_pixel = true
-canvas_item_default_texture_filter = 0
-size = Vector2i(240, 240)
-render_target_update_mode = 4
-
-[node name="World" type="Node2D" parent="Cube/Viewports/Side 4/SubViewport" unique_id=1184736354]
-
-[node name="Background" type="Sprite2D" parent="Cube/Viewports/Side 4/SubViewport/World" unique_id=456000611]
-z_index = -1
-position = Vector2(91, -216)
-scale = Vector2(10000, 10000)
-texture = SubResource("GradientTexture1D_bvmji")
-
-[node name="Platform15" type="StaticBody2D" parent="Cube/Viewports/Side 4/SubViewport/World" unique_id=675362145]
-modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
-position = Vector2(120, 153)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 4/SubViewport/World/Platform15" unique_id=961478556]
-shape = SubResource("RectangleShape2D_iuuih")
-
-[node name="Icon2" type="Sprite2D" parent="Cube/Viewports/Side 4/SubViewport/World/Platform15" unique_id=1300971033]
-texture = ExtResource("3_7jktm")
-
-[node name="Label2" type="Label" parent="Cube/Viewports/Side 4/SubViewport/World" unique_id=1598478160]
-modulate = Color(0, 0, 0, 1)
-offset_right = 40.0
-offset_bottom = 24.0
-theme = ExtResource("1_eow3j")
-text = "4
-"
-
-[node name="Platform16" type="StaticBody2D" parent="Cube/Viewports/Side 4/SubViewport/World" unique_id=1789819384]
-modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
-position = Vector2(120, 253)
-scale = Vector2(89.27999, 1)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 4/SubViewport/World/Platform16" unique_id=633527745]
-shape = SubResource("RectangleShape2D_iuuih")
-
-[node name="Icon2" type="Sprite2D" parent="Cube/Viewports/Side 4/SubViewport/World/Platform16" unique_id=703769548]
-texture = ExtResource("3_7jktm")
-
-[node name="Side 5" type="SubViewportContainer" parent="Cube/Viewports" unique_id=1947360140]
-offset_left = -756.0
-offset_top = -299.0
-offset_right = -516.0
-offset_bottom = -59.0
-
-[node name="SubViewport" type="SubViewport" parent="Cube/Viewports/Side 5" unique_id=1922068858]
-disable_3d = true
-handle_input_locally = false
-snap_2d_transforms_to_pixel = true
-snap_2d_vertices_to_pixel = true
-canvas_item_default_texture_filter = 0
-size = Vector2i(240, 240)
-render_target_update_mode = 4
-
-[node name="World" type="Node2D" parent="Cube/Viewports/Side 5/SubViewport" unique_id=735866902]
-
-[node name="Background" type="Sprite2D" parent="Cube/Viewports/Side 5/SubViewport/World" unique_id=1667382799]
-z_index = -1
-position = Vector2(77, -216)
-scale = Vector2(10000, 10000)
-texture = SubResource("GradientTexture1D_bvmji")
-
-[node name="Platform15" type="StaticBody2D" parent="Cube/Viewports/Side 5/SubViewport/World" unique_id=869615750]
-modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
-position = Vector2(132, 229)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 5/SubViewport/World/Platform15" unique_id=1816431242]
-shape = SubResource("RectangleShape2D_iuuih")
-
-[node name="Icon2" type="Sprite2D" parent="Cube/Viewports/Side 5/SubViewport/World/Platform15" unique_id=1334803862]
-texture = ExtResource("3_7jktm")
-
-[node name="Label2" type="Label" parent="Cube/Viewports/Side 5/SubViewport/World" unique_id=1766836115]
-modulate = Color(0, 0, 0, 1)
-offset_right = 40.0
-offset_bottom = 24.0
-theme = ExtResource("1_eow3j")
-text = "5
-"
-
-[node name="Platform16" type="StaticBody2D" parent="Cube/Viewports/Side 5/SubViewport/World" unique_id=995246624]
-modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
-position = Vector2(120, 253)
-scale = Vector2(89.27999, 1)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 5/SubViewport/World/Platform16" unique_id=1565490489]
-shape = SubResource("RectangleShape2D_iuuih")
-
-[node name="Icon2" type="Sprite2D" parent="Cube/Viewports/Side 5/SubViewport/World/Platform16" unique_id=2117126980]
-texture = ExtResource("3_7jktm")
-
-[node name="Side 6" type="SubViewportContainer" parent="Cube/Viewports" unique_id=1558516890]
-offset_left = -756.0
-offset_top = 180.0
-offset_right = -516.0
-offset_bottom = 420.0
-
-[node name="SubViewport" type="SubViewport" parent="Cube/Viewports/Side 6" unique_id=806835934]
-disable_3d = true
-handle_input_locally = false
-snap_2d_transforms_to_pixel = true
-snap_2d_vertices_to_pixel = true
-canvas_item_default_texture_filter = 0
-size = Vector2i(240, 240)
-render_target_update_mode = 4
-
-[node name="World" type="Node2D" parent="Cube/Viewports/Side 6/SubViewport" unique_id=372454343]
-
-[node name="Background" type="Sprite2D" parent="Cube/Viewports/Side 6/SubViewport/World" unique_id=1855040771]
-z_index = -1
-position = Vector2(77, -216)
-scale = Vector2(10000, 10000)
-texture = SubResource("GradientTexture1D_bvmji")
-
-[node name="Platform15" type="StaticBody2D" parent="Cube/Viewports/Side 6/SubViewport/World" unique_id=569437345]
-modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
-position = Vector2(45, 114)
-scale = Vector2(1, 6.68)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 6/SubViewport/World/Platform15" unique_id=1177901452]
-shape = SubResource("RectangleShape2D_iuuih")
-
-[node name="Icon2" type="Sprite2D" parent="Cube/Viewports/Side 6/SubViewport/World/Platform15" unique_id=1625208877]
-texture = ExtResource("3_7jktm")
-
-[node name="Platform17" type="StaticBody2D" parent="Cube/Viewports/Side 6/SubViewport/World" unique_id=1189736484]
-modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
-position = Vector2(191.99998, 114)
-scale = Vector2(1, 6.68)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 6/SubViewport/World/Platform17" unique_id=338149105]
-shape = SubResource("RectangleShape2D_iuuih")
-
-[node name="Icon2" type="Sprite2D" parent="Cube/Viewports/Side 6/SubViewport/World/Platform17" unique_id=1347129579]
-texture = ExtResource("3_7jktm")
-
-[node name="Platform18" type="StaticBody2D" parent="Cube/Viewports/Side 6/SubViewport/World" unique_id=2046825721]
-modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
-position = Vector2(140.99998, 183)
-rotation = 1.5707964
-scale = Vector2(1, 3.5199993)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 6/SubViewport/World/Platform18" unique_id=509286414]
-shape = SubResource("RectangleShape2D_iuuih")
-
-[node name="Icon2" type="Sprite2D" parent="Cube/Viewports/Side 6/SubViewport/World/Platform18" unique_id=898417552]
-texture = ExtResource("3_7jktm")
-
-[node name="Label2" type="Label" parent="Cube/Viewports/Side 6/SubViewport/World" unique_id=1709975932]
-modulate = Color(0, 0, 0, 1)
-offset_right = 40.0
-offset_bottom = 24.0
-theme = ExtResource("1_eow3j")
-text = "6
-"
-
-[node name="Platform16" type="StaticBody2D" parent="Cube/Viewports/Side 6/SubViewport/World" unique_id=61683704]
-modulate = Color(0.21568628, 0.22352941, 0.18039216, 1)
-position = Vector2(189, 253)
-scale = Vector2(89.27999, 1)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/Viewports/Side 6/SubViewport/World/Platform16" unique_id=1723394730]
-shape = SubResource("RectangleShape2D_iuuih")
-
-[node name="Icon2" type="Sprite2D" parent="Cube/Viewports/Side 6/SubViewport/World/Platform16" unique_id=1808225773]
-texture = ExtResource("3_7jktm")
+[editable path="Cube"]

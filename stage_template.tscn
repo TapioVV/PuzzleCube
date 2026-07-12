@@ -1,0 +1,247 @@
+[gd_scene format=3 uid="uid://crfros7j53udq"]
+
+[ext_resource type="Script" uid="uid://dlmostwcg8ptu" path="res://CubeManager.cs" id="1_1og38"]
+[ext_resource type="Script" uid="uid://cbxbesgkaftm6" path="res://CubeRotation.cs" id="2_qlyl7"]
+[ext_resource type="PackedScene" uid="uid://cp6lmqombxk1f" path="res://base_cube_face_world.tscn" id="3_myi8u"]
+[ext_resource type="Theme" uid="uid://b60q003iqv1ub" path="res://Scenes/MainUITheme.tres" id="4_erax8"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ohsbh"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_6k15o"]
+viewport_path = NodePath("2D sides/Side 1/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_feb5d"]
+resource_local_to_scene = true
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = SubResource("ViewportTexture_6k15o")
+texture_filter = 0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_qlyl7"]
+viewport_path = NodePath("2D sides/Side 2/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1og38"]
+resource_local_to_scene = true
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = SubResource("ViewportTexture_qlyl7")
+texture_filter = 0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_2sa4e"]
+viewport_path = NodePath("2D sides/Side 3/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_myi8u"]
+resource_local_to_scene = true
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = SubResource("ViewportTexture_2sa4e")
+texture_filter = 0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_i362x"]
+viewport_path = NodePath("2D sides/Side 4/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_erax8"]
+resource_local_to_scene = true
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = SubResource("ViewportTexture_i362x")
+texture_filter = 0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_6kck2"]
+viewport_path = NodePath("2D sides/Side 5/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jcbnb"]
+resource_local_to_scene = true
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = SubResource("ViewportTexture_6kck2")
+texture_filter = 0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_tv6rf"]
+viewport_path = NodePath("2D sides/Side 6/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3kv3q"]
+resource_local_to_scene = true
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = SubResource("ViewportTexture_tv6rf")
+texture_filter = 0
+
+[node name="Cube" type="Node" unique_id=597612352 node_paths=PackedStringArray("cubeRotationPoint", "cubeSideViewports")]
+script = ExtResource("1_1og38")
+cubeRotationPoint = NodePath("Model")
+cubeSideViewports = [NodePath("2D sides/Side 1"), NodePath("2D sides/Side 2"), NodePath("2D sides/Side 3"), NodePath("2D sides/Side 4"), NodePath("2D sides/Side 5"), NodePath("2D sides/Side 6")]
+
+[node name="Model" type="Node3D" parent="." unique_id=1599131250]
+script = ExtResource("2_qlyl7")
+
+[node name="Side1" type="MeshInstance3D" parent="Model" unique_id=981437601]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 1)
+mesh = SubResource("PlaneMesh_ohsbh")
+surface_material_override/0 = SubResource("StandardMaterial3D_feb5d")
+
+[node name="Side2" type="MeshInstance3D" parent="Model" unique_id=905211246]
+transform = Transform3D(-4.371139e-08, 1, -4.371139e-08, 0, -4.371139e-08, -1, -1, -4.371139e-08, 1.9106855e-15, 1, 0, 0)
+mesh = SubResource("PlaneMesh_ohsbh")
+surface_material_override/0 = SubResource("StandardMaterial3D_1og38")
+
+[node name="Side3" type="MeshInstance3D" parent="Model" unique_id=244488962]
+transform = Transform3D(-1, 8.742278e-08, 0, 3.821371e-15, 4.371139e-08, -1, -8.742278e-08, -1, -4.371139e-08, 0, 0, -1)
+mesh = SubResource("PlaneMesh_ohsbh")
+surface_material_override/0 = SubResource("StandardMaterial3D_myi8u")
+
+[node name="Side4" type="MeshInstance3D" parent="Model" unique_id=1241165880]
+transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 1.9106855e-15, -1, 1, -4.371139e-08, -4.371139e-08, -1, 0, 0)
+mesh = SubResource("PlaneMesh_ohsbh")
+surface_material_override/0 = SubResource("StandardMaterial3D_erax8")
+
+[node name="Side5" type="MeshInstance3D" parent="Model" unique_id=719241736]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("PlaneMesh_ohsbh")
+surface_material_override/0 = SubResource("StandardMaterial3D_jcbnb")
+
+[node name="Side6" type="MeshInstance3D" parent="Model" unique_id=1185197806]
+transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 0, -1, 0)
+mesh = SubResource("PlaneMesh_ohsbh")
+surface_material_override/0 = SubResource("StandardMaterial3D_3kv3q")
+
+[node name="2D sides" type="Node2D" parent="." unique_id=2095245727]
+position = Vector2(-1573, -1503)
+
+[node name="Side 1" type="SubViewportContainer" parent="2D sides" unique_id=533278270]
+offset_right = 240.0
+offset_bottom = 240.0
+
+[node name="SubViewport" type="SubViewport" parent="2D sides/Side 1" unique_id=1479968897]
+disable_3d = true
+handle_input_locally = false
+snap_2d_vertices_to_pixel = true
+canvas_item_default_texture_filter = 0
+size = Vector2i(240, 240)
+render_target_update_mode = 4
+
+[node name="World" parent="2D sides/Side 1/SubViewport" unique_id=661390160 instance=ExtResource("3_myi8u")]
+
+[node name="Label" type="Label" parent="2D sides/Side 1/SubViewport" unique_id=1618615213]
+modulate = Color(0, 0, 0, 1)
+offset_right = 69.0
+offset_bottom = 24.0
+theme = ExtResource("4_erax8")
+text = "1 back"
+
+[node name="Side 2" type="SubViewportContainer" parent="2D sides" unique_id=425492252]
+offset_left = 265.0
+offset_right = 505.0
+offset_bottom = 240.0
+
+[node name="SubViewport" type="SubViewport" parent="2D sides/Side 2" unique_id=1642325097]
+disable_3d = true
+handle_input_locally = false
+snap_2d_transforms_to_pixel = true
+snap_2d_vertices_to_pixel = true
+canvas_item_default_texture_filter = 0
+size = Vector2i(240, 240)
+render_target_update_mode = 4
+
+[node name="World" parent="2D sides/Side 2/SubViewport" unique_id=2073108319 instance=ExtResource("3_myi8u")]
+
+[node name="Label" type="Label" parent="2D sides/Side 2/SubViewport" unique_id=1033971350]
+modulate = Color(0, 0, 0, 1)
+offset_right = 72.0
+offset_bottom = 24.0
+theme = ExtResource("4_erax8")
+text = "2 right"
+
+[node name="Side 3" type="SubViewportContainer" parent="2D sides" unique_id=985892794]
+offset_left = 526.0
+offset_right = 766.0
+offset_bottom = 240.0
+
+[node name="SubViewport" type="SubViewport" parent="2D sides/Side 3" unique_id=741036358]
+disable_3d = true
+handle_input_locally = false
+snap_2d_transforms_to_pixel = true
+snap_2d_vertices_to_pixel = true
+canvas_item_default_texture_filter = 0
+size = Vector2i(240, 240)
+render_target_update_mode = 4
+
+[node name="World" parent="2D sides/Side 3/SubViewport" unique_id=303351953 instance=ExtResource("3_myi8u")]
+
+[node name="Label" type="Label" parent="2D sides/Side 3/SubViewport" unique_id=562360693]
+modulate = Color(0, 0, 0, 1)
+offset_right = 69.0
+offset_bottom = 24.0
+theme = ExtResource("4_erax8")
+text = "3 back"
+
+[node name="Side 4" type="SubViewportContainer" parent="2D sides" unique_id=1067071202]
+offset_left = -270.0
+offset_right = -30.0
+offset_bottom = 240.0
+
+[node name="SubViewport" type="SubViewport" parent="2D sides/Side 4" unique_id=28251544]
+disable_3d = true
+handle_input_locally = false
+snap_2d_transforms_to_pixel = true
+snap_2d_vertices_to_pixel = true
+canvas_item_default_texture_filter = 0
+size = Vector2i(240, 240)
+render_target_update_mode = 4
+
+[node name="World" parent="2D sides/Side 4/SubViewport" unique_id=598623097 instance=ExtResource("3_myi8u")]
+
+[node name="Label" type="Label" parent="2D sides/Side 4/SubViewport" unique_id=2014910482]
+modulate = Color(0, 0, 0, 1)
+offset_right = 55.0
+offset_bottom = 51.0
+theme = ExtResource("4_erax8")
+text = "4 left
+"
+
+[node name="Side 5" type="SubViewportContainer" parent="2D sides" unique_id=1464869680]
+offset_top = -275.0
+offset_right = 240.0
+offset_bottom = -35.0
+
+[node name="SubViewport" type="SubViewport" parent="2D sides/Side 5" unique_id=1528131414]
+disable_3d = true
+handle_input_locally = false
+snap_2d_transforms_to_pixel = true
+snap_2d_vertices_to_pixel = true
+canvas_item_default_texture_filter = 0
+size = Vector2i(240, 240)
+render_target_update_mode = 4
+
+[node name="World" parent="2D sides/Side 5/SubViewport" unique_id=1358727191 instance=ExtResource("3_myi8u")]
+
+[node name="Label" type="Label" parent="2D sides/Side 5/SubViewport" unique_id=1073618124]
+modulate = Color(0, 0, 0, 1)
+offset_right = 55.0
+offset_bottom = 24.0
+theme = ExtResource("4_erax8")
+text = "5 top"
+
+[node name="Side 6" type="SubViewportContainer" parent="2D sides" unique_id=733926250]
+offset_top = 277.0
+offset_right = 240.0
+offset_bottom = 517.0
+
+[node name="SubViewport" type="SubViewport" parent="2D sides/Side 6" unique_id=60679048]
+disable_3d = true
+handle_input_locally = false
+snap_2d_transforms_to_pixel = true
+snap_2d_vertices_to_pixel = true
+canvas_item_default_texture_filter = 0
+size = Vector2i(240, 240)
+render_target_update_mode = 4
+
+[node name="World" parent="2D sides/Side 6/SubViewport" unique_id=1330544916 instance=ExtResource("3_myi8u")]
+
+[node name="Label" type="Label" parent="2D sides/Side 6/SubViewport" unique_id=1255898524]
+modulate = Color(0, 0, 0, 1)
+offset_right = 97.0
+offset_bottom = 51.0
+theme = ExtResource("4_erax8")
+text = "6 bottom
+"

@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cp6lmqombxk1f"]
+
+[ext_resource type="Texture2D" uid="uid://c86rhdri584wo" path="res://Assets/WhiteRectangle.png" id="1_tupfd"]
+
+[node name="World" type="Node2D" unique_id=661390160]
+
+[node name="Background" type="Sprite2D" parent="." unique_id=1101880542]
+modulate = Color(0.19569567, 0.20811155, 0.19434774, 1)
+z_index = -1000
+position = Vector2(119.99999, 119.99999)
+scale = Vector2(10, 10)
+texture = ExtResource("1_tupfd")
