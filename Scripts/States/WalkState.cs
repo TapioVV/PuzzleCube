@@ -36,6 +36,37 @@ public partial class WalkState : State
             }
         }
 
+
+        //for(int i = 0; i < player.GetSlideCollisionCount(); i++)
+        //{
+        //    KinematicCollision2D collision = player.GetSlideCollision(i);
+        //    var collider = collision.GetCollider();
+
+        //    if(collider is PushableBody2D)
+        //    {
+        //        PushableBody2D pushableBody = (PushableBody2D)collider;
+        //        Vector2 collisionNormal = collision.GetNormal();
+        //        float verticalAligment = collisionNormal.Dot(Vector2.Up);
+        //        GD.Print(verticalAligment);
+        //        if(verticalAligment > 0)
+        //        {
+        //            GD.Print("box is below");
+        //        }
+        //        if(verticalAligment < 0)
+        //        {
+        //            GD.Print("box is above");
+        //        }
+        //        int pushDirection = (int)collision.GetNormal().Sign().X;
+        //        pushDirection = -Mathf.Sign(pushDirection);
+        //        float pushSpeed = player.velocity.X * 0.6f;
+        //        pushableBody.PushVelocity.X = (pushDirection * Mathf.Abs(pushSpeed));
+        //    }
+        //}
+
+
+
+
+
         //Sprite flipping
         if (player.inputAxis > 0)
         {

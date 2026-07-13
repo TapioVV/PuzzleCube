@@ -24,6 +24,10 @@ window/stretch/aspect="expand"
 
 project/assembly_name="New Game Project"
 
+[global_group]
+
+Dynamic="Objects that can move between faces and change their gravity"
+
 [input]
 
 move_left={
@@ -107,6 +111,7 @@ gravity_left={
 [physics]
 
 3d/physics_engine="Jolt Physics"
+2d/default_gravity=180.0
 
 [rendering]
 

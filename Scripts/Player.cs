@@ -150,7 +150,15 @@ public partial class Player : CharacterBody2D
         //Velocity = velocity;
         Vector2 localVelocityFromState = velocity;
         Velocity = ToGlobalVelocity(localVelocityFromState);
+
         MoveAndSlide();
+
+ 
+
+
+
+
+
     }
     private Vector2 ToGlobalVelocity(Vector2 localVelocity)
     {
