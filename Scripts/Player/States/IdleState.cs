@@ -34,13 +34,4 @@ public partial class IdleState : State
             return;
         }
     }
-
-    public override void JumpInput()
-    {
-        return;
-        //player.Jump(1f);
-        //player.OnPlayerNormalJump.Invoke();
-
-        //player.CurrentState = player.jumpState;
-    }
 }

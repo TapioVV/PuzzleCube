@@ -1,14 +1,19 @@
 [gd_scene format=3 uid="uid://dx021s2narbje"]
 
-[ext_resource type="Script" uid="uid://c4b72858fmebs" path="res://Scripts/Player.cs" id="1_cvnsp"]
+[ext_resource type="Script" uid="uid://c4b72858fmebs" path="res://Scripts/Player/Player.cs" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://c48i3flghhoak" path="res://Assets/BallGuy.png" id="2_6t5aa"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cvnsp"]
+size = Vector2(16, 15)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ohsbh"]
-size = Vector2(16, 12)
+size = Vector2(16, 4)
 
 [node name="Player" type="CharacterBody2D" unique_id=162310026 node_paths=PackedStringArray("CharacterSprite")]
+collision_layer = 2
+floor_snap_length = 2.0
 script = ExtResource("1_cvnsp")
-horizontalAcceleration = 250.0
+horizontalAcceleration = 350.0
 horizontalDeacceleration = 800.0
 jumpControlAcceleration = 1.2
 jumpControlDeacceleration = 4.0
@@ -16,7 +21,7 @@ timeToJumpPeak = 0.3
 jumpHeight = 50.0
 jumpDistance = 49.0
 maxVerticalSpeed = 180.0
-jumpBufferTime = 0.5
+jumpBufferTime = 0.085
 CharacterSprite = NodePath("Sprite")
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1559431002]
@@ -24,5 +29,21 @@ modulate = Color(0.15686275, 0.6862745, 0.6901961, 1)
 texture = ExtResource("2_6t5aa")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=496192193]
-position = Vector2(0, 6)
+position = Vector2(0, 4.5)
+shape = SubResource("RectangleShape2D_cvnsp")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=646443305]
+collision_layer = 4
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=2075349667]
+position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_ohsbh")
+one_way_collision_margin = 0.0
+debug_color = Color(0.95187443, 2.117753e-06, 0.56391746, 0.41960785)
+
+[node name="PushRayCast" type="RayCast2D" parent="." unique_id=525478439]
+unique_name_in_owner = true
+position = Vector2(0, 3)
+target_position = Vector2(9, 0)
+collision_mask = 256

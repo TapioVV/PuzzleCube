@@ -37,33 +37,6 @@ public partial class WalkState : State
         }
 
 
-        //for(int i = 0; i < player.GetSlideCollisionCount(); i++)
-        //{
-        //    KinematicCollision2D collision = player.GetSlideCollision(i);
-        //    var collider = collision.GetCollider();
-
-        //    if(collider is PushableBody2D)
-        //    {
-        //        PushableBody2D pushableBody = (PushableBody2D)collider;
-        //        Vector2 collisionNormal = collision.GetNormal();
-        //        float verticalAligment = collisionNormal.Dot(Vector2.Up);
-        //        GD.Print(verticalAligment);
-        //        if(verticalAligment > 0)
-        //        {
-        //            GD.Print("box is below");
-        //        }
-        //        if(verticalAligment < 0)
-        //        {
-        //            GD.Print("box is above");
-        //        }
-        //        int pushDirection = (int)collision.GetNormal().Sign().X;
-        //        pushDirection = -Mathf.Sign(pushDirection);
-        //        float pushSpeed = player.velocity.X * 0.6f;
-        //        pushableBody.PushVelocity.X = (pushDirection * Mathf.Abs(pushSpeed));
-        //    }
-        //}
-
-
 
 
 
@@ -71,10 +44,12 @@ public partial class WalkState : State
         if (player.inputAxis > 0)
         {
             player.CharacterSprite.FlipH = false;
+            player.pushRayCast2D.TargetPosition = new Vector2(player.pushRayCast2DLength, 0);
         }
         else if (player.inputAxis < 0)
         {
             player.CharacterSprite.FlipH = true;
+            player.pushRayCast2D.TargetPosition = new Vector2(-player.pushRayCast2DLength, 0);
         }
 
 
@@ -97,12 +72,44 @@ public partial class WalkState : State
             return;
         }
     }
-    public override void JumpInput()
+    public override void AfterMoveAndSlideUpdate(float deltaf)
     {
-        //player.OnPlayerNormalJump.Invoke();
+        if (player.pushRayCast2D.IsColliding())
+        {
+            var collider = player.pushRayCast2D.GetCollider();
+            var collision = player.pushRayCast2D.GetCollisionNormal();
+            if (collider is PushableBody2D)
+            {
+                PushableBody2D pushableBody = (PushableBody2D)collider;
+                Vector2 collisionNormal = player.pushRayCast2D.GetCollisionNormal();
+                if (Mathf.Abs(collisionNormal.X) > 0.9f)
+                {
+                    if (collisionNormal.X > 0f)
+                    {
+                        // Normal points Right -> Player is on the Left, pushing Right
+                        GD.Print("Player is touching from the LEFT");
+                    }
+                    else
+                    {
+                        // Normal points Left -> Player is on the Right, pushing Left
+                        GD.Print("Player is touching from the RIGHT");
+                    }
+                    if (pushableBody.IsOnFloor())
+                    {
+                        int pushDirection = (int)collisionNormal.Sign().X;
+                        pushDirection = -Mathf.Sign(pushDirection);
+                        float pushSpeed = player.velocity.X * 0.6f;
+                        pushableBody.PushVelocity.X = (pushDirection * Mathf.Abs(pushSpeed));
+                    }
+                }
+            }
 
-        //player.Jump(1f);
-        //player.ChangeState(player.jumpState);
+        }
+        //for (int i = 0; i < player.GetSlideCollisionCount(); i++)
+        //{
+        //    KinematicCollision2D collision = player.GetSlideCollision(i);
+        //    var collider = collision.GetCollider();
 
+        //           //}
     }
 }

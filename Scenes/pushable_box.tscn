@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://ilufmbwuygwb"]
+
+[ext_resource type="Script" uid="uid://d05tbu2dcyl51" path="res://Scripts/PushableBody2D.cs" id="1_82q2f"]
+[ext_resource type="Texture2D" uid="uid://c86rhdri584wo" path="res://Assets/WhiteRectangle.png" id="2_nw7xl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ohsbh"]
+size = Vector2(24, 24)
+
+[node name="PushableBox" type="CharacterBody2D" unique_id=967360882]
+modulate = Color(0.59670603, 0.53120965, 0.38410896, 1)
+collision_layer = 256
+collision_mask = 263
+script = ExtResource("1_82q2f")
+metadata/_custom_type_script = "uid://d05tbu2dcyl51"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=62188526]
+shape = SubResource("RectangleShape2D_ohsbh")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=600967480]
+modulate = Color(0.8214151, 0.81604797, 0.7990488, 1)
+texture = ExtResource("2_nw7xl")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=913030308]
+position = Vector2(-4.145503e-05, 1.1920929e-05)
+scale = Vector2(0.83333415, 0.8333297)
+texture = ExtResource("2_nw7xl")

@@ -108,10 +108,17 @@ gravity_left={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Ground"
+2d_physics/layer_2="Player"
+2d_physics/layer_3="PlayerBoxHead"
+2d_physics/layer_9="Box"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
-2d/default_gravity=180.0
+2d/default_gravity=100.0
 
 [rendering]
 

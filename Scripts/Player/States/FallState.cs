@@ -36,9 +36,4 @@ public partial class FallState : State
         }
         player.velocity.Y += player.gravity * deltaf;
     }
-
-    public override void JumpInput()
-    {
-
-    }
 }

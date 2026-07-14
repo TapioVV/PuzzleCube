@@ -12,6 +12,10 @@ public abstract partial class State : Node2D
     public abstract void Enter();
     public abstract void Exit();
     public abstract void Update(float deltaf);
-    public abstract void JumpInput();
+    
+    public virtual void AfterMoveAndSlideUpdate(float deltaf)
+    {
+
+    }
 
 }

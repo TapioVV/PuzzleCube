@@ -43,6 +43,8 @@ public partial class Player : CharacterBody2D
     [Export(PropertyHint.None, "suffix:seconds")]
     float jumpBufferTime;
 
+    public RayCast2D pushRayCast2D;
+    public float pushRayCast2DLength;
     //[HideInInspector] public Animator animator;
     //SpriteRenderer spriteRenderer;
     [ExportCategory("Visuals")]
@@ -50,6 +52,8 @@ public partial class Player : CharacterBody2D
 
     public override void _Ready()
     {
+        pushRayCast2D = GetNode<RayCast2D>("%PushRayCast");
+        pushRayCast2DLength = pushRayCast2D.TargetPosition.X;
         //idleState = new IdleState();
         //fallState = new FallState();
         //walkState = new WalkState();
@@ -152,7 +156,7 @@ public partial class Player : CharacterBody2D
         Velocity = ToGlobalVelocity(localVelocityFromState);
 
         MoveAndSlide();
-
+        CurrentState.AfterMoveAndSlideUpdate((float)delta);
  
 
 

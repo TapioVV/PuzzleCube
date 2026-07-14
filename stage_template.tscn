@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://crfros7j53udq"]
 
-[ext_resource type="Script" uid="uid://dlmostwcg8ptu" path="res://CubeManager.cs" id="1_1og38"]
-[ext_resource type="Script" uid="uid://cbxbesgkaftm6" path="res://CubeRotation.cs" id="2_qlyl7"]
+[ext_resource type="Script" uid="uid://dlmostwcg8ptu" path="res://Scripts/Cube/CubeManager.cs" id="1_1og38"]
+[ext_resource type="Script" uid="uid://cbxbesgkaftm6" path="res://Scripts/Cube/CubeRotation.cs" id="2_qlyl7"]
 [ext_resource type="PackedScene" uid="uid://cp6lmqombxk1f" path="res://base_cube_face_world.tscn" id="3_myi8u"]
 [ext_resource type="Theme" uid="uid://b60q003iqv1ub" path="res://Scenes/MainUITheme.tres" id="4_erax8"]
 
