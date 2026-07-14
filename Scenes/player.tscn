@@ -9,7 +9,7 @@ size = Vector2(16, 15)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ohsbh"]
 size = Vector2(16, 4)
 
-[node name="Player" type="CharacterBody2D" unique_id=162310026 node_paths=PackedStringArray("CharacterSprite")]
+[node name="Player" type="CharacterBody2D" unique_id=162310026 node_paths=PackedStringArray("CharacterSprite") groups=["Dynamic", "Rewindable"]]
 collision_layer = 2
 floor_snap_length = 2.0
 script = ExtResource("1_cvnsp")

@@ -26,6 +26,7 @@ public partial class Player : CharacterBody2D
     [Export] public float timeToJumpPeak;
     [Export] public float jumpHeight;
     [Export] public float jumpDistance;
+    [Export(PropertyHint.Range, "0, 1")] public float PushingSpeedMultiplier = 0.5f; 
 
     public float smallJump;
     [Export] float maxVerticalSpeed;
@@ -155,13 +156,15 @@ public partial class Player : CharacterBody2D
         Vector2 localVelocityFromState = velocity;
         Velocity = ToGlobalVelocity(localVelocityFromState);
 
+
         MoveAndSlide();
-        CurrentState.AfterMoveAndSlideUpdate((float)delta);
  
+        CurrentState.AfterMoveAndSlideUpdate((float)delta);
 
 
 
 
+        GlobalPosition = new Vector2(GlobalPosition.X, Mathf.Round(GlobalPosition.Y));
 
     }
     private Vector2 ToGlobalVelocity(Vector2 localVelocity)

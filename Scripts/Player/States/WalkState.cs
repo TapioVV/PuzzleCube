@@ -16,17 +16,17 @@ public partial class WalkState : State
         //Deacceleration
         if (player.inputAxis == 0)
         {
-            player.velocity.X = Mathf.MoveToward(player.velocity.X, 0, player.horizontalDeacceleration * deltaf);
+            player.ChangeState(new IdleState());
         }
         //Acceleration
         else
         {
             //If turning around have increased acceleration
-            if (player.inputAxis > 0 && player.velocity.X < 0) 
-            { 
+            if (player.inputAxis > 0 && player.velocity.X < 0)
+            {
                 player.velocity.X = Mathf.MoveToward(player.velocity.X, player.inputAxis * player.maxHorizontalSpeed, player.horizontalAcceleration * 4f * deltaf);
             }
-            else if (player.inputAxis < 0 && player.velocity.X > 0) 
+            else if (player.inputAxis < 0 && player.velocity.X > 0)
             {
                 player.velocity.X = Mathf.MoveToward(player.velocity.X, player.inputAxis * player.maxHorizontalSpeed, player.horizontalAcceleration * 4f * deltaf);
             }
@@ -63,7 +63,6 @@ public partial class WalkState : State
         if (player.velocity.X >= -0.1f && player.velocity.X <= 0.1f)
         {
             player.velocity.X = 0;
-            player.ChangeState(new IdleState());
             return;
         }
         if (!player.IsOnFloor())
@@ -77,7 +76,6 @@ public partial class WalkState : State
         if (player.pushRayCast2D.IsColliding())
         {
             var collider = player.pushRayCast2D.GetCollider();
-            var collision = player.pushRayCast2D.GetCollisionNormal();
             if (collider is PushableBody2D)
             {
                 PushableBody2D pushableBody = (PushableBody2D)collider;
@@ -86,30 +84,25 @@ public partial class WalkState : State
                 {
                     if (collisionNormal.X > 0f)
                     {
-                        // Normal points Right -> Player is on the Left, pushing Right
-                        GD.Print("Player is touching from the LEFT");
+                        //GD.Print("Player is touching from the LEFT");
+                        pushableBody.pushRayCast2D.TargetPosition = new Vector2(-pushableBody.pushRayCast2DLength, 0);
                     }
                     else
                     {
-                        // Normal points Left -> Player is on the Right, pushing Left
-                        GD.Print("Player is touching from the RIGHT");
+                        //GD.Print("Player is touching from the RIGHT");
+                        pushableBody.pushRayCast2D.TargetPosition = new Vector2(pushableBody.pushRayCast2DLength, 0);
                     }
                     if (pushableBody.IsOnFloor())
                     {
                         int pushDirection = (int)collisionNormal.Sign().X;
                         pushDirection = -Mathf.Sign(pushDirection);
-                        float pushSpeed = player.velocity.X * 0.6f;
+                        float pushSpeed = player.velocity.X * player.PushingSpeedMultiplier;
                         pushableBody.PushVelocity.X = (pushDirection * Mathf.Abs(pushSpeed));
+                        pushableBody.Push(pushDirection * Mathf.Abs(pushSpeed));
                     }
                 }
             }
 
         }
-        //for (int i = 0; i < player.GetSlideCollisionCount(); i++)
-        //{
-        //    KinematicCollision2D collision = player.GetSlideCollision(i);
-        //    var collider = collision.GetCollider();
-
-        //           //}
     }
 }
