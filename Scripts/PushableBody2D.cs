@@ -70,6 +70,8 @@ public partial class PushableBody2D : CharacterBody2D
         //}
 
         MoveAndSlide();
+        //Velocity = new Vector2(Velocity.X * (float)delta, Velocity.Y * (float)delta);
+        //MoveAndCollide(Velocity);
 
         // Had to do this rounding because the physics were so imprecise that you couldn't walk over the same size boxes
 
@@ -79,6 +81,7 @@ public partial class PushableBody2D : CharacterBody2D
     }
     public void Push(float pusherVelocity)
     {
+        PushVelocity.X = pusherVelocity; 
         if(pusherVelocity < 0)
         {
             pushRayCast2D.TargetPosition = new Vector2(-pushRayCast2DLength, 0);
@@ -94,30 +97,9 @@ public partial class PushableBody2D : CharacterBody2D
             if (collider is PushableBody2D)
             {
                 PushableBody2D pushableBody = (PushableBody2D)collider;
-                Vector2 collisionNormal = pushRayCast2D.GetCollisionNormal();
-                if (Mathf.Abs(collisionNormal.X) > 0.7f)
+                if (pushableBody.IsOnFloor())
                 {
-                    //if (collisionNormal.X > 0f)
-                    //{
-
-                    //    pushRayCast2D.TargetPosition = new Vector2(-pushRayCast2DLength, 0);
-                    //    // Normal points Right -> Player is on the Left, pushing Right
-                    //    GD.Print("Player is touching from the LEFT");
-                    //}
-                    //else
-                    //{
-                    //    pushRayCast2D.TargetPosition = new Vector2(pushRayCast2DLength, 0);
-                    //    // Normal points Left -> Player is on the Right, pushing Left
-                    //    GD.Print("Player is touching from the RIGHT");
-                    //}
-                    if (pushableBody.IsOnFloor())
-                    {
-                        int pushDirection = (int)collisionNormal.Sign().X;
-                        pushDirection = -Mathf.Sign(pushDirection);
-                        float pushSpeed = pusherVelocity;
-                        pushableBody.PushVelocity.X = (pushDirection * Mathf.Abs(pushSpeed));
-                        pushableBody.Push(pushDirection * Mathf.Abs(pushSpeed));
-                    }
+                    pushableBody.Push(pusherVelocity);
                 }
             }
         }

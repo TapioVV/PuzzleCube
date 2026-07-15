@@ -9,23 +9,14 @@
 [ext_resource type="PackedScene" uid="uid://mqhstv0ob6ax" path="res://Scenes/Stages/1/1_left_and_right.tscn" id="5_ryrav"]
 [ext_resource type="PackedScene" uid="uid://c7fy2oafgl7gp" path="res://Scenes/Stages/1/1_back.tscn" id="6_eow3j"]
 [ext_resource type="PackedScene" uid="uid://ilufmbwuygwb" path="res://Scenes/pushable_box.tscn" id="6_vef74"]
-[ext_resource type="Script" uid="uid://vu2ddqigp0yr" path="res://Rewind.cs" id="10_hve3p"]
+[ext_resource type="Texture2D" uid="uid://c86rhdri584wo" path="res://Assets/WhiteRectangle.png" id="7_mfdv2"]
+[ext_resource type="Script" uid="uid://vu2ddqigp0yr" path="res://Scripts/Rewind.cs" id="10_hve3p"]
 
 [sub_resource type="Environment" id="Environment_iuuih"]
 background_mode = 1
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_hve3p"]
-viewport_path = NodePath("2D sides/Side 1/SubViewport")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mfdv2"]
-resource_local_to_scene = true
-diffuse_mode = 3
-specular_mode = 1
-albedo_texture = SubResource("ViewportTexture_hve3p")
-texture_filter = 0
-
 [sub_resource type="ViewportTexture" id="ViewportTexture_iotsf"]
-viewport_path = NodePath("2D sides/Side 2/SubViewport")
+viewport_path = NodePath("2D sides/Side 1/SubViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lc2xo"]
 resource_local_to_scene = true
@@ -35,7 +26,7 @@ albedo_texture = SubResource("ViewportTexture_iotsf")
 texture_filter = 0
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_215e1"]
-viewport_path = NodePath("2D sides/Side 3/SubViewport")
+viewport_path = NodePath("2D sides/Side 2/SubViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7sc4i"]
 resource_local_to_scene = true
@@ -45,7 +36,7 @@ albedo_texture = SubResource("ViewportTexture_215e1")
 texture_filter = 0
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_80cx4"]
-viewport_path = NodePath("2D sides/Side 4/SubViewport")
+viewport_path = NodePath("2D sides/Side 3/SubViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e8heu"]
 resource_local_to_scene = true
@@ -55,7 +46,7 @@ albedo_texture = SubResource("ViewportTexture_80cx4")
 texture_filter = 0
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_rvswv"]
-viewport_path = NodePath("2D sides/Side 5/SubViewport")
+viewport_path = NodePath("2D sides/Side 4/SubViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_boyg6"]
 resource_local_to_scene = true
@@ -65,7 +56,7 @@ albedo_texture = SubResource("ViewportTexture_rvswv")
 texture_filter = 0
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_e36ub"]
-viewport_path = NodePath("2D sides/Side 6/SubViewport")
+viewport_path = NodePath("2D sides/Side 5/SubViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hb5m1"]
 resource_local_to_scene = true
@@ -73,6 +64,19 @@ diffuse_mode = 3
 specular_mode = 1
 albedo_texture = SubResource("ViewportTexture_e36ub")
 texture_filter = 0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_x5p1p"]
+viewport_path = NodePath("2D sides/Side 6/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qhcbd"]
+resource_local_to_scene = true
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = SubResource("ViewportTexture_x5p1p")
+texture_filter = 0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ohsbh"]
+size = Vector2(24, 24)
 
 [node name="Game" type="Node2D" unique_id=753927107]
 
@@ -122,22 +126,22 @@ player = NodePath("2D sides/Side 1/SubViewport/World/Level/Player")
 fakePlayer = NodePath("../Fakeplayer")
 
 [node name="Side1" parent="Cube/Model" parent_id_path=PackedInt32Array(597612352, 1599131250) index="0" unique_id=981437601]
-surface_material_override/0 = SubResource("StandardMaterial3D_mfdv2")
-
-[node name="Side2" parent="Cube/Model" parent_id_path=PackedInt32Array(597612352, 1599131250) index="1" unique_id=905211246]
 surface_material_override/0 = SubResource("StandardMaterial3D_lc2xo")
 
-[node name="Side3" parent="Cube/Model" parent_id_path=PackedInt32Array(597612352, 1599131250) index="2" unique_id=244488962]
+[node name="Side2" parent="Cube/Model" parent_id_path=PackedInt32Array(597612352, 1599131250) index="1" unique_id=905211246]
 surface_material_override/0 = SubResource("StandardMaterial3D_7sc4i")
 
-[node name="Side4" parent="Cube/Model" parent_id_path=PackedInt32Array(597612352, 1599131250) index="3" unique_id=1241165880]
+[node name="Side3" parent="Cube/Model" parent_id_path=PackedInt32Array(597612352, 1599131250) index="2" unique_id=244488962]
 surface_material_override/0 = SubResource("StandardMaterial3D_e8heu")
 
-[node name="Side5" parent="Cube/Model" parent_id_path=PackedInt32Array(597612352, 1599131250) index="4" unique_id=719241736]
+[node name="Side4" parent="Cube/Model" parent_id_path=PackedInt32Array(597612352, 1599131250) index="3" unique_id=1241165880]
 surface_material_override/0 = SubResource("StandardMaterial3D_boyg6")
 
-[node name="Side6" parent="Cube/Model" parent_id_path=PackedInt32Array(597612352, 1599131250) index="5" unique_id=1185197806]
+[node name="Side5" parent="Cube/Model" parent_id_path=PackedInt32Array(597612352, 1599131250) index="4" unique_id=719241736]
 surface_material_override/0 = SubResource("StandardMaterial3D_hb5m1")
+
+[node name="Side6" parent="Cube/Model" parent_id_path=PackedInt32Array(597612352, 1599131250) index="5" unique_id=1185197806]
+surface_material_override/0 = SubResource("StandardMaterial3D_qhcbd")
 
 [node name="Side 1" parent="Cube/2D sides" parent_id_path=PackedInt32Array(597612352, 2095245727) index="0" unique_id=533278270]
 mouse_target = true
@@ -154,209 +158,20 @@ position = Vector2(120, 216)
 collision_mask = 257
 stateLabel = NodePath("../../../../../../../State label")
 
-[node name="PushableBox" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=967360882 instance=ExtResource("6_vef74")]
-position = Vector2(164, 213)
-
-[node name="PushableBox2" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=598646355 instance=ExtResource("6_vef74")]
-position = Vector2(203, 222)
-
-[node name="PushableBox3" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=1991644574 instance=ExtResource("6_vef74")]
-position = Vector2(161, 153)
-
 [node name="PushableBox4" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=1171192924 instance=ExtResource("6_vef74")]
-position = Vector2(55, 153)
-
-[node name="PushableBox5" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=1031318466 instance=ExtResource("6_vef74")]
-position = Vector2(103, 115)
-
-[node name="PushableBox6" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=1581325064 instance=ExtResource("6_vef74")]
-position = Vector2(45, 103)
-
-[node name="PushableBox7" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=1691249231 instance=ExtResource("6_vef74")]
-position = Vector2(179, 134)
-
-[node name="PushableBox8" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=179049567 instance=ExtResource("6_vef74")]
-position = Vector2(218, 143)
-
-[node name="PushableBox9" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=1735885274 instance=ExtResource("6_vef74")]
-position = Vector2(176, 74)
-
-[node name="PushableBox10" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=648076196 instance=ExtResource("6_vef74")]
-position = Vector2(70, 74)
-
-[node name="PushableBox11" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=157403387 instance=ExtResource("6_vef74")]
-position = Vector2(118, 36)
-
-[node name="PushableBox12" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=1512176040 instance=ExtResource("6_vef74")]
-position = Vector2(60, 24)
-
-[node name="PushableBox13" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=1078708569 instance=ExtResource("6_vef74")]
-position = Vector2(172, -21)
-
-[node name="PushableBox14" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=1800602680 instance=ExtResource("6_vef74")]
-position = Vector2(211, -12)
-
-[node name="PushableBox15" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=2065683867 instance=ExtResource("6_vef74")]
-position = Vector2(169, -81)
-
-[node name="PushableBox16" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=829391469 instance=ExtResource("6_vef74")]
-position = Vector2(63, -81)
-
-[node name="PushableBox17" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=2079774620 instance=ExtResource("6_vef74")]
-position = Vector2(111, -119)
-
-[node name="PushableBox18" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=1870864265 instance=ExtResource("6_vef74")]
-position = Vector2(53, -131)
-
-[node name="PushableBox19" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=848382278 instance=ExtResource("6_vef74")]
-position = Vector2(-128, -9)
-
-[node name="PushableBox20" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=915632317 instance=ExtResource("6_vef74")]
-position = Vector2(-89, 0)
-
-[node name="PushableBox21" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=976492373 instance=ExtResource("6_vef74")]
-position = Vector2(-131, -69)
-
-[node name="PushableBox22" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=1601274612 instance=ExtResource("6_vef74")]
-position = Vector2(-237, -69)
-
-[node name="PushableBox23" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=512230706 instance=ExtResource("6_vef74")]
-position = Vector2(-189, -107)
-
-[node name="PushableBox24" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=110428818 instance=ExtResource("6_vef74")]
-position = Vector2(-247, -119)
-
-[node name="PushableBox25" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=1375144374 instance=ExtResource("6_vef74")]
-position = Vector2(-298, 66)
-
-[node name="PushableBox26" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=1414338085 instance=ExtResource("6_vef74")]
-position = Vector2(-259, 75)
-
-[node name="PushableBox27" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=803015074 instance=ExtResource("6_vef74")]
-position = Vector2(-301, 6)
-
-[node name="PushableBox28" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=1431220020 instance=ExtResource("6_vef74")]
-position = Vector2(-407, 6)
-
-[node name="PushableBox29" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=1903151890 instance=ExtResource("6_vef74")]
-position = Vector2(-359, -32)
-
-[node name="PushableBox30" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=1121527653 instance=ExtResource("6_vef74")]
-position = Vector2(-417, -44)
-
-[node name="PushableBox31" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=1510060781 instance=ExtResource("6_vef74")]
-position = Vector2(-298, 66)
-
-[node name="PushableBox32" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=1369897303 instance=ExtResource("6_vef74")]
-position = Vector2(-259, 75)
-
-[node name="PushableBox33" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=356263779 instance=ExtResource("6_vef74")]
-position = Vector2(-301, 6)
-
-[node name="PushableBox34" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=850186391 instance=ExtResource("6_vef74")]
-position = Vector2(-407, 6)
-
-[node name="PushableBox35" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=261226408 instance=ExtResource("6_vef74")]
-position = Vector2(-359, -32)
-
-[node name="PushableBox36" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=1969533608 instance=ExtResource("6_vef74")]
-position = Vector2(-417, -44)
-
-[node name="PushableBox37" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=1390404470 instance=ExtResource("6_vef74")]
-position = Vector2(-298, 66)
-
-[node name="PushableBox38" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=1985005211 instance=ExtResource("6_vef74")]
-position = Vector2(-259, 75)
-
-[node name="PushableBox39" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=1486950759 instance=ExtResource("6_vef74")]
-position = Vector2(-301, 6)
-
-[node name="PushableBox40" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=525270908 instance=ExtResource("6_vef74")]
-position = Vector2(-407, 6)
-
-[node name="PushableBox41" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=2070793974 instance=ExtResource("6_vef74")]
-position = Vector2(-359, -32)
-
-[node name="PushableBox42" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=1342183292 instance=ExtResource("6_vef74")]
-position = Vector2(-417, -44)
-
-[node name="PushableBox43" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=1294742501 instance=ExtResource("6_vef74")]
-position = Vector2(-298, 66)
-
-[node name="PushableBox44" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=1166079774 instance=ExtResource("6_vef74")]
-position = Vector2(-259, 75)
-
-[node name="PushableBox45" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=1335045166 instance=ExtResource("6_vef74")]
-position = Vector2(-301, 6)
-
-[node name="PushableBox46" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=2140747576 instance=ExtResource("6_vef74")]
-position = Vector2(-407, 6)
-
-[node name="PushableBox47" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=164322438 instance=ExtResource("6_vef74")]
-position = Vector2(-359, -32)
-
-[node name="PushableBox48" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=94885530 instance=ExtResource("6_vef74")]
-position = Vector2(-417, -44)
-
-[node name="PushableBox49" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=970350374 instance=ExtResource("6_vef74")]
-position = Vector2(-298, 66)
-
-[node name="PushableBox50" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=406872289 instance=ExtResource("6_vef74")]
-position = Vector2(-259, 75)
-
-[node name="PushableBox51" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=1685436576 instance=ExtResource("6_vef74")]
-position = Vector2(-301, 6)
-
-[node name="PushableBox52" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=504323174 instance=ExtResource("6_vef74")]
-position = Vector2(-407, 6)
-
-[node name="PushableBox53" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=425310707 instance=ExtResource("6_vef74")]
-position = Vector2(-359, -32)
-
-[node name="PushableBox54" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=1499609675 instance=ExtResource("6_vef74")]
-position = Vector2(-417, -44)
-
-[node name="PushableBox55" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=2028718573 instance=ExtResource("6_vef74")]
-position = Vector2(-298, 66)
-
-[node name="PushableBox56" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=2111273679 instance=ExtResource("6_vef74")]
-position = Vector2(-259, 75)
-
-[node name="PushableBox57" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=2142736032 instance=ExtResource("6_vef74")]
-position = Vector2(-301, 6)
-
-[node name="PushableBox58" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=507587266 instance=ExtResource("6_vef74")]
-position = Vector2(-407, 6)
-
-[node name="PushableBox59" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=1945439392 instance=ExtResource("6_vef74")]
-position = Vector2(-359, -32)
-
-[node name="PushableBox60" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=1435497980 instance=ExtResource("6_vef74")]
-position = Vector2(-417, -44)
-
-[node name="PushableBox61" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=1355827092 instance=ExtResource("6_vef74")]
-position = Vector2(-298, 66)
-
-[node name="PushableBox62" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=1738190834 instance=ExtResource("6_vef74")]
-position = Vector2(-259, 75)
-
-[node name="PushableBox63" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=865782622 instance=ExtResource("6_vef74")]
-position = Vector2(-301, 6)
-
-[node name="PushableBox64" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=976920219 instance=ExtResource("6_vef74")]
-position = Vector2(-407, 6)
-
-[node name="PushableBox65" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=838810025 instance=ExtResource("6_vef74")]
-position = Vector2(-359, -32)
-
-[node name="PushableBox66" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=1727153732 instance=ExtResource("6_vef74")]
-position = Vector2(-417, -44)
-
-[node name="PushableBox67" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=1559235163 instance=ExtResource("6_vef74")]
-position = Vector2(-298, 66)
-
-[node name="PushableBox68" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=1899708982 instance=ExtResource("6_vef74")]
-position = Vector2(-259, 75)
+position = Vector2(120, 117)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=2023922440]
+modulate = Color(1, 1, 1, 0.32156864)
+position = Vector2(204, 206)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/2D sides/Side 1/SubViewport/World/Level/StaticBody2D" unique_id=656628497]
+shape = SubResource("RectangleShape2D_ohsbh")
+one_way_collision = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Cube/2D sides/Side 1/SubViewport/World/Level/StaticBody2D" unique_id=1549886106]
+texture = ExtResource("7_mfdv2")
+region_rect = Rect2(-1.4975204, 3.4975204, 23.49752, 20.50248)
 
 [node name="Label" parent="Cube/2D sides/Side 1/SubViewport" index="1" unique_id=1618615213]
 visible = false

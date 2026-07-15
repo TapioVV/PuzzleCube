@@ -73,33 +73,20 @@ public partial class WalkState : State
     }
     public override void AfterMoveAndSlideUpdate(float deltaf)
     {
+        player.pushRayCast2D.ForceRaycastUpdate();
         if (player.pushRayCast2D.IsColliding())
         {
             var collider = player.pushRayCast2D.GetCollider();
             if (collider is PushableBody2D)
             {
                 PushableBody2D pushableBody = (PushableBody2D)collider;
-                Vector2 collisionNormal = player.pushRayCast2D.GetCollisionNormal();
-                if (Mathf.Abs(collisionNormal.X) > 0.9f)
+                if (pushableBody.IsOnFloor())
                 {
-                    if (collisionNormal.X > 0f)
-                    {
-                        //GD.Print("Player is touching from the LEFT");
-                        pushableBody.pushRayCast2D.TargetPosition = new Vector2(-pushableBody.pushRayCast2DLength, 0);
-                    }
-                    else
-                    {
-                        //GD.Print("Player is touching from the RIGHT");
-                        pushableBody.pushRayCast2D.TargetPosition = new Vector2(pushableBody.pushRayCast2DLength, 0);
-                    }
-                    if (pushableBody.IsOnFloor())
-                    {
-                        int pushDirection = (int)collisionNormal.Sign().X;
-                        pushDirection = -Mathf.Sign(pushDirection);
-                        float pushSpeed = player.velocity.X * player.PushingSpeedMultiplier;
-                        pushableBody.PushVelocity.X = (pushDirection * Mathf.Abs(pushSpeed));
-                        pushableBody.Push(pushDirection * Mathf.Abs(pushSpeed));
-                    }
+                    //int pushDirection = (int)player.pushRayCast2DLength.Sign();
+                    int pushDirection = Mathf.Sign(player.pushRayCast2D.TargetPosition.X);
+                    float pushSpeed = player.velocity.X * player.PushingSpeedMultiplier;
+                    //pushableBody.= (pushDirection * Mathf.Abs(pushSpeed));
+                    pushableBody.Push(pushDirection * Mathf.Abs(pushSpeed));
                 }
             }
 

@@ -7,16 +7,16 @@ public partial class Rewind : Node
 {
     // Called when the node enters the scene tree for the first time.
 
-    Rewindable[] rewindablesArray;
-	List<Rewindable> rewindables = new List<Rewindable>();
+    //Rewindable[] rewindablesArray;
+	List<Node2D> rewindables = new List<Node2D>();
 	List<Vector2> previousPositions = new List<Vector2>();
 	
 	List<List<Vector2>> allPreviousPositions = new List<List<Vector2>>();
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Ready()
     {
-		rewindables = GetTree().GetNodesInGroup("Rewindable").OfType<Rewindable>().ToList();
-        rewindablesArray = new Rewindable[ GetTree().GetNodeCountInGroup("Rewindable")];
+		rewindables = GetTree().GetNodesInGroup("Rewindable").OfType<Node2D>().ToList();
+        //rewindablesArray = new Rewindable[ GetTree().GetNodeCountInGroup("Rewindable")];
         Callable.From(TakeSnapShot).CallDeferred();
     }
     public override void _PhysicsProcess(double delta)
@@ -35,12 +35,11 @@ public partial class Rewind : Node
 		List<Vector2> positions = new List<Vector2>();
 		for(int i = 0; i < rewindables.Count; i++)
 		{
-			positions.Add(rewindables[i].Position);
+			positions.Add(rewindables[i].GlobalPosition);
 		}
 
 		previousPositions = positions;
 		allPreviousPositions.Add(positions);
-		GD.Print(allPreviousPositions.Count);
 	}
 	public void Undo()
 	{
@@ -53,16 +52,24 @@ public partial class Rewind : Node
         // 2. Get the very last saved snapshot (the top of our stack)
         List<Vector2> targetPositions = allPreviousPositions[allPreviousPositions.Count - 1];
 
+        for (int i = 0; i < rewindables.Count; i++)
+        {
+            rewindables[i].ProcessMode = ProcessModeEnum.Disabled;
+        }
         // 3. Apply those positions to your rewindable nodes
         for (int i = 0; i < rewindables.Count; i++)
         {
             // Safety check: make sure we don't index out of bounds if nodes changed
             if (i < targetPositions.Count)
             {
-                rewindables[i].Position = targetPositions[i];
+                rewindables[i].GlobalPosition = targetPositions[i];
             }
         }
 
+        for (int i = 0; i < rewindables.Count; i++)
+        {
+            rewindables[i].ProcessMode = ProcessModeEnum.Inherit;
+        }
         // 4. Remove this state from our history so the next undo goes back further
         allPreviousPositions.RemoveAt(allPreviousPositions.Count - 1);
 
