@@ -100,7 +100,7 @@ offset_bottom = 70.0
 theme = ExtResource("1_eow3j")
 text = "Current state"
 
-[node name="CurrentFace3" type="Label" parent="." unique_id=959322540]
+[node name="FPS" type="Label" parent="." unique_id=959322540]
 offset_top = 77.0
 offset_right = 142.0
 offset_bottom = 101.0
@@ -390,7 +390,6 @@ script = ExtResource("10_hve3p")
 
 [node name="RewindSnapShotTimer" type="Timer" parent="Rewind" unique_id=407137427]
 unique_name_in_owner = true
-wait_time = 0.1
 autostart = true
 
 [connection signal="timeout" from="Rewind/RewindSnapShotTimer" to="Rewind" method="OnRewindSnapshotTimerTimeOut"]
