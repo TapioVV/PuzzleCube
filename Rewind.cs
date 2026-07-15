@@ -5,16 +5,18 @@ using System.Linq;
 
 public partial class Rewind : Node
 {
-	// Called when the node enters the scene tree for the first time.
+    // Called when the node enters the scene tree for the first time.
 
-	List<Node2D> rewindables = new List<Node2D>();
+    Rewindable[] rewindablesArray;
+	List<Rewindable> rewindables = new List<Rewindable>();
 	List<Vector2> previousPositions = new List<Vector2>();
 	
 	List<List<Vector2>> allPreviousPositions = new List<List<Vector2>>();
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Ready()
     {
-		rewindables = GetTree().GetNodesInGroup("Rewindable").OfType<Node2D>().ToList();
+		rewindables = GetTree().GetNodesInGroup("Rewindable").OfType<Rewindable>().ToList();
+        rewindablesArray = new Rewindable[ GetTree().GetNodeCountInGroup("Rewindable")];
         Callable.From(TakeSnapShot).CallDeferred();
     }
     public override void _PhysicsProcess(double delta)
