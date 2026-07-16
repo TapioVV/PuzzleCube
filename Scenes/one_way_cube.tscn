@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://bifauvq3j7eli"]
+
+[ext_resource type="Texture2D" uid="uid://ctlv336tspy4i" path="res://Assets/BigOneWayRectangle.png" id="1_3xvga"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ohsbh"]
+size = Vector2(24, 24)
+
+[node name="OneWayCube" type="StaticBody2D" unique_id=564459581]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=517667774]
+shape = SubResource("RectangleShape2D_ohsbh")
+one_way_collision = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1959220876]
+texture = ExtResource("1_3xvga")
+region_rect = Rect2(-1.4975204, 3.4975204, 23.49752, 20.50248)

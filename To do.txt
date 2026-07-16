@@ -1,0 +1,54 @@
+
+
+Rewind:
+- Holding z goes backwards and ramps up speed
+- Rewind can only happen if player is on the ground
+- r resets stage.!!!!!
+- Gravity handling and different face handling.!!!!!
+!!!!!!
+Levels:
+- Changing levels
+- Proper way to build levels 
+- Choosing levels from main menu 
+- atleast 10 levels 
+
+
+
+MECHANICS:
+Player:
+- visuals being on two sides at the same time
+- If a box is on a face infront of the player make the player push it
+- When moving between faces check if can move first
+stop time while switching faces and do the check
+- Player dying? spikes?
+
+Boxes:
+- Boxes movable between screens
+- What happens when player falls on a box from the side?
+
+Objects:
+- Buttons, Doors 
+- One way blocks <- current
+- Down jumpable platforms 
+----------------------------------------------------
+
+!!!!!
+Main menu:
+- Play, quit, settings
+- Stage select
+- Saving
+
+Visuals:
+- Color palette
+- landmarks to levels so not so confusing
+- tilemap?
+- Better player sprite + animations  !!!!!
+- Box falling particles
+- Player move and fall particles.
+
+Sounds:
+- Music
+- Jumping
+- Box pushing
+- Maybe sound when moving between faces
+- Button sound

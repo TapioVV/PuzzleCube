@@ -9,74 +9,72 @@
 [ext_resource type="PackedScene" uid="uid://mqhstv0ob6ax" path="res://Scenes/Stages/1/1_left_and_right.tscn" id="5_ryrav"]
 [ext_resource type="PackedScene" uid="uid://c7fy2oafgl7gp" path="res://Scenes/Stages/1/1_back.tscn" id="6_eow3j"]
 [ext_resource type="PackedScene" uid="uid://ilufmbwuygwb" path="res://Scenes/pushable_box.tscn" id="6_vef74"]
-[ext_resource type="Texture2D" uid="uid://c86rhdri584wo" path="res://Assets/WhiteRectangle.png" id="7_mfdv2"]
+[ext_resource type="PackedScene" uid="uid://bifauvq3j7eli" path="res://Scenes/one_way_cube.tscn" id="7_iotsf"]
 [ext_resource type="Script" uid="uid://vu2ddqigp0yr" path="res://Scripts/Rewind.cs" id="10_hve3p"]
+[ext_resource type="Script" uid="uid://cxx6678q56iax" path="res://StageManager.cs" id="12_iotsf"]
 
 [sub_resource type="Environment" id="Environment_iuuih"]
 background_mode = 1
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_iotsf"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_lc2xo"]
 viewport_path = NodePath("2D sides/Side 1/SubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lc2xo"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_215e1"]
 resource_local_to_scene = true
 diffuse_mode = 3
 specular_mode = 1
-albedo_texture = SubResource("ViewportTexture_iotsf")
+albedo_texture = SubResource("ViewportTexture_lc2xo")
 texture_filter = 0
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_215e1"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_7sc4i"]
 viewport_path = NodePath("2D sides/Side 2/SubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7sc4i"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_80cx4"]
 resource_local_to_scene = true
 diffuse_mode = 3
 specular_mode = 1
-albedo_texture = SubResource("ViewportTexture_215e1")
+albedo_texture = SubResource("ViewportTexture_7sc4i")
 texture_filter = 0
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_80cx4"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_e8heu"]
 viewport_path = NodePath("2D sides/Side 3/SubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e8heu"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rvswv"]
 resource_local_to_scene = true
 diffuse_mode = 3
 specular_mode = 1
-albedo_texture = SubResource("ViewportTexture_80cx4")
+albedo_texture = SubResource("ViewportTexture_e8heu")
 texture_filter = 0
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_rvswv"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_boyg6"]
 viewport_path = NodePath("2D sides/Side 4/SubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_boyg6"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e36ub"]
 resource_local_to_scene = true
 diffuse_mode = 3
 specular_mode = 1
-albedo_texture = SubResource("ViewportTexture_rvswv")
+albedo_texture = SubResource("ViewportTexture_boyg6")
 texture_filter = 0
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_e36ub"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_hb5m1"]
 viewport_path = NodePath("2D sides/Side 5/SubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hb5m1"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x5p1p"]
 resource_local_to_scene = true
 diffuse_mode = 3
 specular_mode = 1
-albedo_texture = SubResource("ViewportTexture_e36ub")
+albedo_texture = SubResource("ViewportTexture_hb5m1")
 texture_filter = 0
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_x5p1p"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_qhcbd"]
 viewport_path = NodePath("2D sides/Side 6/SubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qhcbd"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f1jbl"]
 resource_local_to_scene = true
 diffuse_mode = 3
 specular_mode = 1
-albedo_texture = SubResource("ViewportTexture_x5p1p")
+albedo_texture = SubResource("ViewportTexture_qhcbd")
 texture_filter = 0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ohsbh"]
-size = Vector2(24, 24)
 
 [node name="Game" type="Node2D" unique_id=753927107]
 
@@ -126,22 +124,22 @@ player = NodePath("2D sides/Side 1/SubViewport/World/Level/Player")
 fakePlayer = NodePath("../Fakeplayer")
 
 [node name="Side1" parent="Cube/Model" parent_id_path=PackedInt32Array(597612352, 1599131250) index="0" unique_id=981437601]
-surface_material_override/0 = SubResource("StandardMaterial3D_lc2xo")
+surface_material_override/0 = SubResource("StandardMaterial3D_215e1")
 
 [node name="Side2" parent="Cube/Model" parent_id_path=PackedInt32Array(597612352, 1599131250) index="1" unique_id=905211246]
-surface_material_override/0 = SubResource("StandardMaterial3D_7sc4i")
+surface_material_override/0 = SubResource("StandardMaterial3D_80cx4")
 
 [node name="Side3" parent="Cube/Model" parent_id_path=PackedInt32Array(597612352, 1599131250) index="2" unique_id=244488962]
-surface_material_override/0 = SubResource("StandardMaterial3D_e8heu")
+surface_material_override/0 = SubResource("StandardMaterial3D_rvswv")
 
 [node name="Side4" parent="Cube/Model" parent_id_path=PackedInt32Array(597612352, 1599131250) index="3" unique_id=1241165880]
-surface_material_override/0 = SubResource("StandardMaterial3D_boyg6")
+surface_material_override/0 = SubResource("StandardMaterial3D_e36ub")
 
 [node name="Side5" parent="Cube/Model" parent_id_path=PackedInt32Array(597612352, 1599131250) index="4" unique_id=719241736]
-surface_material_override/0 = SubResource("StandardMaterial3D_hb5m1")
+surface_material_override/0 = SubResource("StandardMaterial3D_x5p1p")
 
 [node name="Side6" parent="Cube/Model" parent_id_path=PackedInt32Array(597612352, 1599131250) index="5" unique_id=1185197806]
-surface_material_override/0 = SubResource("StandardMaterial3D_qhcbd")
+surface_material_override/0 = SubResource("StandardMaterial3D_f1jbl")
 
 [node name="Side 1" parent="Cube/2D sides" parent_id_path=PackedInt32Array(597612352, 2095245727) index="0" unique_id=533278270]
 mouse_target = true
@@ -159,19 +157,19 @@ collision_mask = 257
 stateLabel = NodePath("../../../../../../../State label")
 
 [node name="PushableBox4" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=1171192924 instance=ExtResource("6_vef74")]
-position = Vector2(120, 117)
+position = Vector2(108, 134)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=2023922440]
-modulate = Color(1, 1, 1, 0.32156864)
+[node name="PushableBox5" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=967360882 instance=ExtResource("6_vef74")]
+position = Vector2(84, 86)
+
+[node name="PushableBox6" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=1627421328 instance=ExtResource("6_vef74")]
+position = Vector2(60, 38)
+
+[node name="PushableBox7" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=150315415 instance=ExtResource("6_vef74")]
+position = Vector2(156, 62)
+
+[node name="OneWayCube" parent="Cube/2D sides/Side 1/SubViewport/World/Level" unique_id=564459581 instance=ExtResource("7_iotsf")]
 position = Vector2(204, 206)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube/2D sides/Side 1/SubViewport/World/Level/StaticBody2D" unique_id=656628497]
-shape = SubResource("RectangleShape2D_ohsbh")
-one_way_collision = true
-
-[node name="Sprite2D" type="Sprite2D" parent="Cube/2D sides/Side 1/SubViewport/World/Level/StaticBody2D" unique_id=1549886106]
-texture = ExtResource("7_mfdv2")
-region_rect = Rect2(-1.4975204, 3.4975204, 23.49752, 20.50248)
 
 [node name="Label" parent="Cube/2D sides/Side 1/SubViewport" index="1" unique_id=1618615213]
 visible = false
@@ -206,6 +204,10 @@ script = ExtResource("10_hve3p")
 [node name="RewindSnapShotTimer" type="Timer" parent="Rewind" unique_id=407137427]
 unique_name_in_owner = true
 autostart = true
+
+[node name="StageManager" type="Node" parent="." unique_id=778540403]
+script = ExtResource("12_iotsf")
+levels = Array[PackedScene]([null, null, null, null, null, null, null, null, null, null, null, null, null, null])
 
 [connection signal="timeout" from="Rewind/RewindSnapShotTimer" to="Rewind" method="OnRewindSnapshotTimerTimeOut"]
 

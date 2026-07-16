@@ -32,7 +32,7 @@ texture = ExtResource("2_6t5aa")
 position = Vector2(0, 4.5)
 shape = SubResource("RectangleShape2D_cvnsp")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=646443305]
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=209062159]
 collision_layer = 4
 collision_mask = 256
 

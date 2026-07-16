@@ -10,6 +10,7 @@ size = Vector2(22, 24)
 modulate = Color(0.59670603, 0.53120965, 0.38410896, 1)
 collision_layer = 256
 collision_mask = 263
+safe_margin = 0.001
 script = ExtResource("1_82q2f")
 metadata/_custom_type_script = "uid://d05tbu2dcyl51"
 
