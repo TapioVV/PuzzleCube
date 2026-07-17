@@ -1,0 +1,6 @@
+- [ ] Color palette
+- [ ] landmarks on level faces
+- [ ] tilemap
+- [ ] better player sprite + animations
+- [ ] Maybe general level decorations
+- [ ] Maybe particles

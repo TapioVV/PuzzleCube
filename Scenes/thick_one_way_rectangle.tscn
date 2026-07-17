@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dypt645g51k2r"]
+
+[ext_resource type="Texture2D" uid="uid://ctlv336tspy4i" path="res://Assets/ThickOneWayRectangle.png" id="1_qvi1y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ohsbh"]
+size = Vector2(24, 24)
+
+[node name="ThickOneWayRectangle" type="StaticBody2D" unique_id=564459581]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=517667774]
+shape = SubResource("RectangleShape2D_ohsbh")
+one_way_collision = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=164809374]
+texture = ExtResource("1_qvi1y")
+region_rect = Rect2(0, 0, 24, 12)

@@ -1,0 +1,6 @@
+- [ ] Music
+- [ ] Jumping
+- [ ] maybe box pushing
+- [ ] Maybe sound when moving between faces
+- [ ] Ground button sound
+- [ ] Maybe main menu sounds

@@ -20,6 +20,7 @@ jumpControlDeacceleration = 4.0
 timeToJumpPeak = 0.3
 jumpHeight = 50.0
 jumpDistance = 49.0
+PushingSpeedMultiplier = 0.2
 maxVerticalSpeed = 180.0
 jumpBufferTime = 0.085
 CharacterSprite = NodePath("Sprite")

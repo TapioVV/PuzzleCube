@@ -1,0 +1,4 @@
+- [ ] Gravity handling and different face handling
+- [ ] holding z goes backwards and ramps up speed
+- [ ] R resets stage
+- [ ] only can save rewind states when player is on the ground

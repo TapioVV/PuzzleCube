@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices.JavaScript;
 
 
-class CubeFace
+public class CubeFace
 {
     public String Name;
     public Vector3 UpDirection;
@@ -102,12 +102,12 @@ public partial class CubeManager : Node
         UpdatePlayerGravity(nextFace);
 
         Vector2 newPlayerPosition = Convert3DPositionTo2D(exitWorldPos, nextFace);
-        MovePlayerToFace(exitWorldPos, nextFace);
+        MoveCharacterBodyToFace(player, exitWorldPos, nextFace);
         TweenCubeRotation(GetQuaternionThatFacesCamera());
      }
-    void MovePlayerToFace(Vector3 facePosition, CubeFace face)
+    void MoveCharacterBodyToFace(ExtendedCharacterBody2D node, Vector3 positionOnFace, CubeFace face)
     {
-        Vector2 newPlayerPosition = Convert3DPositionTo2D(facePosition, face);
+        Vector2 newPlayerPosition = Convert3DPositionTo2D(positionOnFace, face);
 
         // Nudge the player slightly onto the new face so they don't instantly re-trigger a transition
         int edgeOffset = 1;
@@ -118,8 +118,9 @@ public partial class CubeManager : Node
 
         //Update the things to the player node
         currentFace = face;
-        player.Reparent(currentFace.World);
-        player.Position = newPlayerPosition;
+        node.CurrentFace = face;
+        node.Reparent(currentFace.World);
+        node.Position = newPlayerPosition;
     }
 
     private Vector3 Convert2DPositionTo3D(Vector2 pos2D, CubeFace face)
@@ -174,10 +175,9 @@ public partial class CubeManager : Node
         return null;
     }
 
-        private void UpdatePlayerGravity(CubeFace nextFace)
+    private void UpdatePlayerGravity(CubeFace nextFace)
     {
         // Changes the players gravity to the correct one when moving between faces.
-
         Vector3 gravity3D = Convert2DMovementTo3D(player.GravityDirection, currentFace);
         Quaternion faceRotation = new Quaternion(currentFace.Normal, nextFace.Normal);
 

@@ -1,7 +1,33 @@
 using Godot;
 using System;
-public partial class Player : CharacterBody2D
+public partial class ExtendedCharacterBody2D : CharacterBody2D
 {
+    public Vector2 GravityDirection = Vector2.Down;
+    public CubeFace CurrentFace;
+    public void ChangeGravityDirection(Vector2 direction)
+    {
+        Vector2 gravityDirection = direction.Normalized();
+        UpDirection = -gravityDirection;
+        switch (gravityDirection)
+        {
+            case (0, -1): // Up
+                Rotation = Mathf.DegToRad(180);
+                break;
+            case (0, 1): // Down
+                Rotation = 0;
+                break;
+            case (-1, 0): // Left
+                Rotation = Mathf.DegToRad(90);
+                break;
+            case (1, 0): // Right
+                Rotation = Mathf.DegToRad(-90);
+                break;
+        }
+    }
+}
+public partial class Player : ExtendedCharacterBody2D
+{
+    
     //[Export(PropertyHint.Layers2DPhysics)]
     //public uint GroundLayerMask;
 
@@ -55,15 +81,7 @@ public partial class Player : CharacterBody2D
     {
         pushRayCast2D = GetNode<RayCast2D>("%PushRayCast");
         pushRayCast2DLength = pushRayCast2D.TargetPosition.X;
-        //idleState = new IdleState();
-        //fallState = new FallState();
-        //walkState = new WalkState();
-        //jumpState = new JumpState();
-        //AddChild(idleState);
-        //AddChild(fallState);
-        //AddChild(walkState);
-        //AddChild(jumpState);
-
+  
         CurrentState = new IdleState();
         CurrentState.player = this;
 
@@ -123,31 +141,9 @@ public partial class Player : CharacterBody2D
         //JumpBuffer();
         velocity.Y = Mathf.Clamp(velocity.Y, -maxVerticalSpeed, 10000000);
     }
-    public Vector2 GravityDirection = Vector2.Down;
-    public void ChangeGravityDirection(Vector2 direction)
-    {
-
-        GravityDirection = direction.Normalized();
-        switch (GravityDirection)
-        {
-            case (0, -1): // Up
-                Rotation = Mathf.DegToRad(180);
-                break;
-            case (0, 1): // Down
-                Rotation = 0;
-                break;
-            case (-1, 0): // Left
-                Rotation = Mathf.DegToRad(90);
-                break;
-            case (1, 0): // Right
-                Rotation = Mathf.DegToRad(-90);
-                break;
-
-        }
-    }
     public override void _PhysicsProcess(double delta)
     {
-        UpDirection = -GravityDirection;
+        //UpDirection = -GravityDirection;
         CurrentState.Update((float)delta);
         //Vector2 localRight = new Vector2(-gravityDirection.Y, gravityDirection.X);
         //Vector2 localUp = -gravityDirection;
@@ -164,7 +160,7 @@ public partial class Player : CharacterBody2D
 
 
 
-        GlobalPosition = new Vector2(GlobalPosition.X, Mathf.Round(GlobalPosition.Y));
+        GlobalPosition = new Vector2(Mathf.Round(GlobalPosition.X), Mathf.Round(GlobalPosition.Y));
 
     }
     private Vector2 ToGlobalVelocity(Vector2 localVelocity)

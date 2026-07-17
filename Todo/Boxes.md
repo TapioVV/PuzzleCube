@@ -1,0 +1,4 @@
+- [ ] Movable between screens
+- [ ] What happens when a box is above a another box
+- [ ] gravity management
+- [ ] What happens when the player fall on a box from another face

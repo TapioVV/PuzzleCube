@@ -2,8 +2,6 @@
 
 [ext_resource type="Texture2D" uid="uid://dg4q4dud3eonp" path="res://Assets/Tilemap.png" id="1_u6jcr"]
 
-[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_u6jcr"]
-
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c5fbe"]
 texture = ExtResource("1_u6jcr")
 texture_region_size = Vector2i(24, 24)
@@ -33,4 +31,3 @@ texture_region_size = Vector2i(24, 24)
 tile_size = Vector2i(24, 24)
 physics_layer_0/collision_layer = 1
 sources/1 = SubResource("TileSetAtlasSource_c5fbe")
-sources/0 = SubResource("TileSetScenesCollectionSource_u6jcr")

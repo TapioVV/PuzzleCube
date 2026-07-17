@@ -1,0 +1,7 @@
+- [ ] Play
+- [ ] Quit
+- [ ] Settings
+- [ ] Logo
+- [ ] Level select
+- [ ] Scene transition effect
+- [ ] Saving

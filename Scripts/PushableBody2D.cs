@@ -2,7 +2,7 @@ using Godot;
 using System;
 
 [GlobalClass]
-public partial class PushableBody2D : CharacterBody2D
+public partial class PushableBody2D : ExtendedCharacterBody2D
 {
     public Vector2 _Velocity;
     public Vector2 PushVelocity = Vector2.Zero;
@@ -78,6 +78,7 @@ public partial class PushableBody2D : CharacterBody2D
         _Velocity = Vector2.Zero;
         PushVelocity = Vector2.Zero;
         GlobalPosition = new Vector2(GlobalPosition.X, Mathf.Round(GlobalPosition.Y));
+        //GlobalPosition = new Vector2(Mathf.Round(GlobalPosition.X), Mathf.Round(GlobalPosition.Y));
     }
     public void Push(float pusherVelocity)
     {
@@ -99,7 +100,7 @@ public partial class PushableBody2D : CharacterBody2D
                 PushableBody2D pushableBody = (PushableBody2D)collider;
                 if (pushableBody.IsOnFloor())
                 {
-                    pushableBody.Push(pusherVelocity);
+                    pushableBody.Push(pusherVelocity- 2);
                 }
             }
         }

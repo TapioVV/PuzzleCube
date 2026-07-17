@@ -2,15 +2,29 @@
 
 [ext_resource type="Texture2D" uid="uid://c86rhdri584wo" path="res://Assets/WhiteRectangle.png" id="1_ojhev"]
 [ext_resource type="TileSet" uid="uid://c8g4w0spp8jta" path="res://Scenes/base_tileset.tres" id="2_3w4n1"]
+[ext_resource type="PackedScene" uid="uid://bifauvq3j7eli" path="res://Scenes/thin_one_way_rectangle.tscn" id="3_3w4n1"]
 
 [node name="Level" type="Node2D" unique_id=1933999079]
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2024989288]
+[node name="Background" type="Sprite2D" parent="." unique_id=2024989288]
 modulate = Color(0.25828493, 0.17874566, 0.1968854, 1)
+z_index = -100
 position = Vector2(120, 120)
 scale = Vector2(10, 10)
 texture = ExtResource("1_ojhev")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=2048116670]
-tile_map_data = PackedByteArray("AAAAAAkAAQADAAEAAAADAAkAAQACAAAAAAAEAAkAAQAAAAAAAAAFAAkAAQAAAAAAAAAGAAkAAQACAAAAAAAHAAkAAQACAAAAAAAJAAkAAQAEAAEAAAAFAAgAAQAAAAAAAAAEAAgAAQAAAAAAAAAEAAcAAQAAAAIAAAAFAAcAAQAAAAIAAAAAAAYAAQADAAAAAAAAAAUAAQADAAAAAAAAAAQAAQADAAAAAAAAAAMAAQADAAAAAAAAAAIAAQADAAAAAAAAAAEAAQADAAAAAAAAAAAAAQADAAAAAAAJAAYAAQAEAAAAAAAJAAUAAQAEAAAAAAAJAAQAAQAEAAAAAAAJAAMAAQAEAAAAAAAJAAIAAQAEAAAAAAAJAAEAAQAEAAAAAAAJAAAAAQAEAAAAAAACAAkAAQACAAAAAAA=")
+tile_map_data = PackedByteArray("AAAAAAkAAQADAAEAAAADAAkAAQACAAAAAAAEAAkAAQAAAAAAAAAFAAkAAQAAAAAAAAAGAAkAAQACAAAAAAAHAAkAAQACAAAAAAAJAAkAAQAEAAEAAAAFAAgAAQAAAAAAAAAEAAgAAQAAAAAAAAAEAAcAAQACAAAAAAAFAAcAAQACAAAAAAAAAAYAAQADAAAAAAAAAAUAAQADAAAAAAAAAAQAAQADAAAAAAAAAAMAAQADAAAAAAAAAAIAAQADAAAAAAAAAAEAAQADAAAAAAAAAAAAAQADAAAAAAAJAAYAAQAEAAAAAAAJAAUAAQAEAAAAAAAJAAQAAQAEAAAAAAAJAAMAAQAEAAAAAAAJAAIAAQAEAAAAAAAJAAEAAQAEAAAAAAAJAAAAAQAEAAAAAAACAAkAAQACAAAAAAA=")
 tile_set = ExtResource("2_3w4n1")
+
+[node name="ThickOneWayRectangle" parent="." unique_id=564459581 instance=ExtResource("3_3w4n1")]
+position = Vector2(24, 240)
+
+[node name="ThickOneWayRectangle2" parent="." unique_id=293940954 instance=ExtResource("3_3w4n1")]
+position = Vector2(48, 240)
+
+[node name="ThickOneWayRectangle3" parent="." unique_id=283643855 instance=ExtResource("3_3w4n1")]
+position = Vector2(199, 240)
+
+[node name="ThickOneWayRectangle4" parent="." unique_id=777098354 instance=ExtResource("3_3w4n1")]
+position = Vector2(223, 240)
