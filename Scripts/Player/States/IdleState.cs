@@ -5,6 +5,7 @@ public partial class IdleState : State
 {
     public override void Enter()
     {
+        player.velocity.X = 0;
         return;
         
     }
@@ -15,6 +16,15 @@ public partial class IdleState : State
     public override void Update(float deltaf)
     {
         //animator.CrossFade("character_idle_animation", 0, 0);
+
+
+        if(Input.IsActionPressed("down") && Input.IsActionJustPressed("jump"))
+        {
+            player.SetCollisionMaskValue(4, false);
+            player.passablePlatformTimer = player.passablePlatformTime;
+            player.ChangeState(new FallState());
+            return;
+        }
 
         player.velocity.Y = 0;
         

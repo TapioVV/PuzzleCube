@@ -77,7 +77,7 @@ public partial class PushableBody2D : ExtendedCharacterBody2D
 
         _Velocity = Vector2.Zero;
         PushVelocity = Vector2.Zero;
-        GlobalPosition = new Vector2(GlobalPosition.X, Mathf.Round(GlobalPosition.Y));
+        // GlobalPosition = new Vector2(GlobalPosition.X, Mathf.Round(GlobalPosition.Y));
         //GlobalPosition = new Vector2(Mathf.Round(GlobalPosition.X), Mathf.Round(GlobalPosition.Y));
     }
     public void Push(float pusherVelocity)
@@ -100,7 +100,7 @@ public partial class PushableBody2D : ExtendedCharacterBody2D
                 PushableBody2D pushableBody = (PushableBody2D)collider;
                 if (pushableBody.IsOnFloor())
                 {
-                    pushableBody.Push(pusherVelocity- 2);
+                    pushableBody.Push(pusherVelocity);
                 }
             }
         }

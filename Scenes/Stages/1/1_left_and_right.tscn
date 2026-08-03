@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://c86rhdri584wo" path="res://Assets/WhiteRectangle.png" id="1_ojhev"]
 [ext_resource type="TileSet" uid="uid://c8g4w0spp8jta" path="res://Scenes/base_tileset.tres" id="2_3w4n1"]
-[ext_resource type="PackedScene" uid="uid://bifauvq3j7eli" path="res://Scenes/thin_one_way_rectangle.tscn" id="3_3w4n1"]
+[ext_resource type="PackedScene" uid="uid://bifauvq3j7eli" path="res://Scenes/Stage objects/thin_one_way_rectangle.tscn" id="3_3w4n1"]
 
 [node name="Level" type="Node2D" unique_id=1933999079]
 

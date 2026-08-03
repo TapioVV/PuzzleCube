@@ -84,7 +84,7 @@ public partial class WalkState : State
                 {
                     //int pushDirection = (int)player.pushRayCast2DLength.Sign();
                     int pushDirection = Mathf.Sign(player.pushRayCast2D.TargetPosition.X);
-                    float pushSpeed = player.velocity.X * 0.5f;
+                    float pushSpeed = player.velocity.X * player.PushingSpeedMultiplier;
                     pushableBody.Push(pushDirection * Mathf.Abs(pushSpeed));
                 }
             }

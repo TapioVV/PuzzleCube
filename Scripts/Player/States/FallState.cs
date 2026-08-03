@@ -5,7 +5,6 @@ public partial class FallState : State
 {
     public override void Enter()
     {
-        
     }
     public override void Exit() 
     { 

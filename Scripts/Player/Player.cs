@@ -1,46 +1,10 @@
 using Godot;
 using System;
-public partial class ExtendedCharacterBody2D : CharacterBody2D
-{
-    public Vector2 GravityDirection = Vector2.Down;
-    public CubeFace CurrentFace;
-    public void ChangeGravityDirection(Vector2 direction)
-    {
-        Vector2 gravityDirection = direction.Normalized();
-        UpDirection = -gravityDirection;
-        switch (gravityDirection)
-        {
-            case (0, -1): // Up
-                Rotation = Mathf.DegToRad(180);
-                break;
-            case (0, 1): // Down
-                Rotation = 0;
-                break;
-            case (-1, 0): // Left
-                Rotation = Mathf.DegToRad(90);
-                break;
-            case (1, 0): // Right
-                Rotation = Mathf.DegToRad(-90);
-                break;
-        }
-    }
-}
 public partial class Player : ExtendedCharacterBody2D
 {
-    
-    //[Export(PropertyHint.Layers2DPhysics)]
-    //public uint GroundLayerMask;
-
     [Export] Label stateLabel;
 
     public State CurrentState;
-
-    //public IdleState idleState;
-    //public WalkState walkState;
-    //public JumpState jumpState;
-    //public FallState fallState;
-    //[Export] public DeadState deadState;
-
 
 
     [ExportCategory("Movement variables")]
@@ -60,20 +24,20 @@ public partial class Player : ExtendedCharacterBody2D
 
     public float maxHorizontalSpeed;
     public float gravity;
-    public float jumpSpeed;
+    public float JumpForce;
 
     public Vector2 velocity;
 
     public float inputAxis;
 
     public float jumpBufferTimer = 0;
+    public float passablePlatformTimer = 0f;
     [Export(PropertyHint.None, "suffix:seconds")]
     float jumpBufferTime;
+    public float passablePlatformTime = 0.1f;
 
     public RayCast2D pushRayCast2D;
     public float pushRayCast2DLength;
-    //[HideInInspector] public Animator animator;
-    //SpriteRenderer spriteRenderer;
     [ExportCategory("Visuals")]
     [Export] public Sprite2D CharacterSprite;
 
@@ -85,51 +49,23 @@ public partial class Player : ExtendedCharacterBody2D
         CurrentState = new IdleState();
         CurrentState.player = this;
 
+        CalculateJumpForce();
+    }
+    void CalculateJumpForce()
+    {
         gravity = (2 * jumpHeight) / Mathf.Pow(timeToJumpPeak, 2);
         gravity = -gravity;
-        jumpSpeed = gravity * timeToJumpPeak;
+        JumpForce = gravity * timeToJumpPeak;
         maxHorizontalSpeed = jumpDistance / (2 * timeToJumpPeak);
     }
-    //public void MoveInput(InputAction.CallbackContext context)
-    //{
-    //    inputAxis = (int)context.ReadValue<float>();
-    //}
-    //public void StoppedMoveInput(InputAction.CallbackContext context)
-    //{
-    //    inputAxis = 0;
-    //}
-
-
-    //public void JumpBuffer()
-    //{
-    //    jumpBufferTimer = Mathf.MoveToward(jumpBufferTimer, -1, Time.deltaTime);
-    //    jumpBufferTimer -= deltaf;
-    //    if (jumpBufferTimer > 0 && jumpPressed == true)
-    //    {
-    //        CurrentState.JumpInput();
-    //    }
-    //}
-    //   //private void OnTriggerEnter2D(Collider2D collision)
-    //   //{
-    //   //    if (collision.gameObject.tag == "Death")
-    //   //    {
-    //   //        CurrentState = deadState;
-    //   //        OnPlayerDeath.Invoke();
-    //   //    }
-    //   //    if (collision.gameObject.tag == "Win")
-    //   //    {
-    //   //        CurrentState = deadState;
-    //   //        OnPlayerWin.Invoke();
-    //   //    }
-    //   //}
     public override void _Process(double delta)
     {
-        
         if(stateLabel != null)
         {
             stateLabel.Text = $"Current State: {CurrentState.GetType().Name}";
         }
-        //Velocity = velocity;
+
+        // Jump input buffer
         inputAxis = Input.GetAxis("move_left", "move_right");
         if (Input.IsActionJustPressed("jump"))
         {
@@ -137,51 +73,40 @@ public partial class Player : ExtendedCharacterBody2D
            jumpBufferTimer = jumpBufferTime;
         }
         jumpBufferTimer -= (float)delta;
+        passablePlatformTimer -= (float)delta;
+        if(passablePlatformTimer > 0)
+        {
+            SetCollisionMaskValue(4, false);
+        }
+        else
+        {
+            SetCollisionMaskValue(4, true);
+        }
 
-        //JumpBuffer();
         velocity.Y = Mathf.Clamp(velocity.Y, -maxVerticalSpeed, 10000000);
     }
     public override void _PhysicsProcess(double delta)
     {
-        //UpDirection = -GravityDirection;
         CurrentState.Update((float)delta);
-        //Vector2 localRight = new Vector2(-gravityDirection.Y, gravityDirection.X);
-        //Vector2 localUp = -gravityDirection;
-        //Velocity = (localRight * velocity.X) + (localUp * velocity.Y);
-        //Velocity = velocity;
         Vector2 localVelocityFromState = velocity;
         Velocity = ToGlobalVelocity(localVelocityFromState);
-
-
         MoveAndSlide();
- 
         CurrentState.AfterMoveAndSlideUpdate((float)delta);
-
-
-
-
-        GlobalPosition = new Vector2(Mathf.Round(GlobalPosition.X), Mathf.Round(GlobalPosition.Y));
-
     }
     private Vector2 ToGlobalVelocity(Vector2 localVelocity)
     {
-        // Local Up is directly against gravity
         Vector2 globalUp = -GravityDirection;
 
-        // Local Right is 90 degrees clockwise from Local Up
         Vector2 globalRight = new Vector2(-globalUp.Y, globalUp.X);
 
-        // Reconstruct the global vector:
-        // localVelocity.X moves along the 'Right' axis
-        // localVelocity.Y moves along the 'Up' axis (assuming negative Y is jump/up in your state)
         return (globalRight * localVelocity.X) + (globalUp * localVelocity.Y);
     }
 
+    // Calls the state functions on change
     public void ChangeState(State newState)
     {
         CurrentState.Exit();
         CurrentState = newState;
-        //GD.Print(CurrentState.GetType().Name);
         CurrentState.player = this;
         CurrentState.Enter();
     }
