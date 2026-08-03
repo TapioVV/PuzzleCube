@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Boxes.md",
+                "file": "Rewind.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Boxes"
+              "title": "Rewind"
             }
           }
         ]
@@ -41,7 +41,9 @@
               "type": "file-explorer",
               "state": {
                 "sortOrder": "alphabetical",
-                "autoReveal": false
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
               },
               "icon": "lucide-folder-closed",
               "title": "Files"
@@ -187,11 +189,11 @@
   "active": "0e18a6ff99a2f094",
   "lastOpenFiles": [
     "Todo.md",
+    "10 levels.md",
+    "Boxes.md",
     "Visuals.md",
     "Sounds.md",
-    "Boxes.md",
     "Main menu.md",
-    "10 levels.md",
     "Rewind.md",
     "Welcome.md",
     "Untitled.base"

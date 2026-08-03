@@ -68,6 +68,7 @@ public partial class BoxOnHeadWalkState : State
 			else
 			{
 				player.ChangeState(new WalkState());
+                return;
 			}
 		}
         if (player.velocity.X >= -0.1f && player.velocity.X <= 0.1f)

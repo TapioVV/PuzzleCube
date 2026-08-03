@@ -155,12 +155,12 @@ position = Vector2(60, 38)
 [node name="PushableBox7" parent="Level/2D sides/Side 1/SubViewport/World/Level" unique_id=150315415 instance=ExtResource("6_ewbju")]
 position = Vector2(180, 62)
 
-[node name="Player" parent="Level/2D sides/Side 1/SubViewport/World/Level" unique_id=369105044 node_paths=PackedStringArray("stateLabel") instance=ExtResource("1_rku1e")]
-position = Vector2(120, 216)
-stateLabel = NodePath("../../../../../../../StateLabel")
-
 [node name="PassablePlatform2" parent="Level/2D sides/Side 1/SubViewport/World/Level" unique_id=1239106977 instance=ExtResource("14_1phco")]
 position = Vector2(131, 182)
+
+[node name="Player" parent="Level/2D sides/Side 1/SubViewport/World/Level" unique_id=369105044 node_paths=PackedStringArray("stateLabel") instance=ExtResource("1_rku1e")]
+position = Vector2(59, 182)
+stateLabel = NodePath("../../../../../../../StateLabel")
 
 [node name="Label" parent="Level/2D sides/Side 1/SubViewport" index="1" unique_id=1618615213]
 visible = false
