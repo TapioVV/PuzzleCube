@@ -5,6 +5,7 @@ public partial class WalkState : State
 {
     public override void Enter()
     {
+        player.CharacterSprite.Play("walk");
     }
     public override void Exit()
     {
@@ -16,9 +17,8 @@ public partial class WalkState : State
         //Deacceleration
         if (player.inputAxis == 0)
         {
-            player.ChangeState(new IdleState());
+            player.velocity.X = Mathf.MoveToward(player.velocity.X, 0, player.horizontalDeacceleration * deltaf);
         }
-        //Acceleration
         else
         {
             //If turning around have increased acceleration
@@ -54,6 +54,18 @@ public partial class WalkState : State
 
 
         //State changing
+        if (player.IsBoxOnHead())
+        {
+            if(player.inputAxis != 0)
+            {
+                player.ChangeState(new BoxOnHeadWalkState());
+            }
+            else
+            {
+                player.ChangeState(new BoxOnHeadIdleState());
+            }
+            return;
+        }
         if (player.jumpBufferTimer > 0)
         {
             player.ChangeState(new JumpState());
@@ -63,6 +75,7 @@ public partial class WalkState : State
         if (player.velocity.X >= -0.1f && player.velocity.X <= 0.1f)
         {
             player.velocity.X = 0;
+            player.ChangeState(new IdleState());
             return;
         }
         if (!player.IsOnFloor())

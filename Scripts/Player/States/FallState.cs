@@ -5,6 +5,7 @@ public partial class FallState : State
 {
     public override void Enter()
     {
+        player.CharacterSprite.Play("fall");
     }
     public override void Exit() 
     { 

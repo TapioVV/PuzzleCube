@@ -16,10 +16,7 @@ kanban-plugin: board
 - [ ] When moving between faces check if can move first
 	stop time while switching faces and do the check
 - [ ] Player dying? spikes?
-- [ ] [[Boxes]]
 - [ ] Buttons, doors
-- [ ] One way blocks
-- [ ] Down jumpable platforms
 - [ ] [[Main menu]]
 - [ ] [[Visuals]]
 - [ ] [[Sounds]]
@@ -27,10 +24,13 @@ kanban-plugin: board
 
 ## Tekeil
 
+- [ ] [[Boxes]]
 
 
 ## Done
 
+- [x] Down jumpable platforms
+- [x] One way blocks
 
 
 

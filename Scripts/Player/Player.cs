@@ -2,6 +2,11 @@ using Godot;
 using System;
 public partial class Player : ExtendedCharacterBody2D
 {
+    // Events
+    public Action OnJump;
+
+
+
     [Export] Label stateLabel;
 
     public State CurrentState;
@@ -38,12 +43,16 @@ public partial class Player : ExtendedCharacterBody2D
 
     public RayCast2D pushRayCast2D;
     public float pushRayCast2DLength;
+    public Area2D BoxCheckArea;
     [ExportCategory("Visuals")]
-    [Export] public Sprite2D CharacterSprite;
+    [Export] public AnimatedSprite2D CharacterSprite;
+    
 
     public override void _Ready()
     {
         pushRayCast2D = GetNode<RayCast2D>("%PushRayCast");
+        CharacterSprite = GetNode<AnimatedSprite2D>("%AnimatedSprite2D");
+        BoxCheckArea = GetNode<Area2D>("%BoxCheckArea");
         pushRayCast2DLength = pushRayCast2D.TargetPosition.X;
   
         CurrentState = new IdleState();
@@ -83,7 +92,17 @@ public partial class Player : ExtendedCharacterBody2D
             SetCollisionMaskValue(4, true);
         }
 
+
+
         velocity.Y = Mathf.Clamp(velocity.Y, -maxVerticalSpeed, 10000000);
+    }
+    public bool IsBoxOnHead()
+    {
+        if(BoxCheckArea.GetOverlappingBodies().Count != 0)
+        {
+            return true;
+        }
+        return false;
     }
     public override void _PhysicsProcess(double delta)
     {

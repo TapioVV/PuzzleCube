@@ -137,7 +137,16 @@ physics_object_picking = true
 [node name="PushableBox4" parent="Level/2D sides/Side 1/SubViewport/World/Level" unique_id=1171192924 instance=ExtResource("6_ewbju")]
 position = Vector2(132, 134)
 
-[node name="PushableBox5" parent="Level/2D sides/Side 1/SubViewport/World/Level" unique_id=967360882 instance=ExtResource("6_ewbju")]
+[node name="PushableBox8" parent="Level/2D sides/Side 1/SubViewport/World/Level" unique_id=967360882 instance=ExtResource("6_ewbju")]
+position = Vector2(157, 134)
+
+[node name="PushableBox9" parent="Level/2D sides/Side 1/SubViewport/World/Level" unique_id=1573234559 instance=ExtResource("6_ewbju")]
+position = Vector2(182, 134)
+
+[node name="PushableBox10" parent="Level/2D sides/Side 1/SubViewport/World/Level" unique_id=1371577665 instance=ExtResource("6_ewbju")]
+position = Vector2(207, 134)
+
+[node name="PushableBox5" parent="Level/2D sides/Side 1/SubViewport/World/Level" unique_id=365725260 instance=ExtResource("6_ewbju")]
 position = Vector2(94, 86)
 
 [node name="PushableBox6" parent="Level/2D sides/Side 1/SubViewport/World/Level" unique_id=1627421328 instance=ExtResource("6_ewbju")]

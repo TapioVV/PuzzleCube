@@ -7,8 +7,10 @@ public partial class JumpState : State
     bool releasedJump = false;
     public override void Enter()
     {
+        player.CharacterSprite.Play("jump");
         releasedJump = false;
         player.jumpBufferTimer = -1;
+        player.OnJump?.Invoke();
         timer = 0.1f;
         player.velocity.Y = 0;
         player.velocity.Y = -player.JumpForce;
@@ -56,6 +58,10 @@ public partial class JumpState : State
         if (player.IsOnCeiling())
         {
             player.velocity.Y = 0;
+        }
+        if(player.velocity.Y < 0)
+        {
+            player.ChangeState(new FallState());
         }
 
         player.velocity.Y += player.gravity * deltaf;

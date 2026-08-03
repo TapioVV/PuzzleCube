@@ -1,11 +1,11 @@
 using Godot;
 using System;
 
-public partial class IdleState : State
+public partial class BoxOnHeadIdleState : State
 {
     public override void Enter()
     {
-        player.CharacterSprite.Play("idle");
+        player.CharacterSprite.Play("box_on_head_idle");
         player.velocity.X = 0;
         return;
         
@@ -33,15 +33,11 @@ public partial class IdleState : State
         {
             player.velocity.X = Mathf.MoveToward(player.velocity.X, 0, player.horizontalDeacceleration * deltaf);
         }
-        if (player.jumpBufferTimer > 0)
-        {
-            player.ChangeState(new JumpState());
-            return;
-        }
+
 
         if (player.inputAxis != 0)
         {
-            player.ChangeState(new WalkState());
+            player.ChangeState(new BoxOnHeadWalkState());
             return;
         }
         if (!player.IsOnFloor())
@@ -49,9 +45,15 @@ public partial class IdleState : State
             player.ChangeState(new FallState());
             return;
         }
-        if (player.IsBoxOnHead())
-        {
-            player.ChangeState(new BoxOnHeadIdleState());
-        }
+        if (!player.IsBoxOnHead())
+		{
+			if (player.inputAxis != 0)
+			{
+				player.ChangeState(new WalkState());
+				return;
+			}
+			player.ChangeState(new IdleState());
+			return;
+		}
     }
 }
