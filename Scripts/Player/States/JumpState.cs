@@ -10,7 +10,7 @@ public partial class JumpState : State
         player.CharacterSprite.Play("jump");
         releasedJump = false;
         player.jumpBufferTimer = -1;
-        player.OnJump?.Invoke();
+        SignalBus.EmitPlayerJumped();
         timer = 0.1f;
         player.velocity.Y = 0;
         player.velocity.Y = -player.JumpForce;

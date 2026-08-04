@@ -29,7 +29,7 @@ public partial class CubeManager : Node
 	[Export] Player player;
 	[Export] Player fakePlayer;
 	CubeFace[] cubeFaces = new CubeFace[6];
-    CubeFace currentFace;
+    CubeFace /currentFace;
     Quaternion targetQuaternion = Quaternion.Identity;
     public override void _Ready()
 	{
@@ -40,6 +40,7 @@ public partial class CubeManager : Node
         cubeFaces[4] = new CubeFace("Top", Vector3.Up, Vector3.Back, getCubeSubViewportContainerChildWorld(cubeSideViewports[4]));
         cubeFaces[5] = new CubeFace("Bottom", Vector3.Down, Vector3.Forward, getCubeSubViewportContainerChildWorld(cubeSideViewports[5]));
 
+        
         currentFace = cubeFaces[0];
     }
     Node2D getCubeSubViewportContainerChildWorld(Node subViewportContaienr)
@@ -51,6 +52,7 @@ public partial class CubeManager : Node
     public override void _Process(double delta)
 	{
         currentFaceText.Text = currentFace.Name;
+        currentFaceText.Text = player.CurrentFace.Name;
         HandleFaceTransitions();
 	}
 

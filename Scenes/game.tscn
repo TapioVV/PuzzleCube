@@ -105,7 +105,7 @@ transform = Transform3D(1, 0, 0, 0, 0.9883499, 0.15219867, 0, -0.15219867, 0.988
 [node name="Level" parent="." unique_id=597612352 node_paths=PackedStringArray("currentFaceText", "player", "fakePlayer") instance=ExtResource("4_nb51f")]
 currentFaceText = NodePath("CurrentFaceLabel/CurrentFaceText")
 player = NodePath("2D sides/Side 1/SubViewport/World/Level/Player")
-fakePlayer = NodePath("FakePlayer")
+fakePlayer = NodePath("")
 
 [node name="Side1" parent="Level/Model" parent_id_path=PackedInt32Array(597612352, 1599131250) index="0" unique_id=981437601]
 surface_material_override/0 = SubResource("StandardMaterial3D_nb51f")
@@ -204,10 +204,6 @@ texture = ExtResource("10_1phco")
 position = Vector2(240, 240)
 rotation = -3.1415927
 
-[node name="FakePlayer" parent="Level" unique_id=162310026 instance=ExtResource("1_rku1e")]
-visible = false
-modulate = Color(0.16261658, 0.16261658, 0.16261658, 1)
-
 [node name="CurrentFaceLabel" type="Label" parent="Level" unique_id=1062537569]
 offset_top = 24.0
 offset_right = 142.0
@@ -222,11 +218,14 @@ offset_right = 142.0
 offset_bottom = 46.0
 theme = ExtResource("2_rfjv2")
 
-[node name="Rewind" type="Node" parent="." unique_id=1840648603]
+[node name="Rewind" type="Node" parent="." unique_id=1840648603 node_paths=PackedStringArray("player")]
 script = ExtResource("11_7t8sx")
+player = NodePath("../Level/2D sides/Side 1/SubViewport/World/Level/Player")
 
 [node name="RewindSnapShotTimer" type="Timer" parent="Rewind" unique_id=407137427]
 unique_name_in_owner = true
+wait_time = 25.0
+one_shot = true
 autostart = true
 
 [node name="StageManager" type="Node" parent="." unique_id=778540403]

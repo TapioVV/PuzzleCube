@@ -2,11 +2,6 @@ using Godot;
 using System;
 public partial class Player : ExtendedCharacterBody2D
 {
-    // Events
-    public Action OnJump;
-
-
-
     [Export] Label stateLabel;
 
     public State CurrentState;
