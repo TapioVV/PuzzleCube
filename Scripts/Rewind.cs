@@ -63,7 +63,6 @@ public partial class Rewind : Node
 	// }
 	public void TakeSnapShot()
 	{
-        GD.Print("took snapshot");
 		List<RewindData> rewindDatas = new List<RewindData>();
 		for(int i = 0; i < rewindables.Count; i++)
 		{

@@ -1,6 +1,7 @@
 using Godot;
 using System;
 
+[GlobalClass]
 public partial class ExtendedCharacterBody2D : CharacterBody2D
 {
     public Vector2 GravityDirection = Vector2.Down;
@@ -25,4 +26,7 @@ public partial class ExtendedCharacterBody2D : CharacterBody2D
                 break;
         }
     }
+    
+
+
 }

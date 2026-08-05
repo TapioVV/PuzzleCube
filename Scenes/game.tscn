@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://crnpry4vvwc1" path="res://Scenes/Stages/1/1_front.tscn" id="5_nnt18"]
 [ext_resource type="PackedScene" uid="uid://ilufmbwuygwb" path="res://Scenes/Stage objects/pushable_box.tscn" id="6_ewbju"]
 [ext_resource type="PackedScene" uid="uid://mqhstv0ob6ax" path="res://Scenes/Stages/1/1_left_and_right.tscn" id="8_iivbl"]
+[ext_resource type="Texture2D" uid="uid://be72qlrrohgxb" path="res://Assets/BallGuy-sheet.png" id="8_nb51f"]
+[ext_resource type="Script" uid="uid://c52vjo6ypfjoj" path="res://ExtendedCharacterBody2D.cs" id="8_nnt18"]
 [ext_resource type="PackedScene" uid="uid://c7fy2oafgl7gp" path="res://Scenes/Stages/1/1_back.tscn" id="9_7nbq1"]
 [ext_resource type="PackedScene" uid="uid://de223iogk0cq2" path="res://Scenes/Stages/1/1_top.tscn" id="9_rfjv2"]
 [ext_resource type="PackedScene" uid="uid://cben3m1dxm01u" path="res://Scenes/Stages/1/1_bottom.tscn" id="9_rku1e"]
@@ -18,18 +20,8 @@
 [sub_resource type="Environment" id="Environment_iuuih"]
 background_mode = 1
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_1phco"]
-viewport_path = NodePath("2D sides/Side 1/SubViewport")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nb51f"]
-resource_local_to_scene = true
-diffuse_mode = 3
-specular_mode = 1
-albedo_texture = SubResource("ViewportTexture_1phco")
-texture_filter = 0
-
 [sub_resource type="ViewportTexture" id="ViewportTexture_nnt18"]
-viewport_path = NodePath("2D sides/Side 2/SubViewport")
+viewport_path = NodePath("2D sides/Side 1/SubViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ewbju"]
 resource_local_to_scene = true
@@ -39,7 +31,7 @@ albedo_texture = SubResource("ViewportTexture_nnt18")
 texture_filter = 0
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_85qyi"]
-viewport_path = NodePath("2D sides/Side 3/SubViewport")
+viewport_path = NodePath("2D sides/Side 2/SubViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iivbl"]
 resource_local_to_scene = true
@@ -49,7 +41,7 @@ albedo_texture = SubResource("ViewportTexture_85qyi")
 texture_filter = 0
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_7nbq1"]
-viewport_path = NodePath("2D sides/Side 4/SubViewport")
+viewport_path = NodePath("2D sides/Side 3/SubViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_exi56"]
 resource_local_to_scene = true
@@ -59,7 +51,7 @@ albedo_texture = SubResource("ViewportTexture_7nbq1")
 texture_filter = 0
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_7t8sx"]
-viewport_path = NodePath("2D sides/Side 5/SubViewport")
+viewport_path = NodePath("2D sides/Side 4/SubViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mg4q0"]
 resource_local_to_scene = true
@@ -69,7 +61,7 @@ albedo_texture = SubResource("ViewportTexture_7t8sx")
 texture_filter = 0
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_vm72l"]
-viewport_path = NodePath("2D sides/Side 6/SubViewport")
+viewport_path = NodePath("2D sides/Side 5/SubViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_22asu"]
 resource_local_to_scene = true
@@ -77,6 +69,31 @@ diffuse_mode = 3
 specular_mode = 1
 albedo_texture = SubResource("ViewportTexture_vm72l")
 texture_filter = 0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_fkdbe"]
+viewport_path = NodePath("2D sides/Side 6/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_81klo"]
+resource_local_to_scene = true
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = SubResource("ViewportTexture_fkdbe")
+texture_filter = 0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tgy6u"]
+atlas = ExtResource("8_nb51f")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ohsbh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tgy6u")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Game" type="Node2D" unique_id=753927107]
 
@@ -102,28 +119,29 @@ current = true
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=273032221]
 transform = Transform3D(1, 0, 0, 0, 0.9883499, 0.15219867, 0, -0.15219867, 0.9883499, 0, 0, 0)
 
-[node name="Level" parent="." unique_id=597612352 node_paths=PackedStringArray("currentFaceText", "player", "fakePlayer") instance=ExtResource("4_nb51f")]
+[node name="Level" parent="." unique_id=597612352 node_paths=PackedStringArray("currentFaceText", "player", "fakePlayer", "fakePlayerSprite") instance=ExtResource("4_nb51f")]
 currentFaceText = NodePath("CurrentFaceLabel/CurrentFaceText")
 player = NodePath("2D sides/Side 1/SubViewport/World/Level/Player")
-fakePlayer = NodePath("")
+fakePlayer = NodePath("2D sides/Side 1/SubViewport/World/Level/ExtendedCharacterBody2D")
+fakePlayerSprite = NodePath("2D sides/Side 1/SubViewport/World/Level/ExtendedCharacterBody2D/AnimatedSprite2D")
 
 [node name="Side1" parent="Level/Model" parent_id_path=PackedInt32Array(597612352, 1599131250) index="0" unique_id=981437601]
-surface_material_override/0 = SubResource("StandardMaterial3D_nb51f")
-
-[node name="Side2" parent="Level/Model" parent_id_path=PackedInt32Array(597612352, 1599131250) index="1" unique_id=905211246]
 surface_material_override/0 = SubResource("StandardMaterial3D_ewbju")
 
-[node name="Side3" parent="Level/Model" parent_id_path=PackedInt32Array(597612352, 1599131250) index="2" unique_id=244488962]
+[node name="Side2" parent="Level/Model" parent_id_path=PackedInt32Array(597612352, 1599131250) index="1" unique_id=905211246]
 surface_material_override/0 = SubResource("StandardMaterial3D_iivbl")
 
-[node name="Side4" parent="Level/Model" parent_id_path=PackedInt32Array(597612352, 1599131250) index="3" unique_id=1241165880]
+[node name="Side3" parent="Level/Model" parent_id_path=PackedInt32Array(597612352, 1599131250) index="2" unique_id=244488962]
 surface_material_override/0 = SubResource("StandardMaterial3D_exi56")
 
-[node name="Side5" parent="Level/Model" parent_id_path=PackedInt32Array(597612352, 1599131250) index="4" unique_id=719241736]
+[node name="Side4" parent="Level/Model" parent_id_path=PackedInt32Array(597612352, 1599131250) index="3" unique_id=1241165880]
 surface_material_override/0 = SubResource("StandardMaterial3D_mg4q0")
 
-[node name="Side6" parent="Level/Model" parent_id_path=PackedInt32Array(597612352, 1599131250) index="5" unique_id=1185197806]
+[node name="Side5" parent="Level/Model" parent_id_path=PackedInt32Array(597612352, 1599131250) index="4" unique_id=719241736]
 surface_material_override/0 = SubResource("StandardMaterial3D_22asu")
+
+[node name="Side6" parent="Level/Model" parent_id_path=PackedInt32Array(597612352, 1599131250) index="5" unique_id=1185197806]
+surface_material_override/0 = SubResource("StandardMaterial3D_81klo")
 
 [node name="Side 1" parent="Level/2D sides" parent_id_path=PackedInt32Array(597612352, 2095245727) index="0" unique_id=533278270]
 mouse_target = true
@@ -155,12 +173,21 @@ position = Vector2(60, 38)
 [node name="PushableBox7" parent="Level/2D sides/Side 1/SubViewport/World/Level" unique_id=150315415 instance=ExtResource("6_ewbju")]
 position = Vector2(180, 62)
 
-[node name="PassablePlatform2" parent="Level/2D sides/Side 1/SubViewport/World/Level" unique_id=1239106977 instance=ExtResource("14_1phco")]
-position = Vector2(131, 182)
-
 [node name="Player" parent="Level/2D sides/Side 1/SubViewport/World/Level" unique_id=369105044 node_paths=PackedStringArray("stateLabel") instance=ExtResource("1_rku1e")]
 position = Vector2(59, 182)
 stateLabel = NodePath("../../../../../../../StateLabel")
+
+[node name="ExtendedCharacterBody2D" type="CharacterBody2D" parent="Level/2D sides/Side 1/SubViewport/World/Level" unique_id=1421296457]
+position = Vector2(103, 137)
+script = ExtResource("8_nnt18")
+metadata/_custom_type_script = "uid://c52vjo6ypfjoj"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Level/2D sides/Side 1/SubViewport/World/Level/ExtendedCharacterBody2D" unique_id=560514352]
+sprite_frames = SubResource("SpriteFrames_ohsbh")
+
+[node name="PassablePlatform" parent="Level/2D sides/Side 1/SubViewport/World/Level" unique_id=1239106977 instance=ExtResource("14_1phco")]
+position = Vector2(182, 216)
+rotation = -1.5707964
 
 [node name="Label" parent="Level/2D sides/Side 1/SubViewport" index="1" unique_id=1618615213]
 visible = false
@@ -203,6 +230,12 @@ texture = ExtResource("10_1phco")
 [node name="Level" parent="Level/2D sides/Side 6/SubViewport/World" parent_id_path=PackedInt32Array(597612352, 1330544916) index="1" unique_id=900742492 instance=ExtResource("9_rku1e")]
 position = Vector2(240, 240)
 rotation = -3.1415927
+
+[node name="PassablePlatform5" parent="Level/2D sides/Side 6/SubViewport/World/Level" unique_id=1267363295 instance=ExtResource("14_1phco")]
+position = Vector2(120, 15.999999)
+
+[node name="PassablePlatform6" parent="Level/2D sides/Side 6/SubViewport/World/Level" unique_id=1792458297 instance=ExtResource("14_1phco")]
+position = Vector2(132, 5)
 
 [node name="CurrentFaceLabel" type="Label" parent="Level" unique_id=1062537569]
 offset_top = 24.0
