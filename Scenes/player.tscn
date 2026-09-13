@@ -128,7 +128,7 @@ size = Vector2(9, 2)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6t5aa"]
 size = Vector2(9, 2.1)
 
-[node name="Player" type="CharacterBody2D" unique_id=162310026 groups=["Dynamic", "Rewindable"]]
+[node name="Player" type="CharacterBody2D" unique_id=162310026 node_paths=PackedStringArray("FakeSprite") groups=["Dynamic", "Rewindable"]]
 collision_layer = 2
 collision_mask = 265
 floor_snap_length = 2.0
@@ -138,15 +138,17 @@ horizontalDeacceleration = 1200.0
 jumpControlAcceleration = 2.0
 jumpControlDeacceleration = 7.0
 timeToJumpPeak = 0.3
-jumpHeight = 50.0
-jumpDistance = 49.0
+jumpHeight = 48.0
+jumpDistance = 42.0
 maxVerticalSpeed = 180.0
 jumpBufferTime = 0.085
+FakeSprite = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1660181335]
 unique_name_in_owner = true
 sprite_frames = SubResource("SpriteFrames_iuuih")
-animation = &"box_on_head_walk"
+animation = &"walk"
+frame_progress = 0.6998522
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=496192193]
 position = Vector2(-0.5, 8)

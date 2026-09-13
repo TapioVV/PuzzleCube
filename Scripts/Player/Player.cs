@@ -2,6 +2,8 @@ using Godot;
 using System;
 public partial class Player : ExtendedCharacterBody2D
 {
+    public static event Action OnJumped;
+
     [Export] Label stateLabel;
 
     public State CurrentState;
@@ -41,7 +43,10 @@ public partial class Player : ExtendedCharacterBody2D
     public Area2D BoxCheckArea;
     [ExportCategory("Visuals")]
     [Export] public AnimatedSprite2D CharacterSprite;
-    
+    public void InvokeOnJumped()
+    {
+        OnJumped?.Invoke();
+    }    
 
     public override void _Ready()
     {
@@ -87,8 +92,6 @@ public partial class Player : ExtendedCharacterBody2D
             SetCollisionMaskValue(4, true);
         }
 
-
-
         velocity.Y = Mathf.Clamp(velocity.Y, -maxVerticalSpeed, 10000000);
     }
     public bool IsBoxOnHead()
@@ -99,6 +102,7 @@ public partial class Player : ExtendedCharacterBody2D
         }
         return false;
     }
+
     public override void _PhysicsProcess(double delta)
     {
         CurrentState.Update((float)delta);
@@ -107,6 +111,7 @@ public partial class Player : ExtendedCharacterBody2D
         MoveAndSlide();
         CurrentState.AfterMoveAndSlideUpdate((float)delta);
     }
+
     private Vector2 ToGlobalVelocity(Vector2 localVelocity)
     {
         Vector2 globalUp = -GravityDirection;

@@ -3,6 +3,17 @@
 [ext_resource type="Script" uid="uid://d05tbu2dcyl51" path="res://Scripts/PushableBody2D.cs" id="1_82q2f"]
 [ext_resource type="Texture2D" uid="uid://dd6lq3j6q7hhj" path="res://Assets/Box.png" id="2_82q2f"]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_bqej4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_82q2f")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_82q2f"]
 size = Vector2(22, 24)
 
@@ -14,14 +25,9 @@ safe_margin = 0.001
 script = ExtResource("1_82q2f")
 metadata/_custom_type_script = "uid://d05tbu2dcyl51"
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=600967480]
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="." unique_id=1006271114]
 modulate = Color(0.8214151, 0.81604797, 0.7990488, 1)
-texture = ExtResource("2_82q2f")
-
-[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=913030308]
-position = Vector2(-4.145503e-05, 1.1920929e-05)
-scale = Vector2(0.83333415, 0.8333297)
-texture = ExtResource("2_82q2f")
+sprite_frames = SubResource("SpriteFrames_bqej4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=62188526]
 shape = SubResource("RectangleShape2D_82q2f")

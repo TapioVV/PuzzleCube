@@ -22,6 +22,7 @@ public partial class FallState : State
             player.velocity.X = Mathf.MoveToward(player.velocity.X, player.inputAxis * player.maxHorizontalSpeed, player.horizontalAcceleration / player.jumpControlAcceleration * deltaf);
         }
 
+        //FIXME: This doesnt work after a rewind change
         if (player.IsOnFloor())
         {
             if (player.velocity.X >= -0.1f && player.velocity.X <= 0.1f)

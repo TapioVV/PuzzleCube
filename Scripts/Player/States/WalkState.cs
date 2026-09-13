@@ -101,6 +101,18 @@ public partial class WalkState : State
                     pushableBody.Push(pushDirection * Mathf.Abs(pushSpeed));
                 }
             }
+            if(collider is RigidBody2D rb)
+            {
+                GD.Print("Touching rigidobyd");
+                Vector2 pushDirection = player.pushRayCast2D.TargetPosition;
+                
+                // Optional: If you only want to push horizontally, uncomment the next line
+                // pushDirection.Y = 0; 
+
+                // Apply the impulse to the RigidBody2D
+                // Multiplying by delta helps keep the force framerate-independent
+                rb.ApplyCentralForce(pushDirection * player.velocity.X);
+            }
 
         }
     }

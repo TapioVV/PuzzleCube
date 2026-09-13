@@ -7,8 +7,8 @@ public partial class Rewind : Node
 {
     // Called when the node enters the scene tree for the first time.
 
+    public static event Action OnUndo;
 
-    [Export] Player player;
     Timer snapshotTimer;
     //Rewindable[] rewindablesArray;
 	List<Node2D> rewindables = new List<Node2D>();
@@ -22,11 +22,11 @@ public partial class Rewind : Node
 
     public override void _EnterTree()
     {
-        SignalBus.OnPlayerJump += TakeSnapShot;
+        Player.OnJumped += TakeSnapShot;
     }
     public override void _ExitTree()
     {
-        SignalBus.OnPlayerJump -= TakeSnapShot;
+        Player.OnJumped -= TakeSnapShot;
     }
 
 
@@ -44,7 +44,7 @@ public partial class Rewind : Node
 			Undo();
 		}
 	}
-	public void OnRewindSnapshotTimerTimeOut()
+	private void OnRewindSnapshotTimerTimeOut()
 	{
 		TakeSnapShot();
 	}
@@ -61,8 +61,9 @@ public partial class Rewind : Node
 	// 	allPreviousPositions.Add(positions);
     //     snapshotTimer.Start();
 	// }
-	public void TakeSnapShot()
+	private void TakeSnapShot()
 	{
+        GD.Print("Took snapshot");
 		List<RewindData> rewindDatas = new List<RewindData>();
 		for(int i = 0; i < rewindables.Count; i++)
 		{
@@ -82,7 +83,9 @@ public partial class Rewind : Node
         allPreviousRewinds.Add(rewindDatas);
         snapshotTimer.Start();
 	}
-    public void Undo()
+    //FIXME:
+
+    private void Undo()
 	{
         if (allPreviousRewinds.Count == 0)
         {
@@ -136,6 +139,7 @@ public partial class Rewind : Node
         {
             TakeSnapShot();
         }
+        OnUndo?.Invoke();
     }
 	// public void Undo()
 	// {

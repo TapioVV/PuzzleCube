@@ -30,11 +30,29 @@ public partial class CubeManager : Node
     Vector3 startRotation;
 	[Export] SubViewportContainer[] cubeSideViewports;
 	[Export] Player player;
-	[Export] ExtendedCharacterBody2D fakePlayer;
-    [Export] AnimatedSprite2D fakePlayerSprite;
+
 	CubeFace[] cubeFaces = new CubeFace[6];
     List<ExtendedCharacterBody2D> dynamicBodies;
+
+
+    Tween cubeRotationTween;
+
+
+
     Quaternion targetQuaternion = Quaternion.Identity;
+    public override void _EnterTree()
+    {
+        Rewind.OnUndo += SnapCameraToPlayer;
+    }
+    public override void _ExitTree()
+    {
+        Rewind.OnUndo -= SnapCameraToPlayer;
+    }
+    public void SnapCameraToPlayer()
+    {
+        cubeRotationTween.Kill();
+        cubeRotationPoint.Quaternion = GetQuaternionThatFacesCamera();
+    }
 
     public override void _Ready()
 	{
@@ -45,7 +63,25 @@ public partial class CubeManager : Node
         {
             if(node is ExtendedCharacterBody2D body)
             {
+                // AnimatedSprite2D fakeAnimatedSprite2d = new AnimatedSprite2D();
+                ExtendedCharacterBody2D fakeBody = new ExtendedCharacterBody2D();
+
+                AnimatedSprite2D s = new AnimatedSprite2D();
+
+
+
+                // AddChild(fakeAnimatedSprite2d);
+                AddChild(fakeBody);
+                fakeBody.AddChild(s);
+                fakeBody.MainSprite = s;
+
+                // body.FakeSprite = fakeAnimatedSprite2d;
+                body.FakeBody = fakeBody;
+                fakeBody.MainSprite.SpriteFrames = body.MainSprite.SpriteFrames;
+                // fakeAnimatedSprite2d.SpriteFrames = body.MainSprite.SpriteFrames;
                 dynamicBodies.Add(body);
+                body.CurrentFace = cubeFaces[0];
+                
             }
         }
 
@@ -77,113 +113,118 @@ public partial class CubeManager : Node
     }
     public override void _Process(double delta)
 	{
-        fakePlayerSprite.FlipH = player.CharacterSprite.FlipH;
-        fakePlayerSprite.FlipV = player.CharacterSprite.FlipV;
-        fakePlayerSprite.SpriteFrames = player.CharacterSprite.SpriteFrames;
-        fakePlayerSprite.Animation = player.CharacterSprite.Animation;
-        fakePlayerSprite.Animation = player.CharacterSprite.Animation;
-        fakePlayerSprite.Frame = player.CharacterSprite.Frame;
-        fakePlayerSprite.FrameProgress = player.CharacterSprite.FrameProgress;
-
-
-
-
-        currentFaceText.Text = player.CurrentFace.Name;
+        // currentFaceText.Text = player.CurrentFace.Name;
         foreach(ExtendedCharacterBody2D body in dynamicBodies)
         {
             CheckForFaceTransition(body);
         }
-        Rect2 spriteBounds = GetSpriteLocalBounds(player.CharacterSprite);
-        Vector2 moveDirection = Vector2.Zero;
-        fakePlayer.CurrentFace = player.CurrentFace;
-        float fakePositionX = 0;
-        float fakePositionY = 0;
 
-        fakePlayer.GravityDirection = player.GravityDirection;
-        if(spriteBounds.Position.X < 0)
+
+
+        for(int i = 0; i < dynamicBodies.Count; i++)
         {
-            // GD.Print("sprite is on the left of the screen");
-            moveDirection = Vector2.Left;
+            ExtendedCharacterBody2D body = dynamicBodies[i];
+            
 
-            fakePositionX = CUBE_SIDE_LENGTH + player.Position.X;
-            fakePositionY = player.Position.Y;
-        }
-        else if(spriteBounds.End.X > CUBE_SIDE_LENGTH)
-        {
-            moveDirection = Vector2.Right;
+            dynamicBodies[i].MirrorSpriteToFakeSprite();
 
-            fakePositionX = player.Position.X - CUBE_SIDE_LENGTH;
-            // fakePositionX = CUBE_SIDE_LENGTH - player.Position.X;
-            fakePositionY = player.Position.Y;
-        }
-        else if(spriteBounds.Position.Y < 0)
-        {
-            moveDirection = Vector2.Up;
 
-            fakePositionX = player.Position.X;
-            fakePositionY = CUBE_SIDE_LENGTH + player.Position.Y;
-        }
-        else if(spriteBounds.End.Y > CUBE_SIDE_LENGTH)
-        {
-            moveDirection = Vector2.Down;
 
-            fakePositionX = player.Position.X;
-            fakePositionY = player.Position.Y - CUBE_SIDE_LENGTH;
-        }
-        if(moveDirection != Vector2.Zero)
-        {
+            Rect2 spriteBounds = body.GetSpriteLocalBounds();
+            Vector2 moveDirection = Vector2.Zero;
+            float fakePositionX = 0;
+            float fakePositionY = 0;
 
-            // This works but i dont understand it because i made it with ai
-            // I need to figure this out
-            // Tomorrow figure out notes in vscode
-            Vector3 _3dMoveDirection = Convert2DMovementTo3D(moveDirection, player.CurrentFace);
 
-            CubeFace nextFace = FindFaceByNormal(_3dMoveDirection);
-            if (nextFace == null) return;
+            body.FakeBody.CurrentFace = dynamicBodies[i].CurrentFace;
+            body.FakeBody.GravityDirection = dynamicBodies[i].GravityDirection;
 
-            Vector3 exitWorldPos = Convert2DPositionTo3D(player.Position, player.CurrentFace);
+            if(spriteBounds.Position.X < 0)
+            {
+                // GD.Print("sprite is on the left of the screen");
+                moveDirection = Vector2.Left;
 
-            // Applying the things
-            UpdateBodyGravity(fakePlayer, nextFace);
+                fakePositionX = CUBE_SIDE_LENGTH + body.Position.X;
+                fakePositionY = body.Position.Y;
+            }
+            else if(spriteBounds.End.X > CUBE_SIDE_LENGTH)
+            {
+                moveDirection = Vector2.Right;
 
-            Vector2 clampedPos = new Vector2(
-                Mathf.Clamp(player.Position.X, 0, CUBE_SIDE_LENGTH),
-                Mathf.Clamp(player.Position.Y, 0, CUBE_SIDE_LENGTH)
-            );
+                fakePositionX = body.Position.X - CUBE_SIDE_LENGTH;
+                // fakePositionX = CUBE_SIDE_LENGTH - player.Position.X;
+                fakePositionY = body.Position.Y;
+            }
+            else if(spriteBounds.Position.Y < 0)
+            {
+                moveDirection = Vector2.Up;
 
-            // 2. Get the 3D position of the seam
-            Vector3 seamWorldPos = Convert2DPositionTo3D(clampedPos, player.CurrentFace);
+                fakePositionX = body.Position.X;
+                fakePositionY = CUBE_SIDE_LENGTH + body.Position.Y;
+            }
+            else if(spriteBounds.End.Y > CUBE_SIDE_LENGTH)
+            {
+                moveDirection = Vector2.Down;
 
-            // 3. Calculate how far past the edge the player has moved
-            float overflow = 0f;
-            if (spriteBounds.Position.X < 0)
-                overflow = -player.Position.X;
-            else if (spriteBounds.End.X > CUBE_SIDE_LENGTH)
-                overflow = player.Position.X - CUBE_SIDE_LENGTH;
-            else if (spriteBounds.Position.Y < 0)
-                overflow = -player.Position.Y;
-            else if (spriteBounds.End.Y > CUBE_SIDE_LENGTH)
-                overflow = player.Position.Y - CUBE_SIDE_LENGTH;
+                fakePositionX = body.Position.X;
+                fakePositionY = body.Position.Y - CUBE_SIDE_LENGTH;
+            }
+            if(moveDirection != Vector2.Zero)
+            {
 
-            // 4. Fold the overflow onto the adjacent face's surface
-            float normalizedOverflow = overflow / CUBE_SIDE_LENGTH;
-            Vector3 foldedWorldPos = seamWorldPos - (player.CurrentFace.Normal * normalizedOverflow);
+                // This works but i dont understand it because i made it with ai
+                // I need to figure this out
+                // Tomorrow figure out notes in vscode
+                Vector3 _3dMoveDirection = Convert2DMovementTo3D(moveDirection, body.CurrentFace);
 
-            // 5. Project the folded 3D position into the next face's 2D space
-            Vector3 screenUp3D = nextFace.UpDirection;
-            Vector3 screenRight3D = nextFace.Normal.Cross(screenUp3D).Normalized();
+                CubeFace nextFace = FindFaceByNormal(_3dMoveDirection);
+                if (nextFace == null) return;
 
-            float pctX = foldedWorldPos.Dot(screenRight3D);
-            float pctY = -foldedWorldPos.Dot(screenUp3D);
+                Vector3 exitWorldPos = Convert2DPositionTo3D(body.Position, body.CurrentFace);
 
-            Vector2 newPlayerPosition = new Vector2(
-                (pctX + 0.5f) * CUBE_SIDE_LENGTH,
-                (pctY + 0.5f) * CUBE_SIDE_LENGTH
-            );
+                // Applying the things
+                UpdateBodyGravity(body.FakeBody, nextFace);
+    
 
-            fakePlayer.CurrentFace = nextFace;
-            fakePlayer.Reparent(fakePlayer.CurrentFace.World);
-            fakePlayer.Position = newPlayerPosition;
+                Vector2 clampedPos = new Vector2(
+                    Mathf.Clamp(body.Position.X, 0, CUBE_SIDE_LENGTH),
+                    Mathf.Clamp(body.Position.Y, 0, CUBE_SIDE_LENGTH)
+                );
+
+                // 2. Get the 3D position of the seam
+                Vector3 seamWorldPos = Convert2DPositionTo3D(clampedPos, body.CurrentFace);
+
+                // 3. Calculate how far past the edge the player has moved
+                float overflow = 0f;
+                if (spriteBounds.Position.X < 0)
+                    overflow = -body.Position.X;
+                else if (spriteBounds.End.X > CUBE_SIDE_LENGTH)
+                    overflow = body.Position.X - CUBE_SIDE_LENGTH;
+                else if (spriteBounds.Position.Y < 0)
+                    overflow = -body.Position.Y;
+                else if (spriteBounds.End.Y > CUBE_SIDE_LENGTH)
+                    overflow = body.Position.Y - CUBE_SIDE_LENGTH;
+
+                // 4. Fold the overflow onto the adjacent face's surface
+                float normalizedOverflow = overflow / CUBE_SIDE_LENGTH;
+                Vector3 foldedWorldPos = seamWorldPos - (body.CurrentFace.Normal * normalizedOverflow);
+
+                // 5. Project the folded 3D position into the next face's 2D space
+                Vector3 screenUp3D = nextFace.UpDirection;
+                Vector3 screenRight3D = nextFace.Normal.Cross(screenUp3D).Normalized();
+
+                float pctX = foldedWorldPos.Dot(screenRight3D);
+                float pctY = -foldedWorldPos.Dot(screenUp3D);
+
+                Vector2 newPlayerPosition = new Vector2(
+                    (pctX + 0.5f) * CUBE_SIDE_LENGTH,
+                    (pctY + 0.5f) * CUBE_SIDE_LENGTH
+                );
+
+                body.FakeBody.CurrentFace = nextFace;
+                body.FakeBody.Reparent(body.FakeBody.CurrentFace.World);
+                body.FakeBody.Position = newPlayerPosition;
+            }
         }
 	}
 
@@ -191,42 +232,12 @@ public partial class CubeManager : Node
 
 
 
-    public Rect2 GetSpriteLocalBounds(AnimatedSprite2D sprite)
-    {
-if (sprite == null || sprite.SpriteFrames == null)
-        return new Rect2();
 
-    string anim = sprite.Animation;
-    int frame = sprite.Frame;
-    Texture2D currentFrameTexture = sprite.SpriteFrames.GetFrameTexture(anim, frame);
-
-    if (currentFrameTexture == null)
-        return new Rect2();
-
-    // 1. Get real texture size scaled by node's global scale
-    Vector2 globalScale = sprite.GlobalScale;
-    Vector2 frameSize = currentFrameTexture.GetSize() * globalScale;
-    Vector2 offset = sprite.Offset * globalScale;
-
-    // 2. Use GlobalPosition (world position inside SubViewport) instead of local Position
-    Vector2 topLeft;
-    if (sprite.Centered)
-    {
-        topLeft = sprite.GlobalPosition + offset - (frameSize / 2f);
-    }
-    else
-    {
-        topLeft = sprite.GlobalPosition + offset;
-    }
-
-    return new Rect2(topLeft, frameSize);
-
-    }
     private void TweenCubeRotation(Quaternion target)
     {
         float rotationSpeed = 1f;
-        Tween tween = CreateTween();
-        tween.TweenProperty(cubeRotationPoint, "quaternion", target, rotationSpeed)
+        cubeRotationTween = CreateTween();
+        cubeRotationTween.TweenProperty(cubeRotationPoint, "quaternion", target, rotationSpeed)
              .SetTrans(Tween.TransitionType.Quad)
              .SetEase(Tween.EaseType.InOut);
     }
@@ -271,10 +282,10 @@ if (sprite == null || sprite.SpriteFrames == null)
         UpdateBodyGravity(body, nextFace);
 
         MoveCharacterBodyToFace(body, exitWorldPos, nextFace);
-        // if(body is player)
-        // {
-        //     TweenCubeRotation(GetQuaternionThatFacesCamera());
-        // }
+        if(body is Player)
+        {
+            TweenCubeRotation(GetQuaternionThatFacesCamera());
+        }
      }
     void MoveCharacterBodyToFace(ExtendedCharacterBody2D node, Vector3 positionOnFace, CubeFace face)
     {
