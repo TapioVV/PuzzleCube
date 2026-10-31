@@ -1,7 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.JavaScript;
+using System.Linq;
 
 
 public class CubeFace
@@ -9,13 +9,13 @@ public class CubeFace
     public String Name;
     public Vector3 UpDirection;
     public Vector3 Normal;
-	public Node2D World;
-    public CubeFace(string name,  Vector3 normal, Vector3 upDirection, Node2D world)
+	public Node2D WorldNode;
+    public CubeFace(string name,  Vector3 normal, Vector3 upDirection, Node2D worldNode)
     {
         Name = name;
         Normal = normal;
         UpDirection = upDirection;
-        World = world;
+        WorldNode = worldNode;
     }
 }
 
@@ -34,10 +34,7 @@ public partial class CubeManager : Node
 	CubeFace[] cubeFaces = new CubeFace[6];
     List<ExtendedCharacterBody2D> dynamicBodies;
 
-
     Tween cubeRotationTween;
-
-
 
     Quaternion targetQuaternion = Quaternion.Identity;
     public override void _EnterTree()
@@ -63,6 +60,14 @@ public partial class CubeManager : Node
         {
             if(node is ExtendedCharacterBody2D body)
             {
+                body.collisionShape2Ds = body.FindChildren("*", "CollisionShape2D", true, false)
+                             .Cast<CollisionShape2D>()
+                             .ToList();
+
+                foreach (var shape in body.collisionShape2Ds)
+{
+    GD.Print(shape.Name);
+}
                 // AnimatedSprite2D fakeAnimatedSprite2d = new AnimatedSprite2D();
                 ExtendedCharacterBody2D fakeBody = new ExtendedCharacterBody2D();
 
@@ -73,12 +78,11 @@ public partial class CubeManager : Node
                 // AddChild(fakeAnimatedSprite2d);
                 AddChild(fakeBody);
                 fakeBody.AddChild(s);
-                fakeBody.MainSprite = s;
+                fakeBody.AnimatedSprite = s;
 
-                // body.FakeSprite = fakeAnimatedSprite2d;
-                body.FakeBody = fakeBody;
-                fakeBody.MainSprite.SpriteFrames = body.MainSprite.SpriteFrames;
-                // fakeAnimatedSprite2d.SpriteFrames = body.MainSprite.SpriteFrames;
+                
+                body.SecondaryBody = fakeBody;
+                body.MirrorSpriteToSecondaryBodySprite();
                 dynamicBodies.Add(body);
                 body.CurrentFace = cubeFaces[0];
                 
@@ -119,14 +123,12 @@ public partial class CubeManager : Node
             CheckForFaceTransition(body);
         }
 
-
-
         for(int i = 0; i < dynamicBodies.Count; i++)
         {
             ExtendedCharacterBody2D body = dynamicBodies[i];
             
 
-            dynamicBodies[i].MirrorSpriteToFakeSprite();
+            dynamicBodies[i].MirrorSpriteToSecondaryBodySprite();
 
 
 
@@ -136,8 +138,8 @@ public partial class CubeManager : Node
             float fakePositionY = 0;
 
 
-            body.FakeBody.CurrentFace = dynamicBodies[i].CurrentFace;
-            body.FakeBody.GravityDirection = dynamicBodies[i].GravityDirection;
+            body.SecondaryBody.CurrentFace = dynamicBodies[i].CurrentFace;
+            body.SecondaryBody.GravityDirection = dynamicBodies[i].GravityDirection;
 
             if(spriteBounds.Position.X < 0)
             {
@@ -183,7 +185,7 @@ public partial class CubeManager : Node
                 Vector3 exitWorldPos = Convert2DPositionTo3D(body.Position, body.CurrentFace);
 
                 // Applying the things
-                UpdateBodyGravity(body.FakeBody, nextFace);
+                UpdateBodyGravity(body.SecondaryBody, nextFace);
     
 
                 Vector2 clampedPos = new Vector2(
@@ -221,9 +223,9 @@ public partial class CubeManager : Node
                     (pctY + 0.5f) * CUBE_SIDE_LENGTH
                 );
 
-                body.FakeBody.CurrentFace = nextFace;
-                body.FakeBody.Reparent(body.FakeBody.CurrentFace.World);
-                body.FakeBody.Position = newPlayerPosition;
+                body.SecondaryBody.CurrentFace = nextFace;
+                body.SecondaryBody.Reparent(body.SecondaryBody.CurrentFace.WorldNode);
+                body.SecondaryBody.Position = newPlayerPosition;
             }
         }
 	}
@@ -252,6 +254,7 @@ public partial class CubeManager : Node
         float twistAngle = Vector2.Up.AngleTo(playerUp2D);
         return targetCubeBasis.Rotated(Vector3.Forward, -twistAngle).GetRotationQuaternion();
     }
+
     void CheckForFaceTransition(ExtendedCharacterBody2D body)
     {
         Vector2 position = body.Position;
@@ -300,7 +303,7 @@ public partial class CubeManager : Node
 
         // Update the things to the player node
         node.CurrentFace = face;
-        node.Reparent(node.CurrentFace.World);
+        node.Reparent(node.CurrentFace.WorldNode);
         node.Position = newPlayerPosition;
     }
 

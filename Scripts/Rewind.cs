@@ -5,20 +5,15 @@ using System.Linq;
 
 public partial class Rewind : Node
 {
-    // Called when the node enters the scene tree for the first time.
-
     public static event Action OnUndo;
 
     Timer snapshotTimer;
-    //Rewindable[] rewindablesArray;
 	List<Node2D> rewindables = new List<Node2D>();
-	// List<Vector2> previousPositions = new List<Vector2>();
 
     List<RewindData> previousRewinds = new List<RewindData>();
 	List<List<RewindData>> allPreviousRewinds = new List<List<RewindData>>();
 	
 	List<List<Vector2>> allPreviousPositions = new List<List<Vector2>>();
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
 
     public override void _EnterTree()
     {
@@ -48,19 +43,7 @@ public partial class Rewind : Node
 	{
 		TakeSnapShot();
 	}
-	// public void TakeSnapShot()
-	// {
-    //     GD.Print("took snapshot");
-	// 	List<Vector2> positions = new List<Vector2>();
-	// 	for(int i = 0; i < rewindables.Count; i++)
-	// 	{
-	// 		positions.Add(rewindables[i].GlobalPosition);
-	// 	}
 
-	// 	previousPositions = positions;
-	// 	allPreviousPositions.Add(positions);
-    //     snapshotTimer.Start();
-	// }
 	private void TakeSnapShot()
 	{
         GD.Print("Took snapshot");
@@ -141,51 +124,4 @@ public partial class Rewind : Node
         }
         OnUndo?.Invoke();
     }
-	// public void Undo()
-	// {
-    //     if (allPreviousPositions.Count == 0)
-    //     {
-    //         GD.Print("Reached the beginning of history!");
-    //         return;
-    //     }
-
-    //     // 2. Get the very last saved snapshot (the top of our stack)
-    //     List<Vector2> targetPositions = allPreviousPositions[allPreviousPositions.Count - 1];
-
-    //     for (int i = 0; i < rewindables.Count; i++)
-    //     {
-    //         rewindables[i].ProcessMode = ProcessModeEnum.Disabled;
-    //     }
-    //     // 3. Apply those positions to your rewindable nodes
-    //     for (int i = 0; i < rewindables.Count; i++)
-    //     {
-    //         // Safety check: make sure we don't index out of bounds if nodes changed
-    //         if (i < targetPositions.Count)
-    //         {
-    //             rewindables[i].GlobalPosition = targetPositions[i];
-    //         }
-    //     }
-
-    //     for (int i = 0; i < rewindables.Count; i++)
-    //     {
-    //         rewindables[i].ProcessMode = ProcessModeEnum.Inherit;
-    //     }
-    //     // 4. Remove this state from our history so the next undo goes back further
-    //     allPreviousPositions.RemoveAt(allPreviousPositions.Count - 1);
-
-    //     // 5. Update previousPositions to point to the new "top" of our history stack
-    //     if (allPreviousPositions.Count > 0)
-    //     {
-    //         previousPositions = allPreviousPositions[allPreviousPositions.Count - 1];
-    //     }
-    //     else
-    //     {
-    //         previousPositions = new List<Vector2>(); // History is completely empty now
-    //     }
-    //     if(allPreviousPositions.Count == 0)
-    //     {
-    //         TakeSnapShot();
-    //     }
-
-    // }
 }

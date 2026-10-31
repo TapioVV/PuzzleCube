@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 [GlobalClass]
@@ -9,39 +10,24 @@ public partial class ExtendedCharacterBody2D : CharacterBody2D
 
     public CubeFace CurrentFace;
 
-    public AnimatedSprite2D MainSprite;
+    public List<CollisionShape2D> collisionShape2Ds = new List<CollisionShape2D>();
 
-    public AnimatedSprite2D FakeSprite;
+    public AnimatedSprite2D AnimatedSprite;
 
-    public ExtendedCharacterBody2D FakeBody;
+    public ExtendedCharacterBody2D SecondaryBody;
 
     public override void _EnterTree()
     {
-        MainSprite = GetChildren().OfType<AnimatedSprite2D>().FirstOrDefault();
-        if(MainSprite == null)
-        {
-            GD.PushError("Couldn't find AnimatedSprite as a child of " + Name);
-        }
+        AnimatedSprite = GetChildren().OfType<AnimatedSprite2D>().FirstOrDefault();
+
+        // if(MainSprite == null)
+        // {
+        //     GD.PushError("Couldn't find AnimatedSprite as a child of " + Name);
+        // }
     }
-    public void MirrorSpriteToFakeSprite()
+    public void MirrorSpriteToSecondaryBodySprite()
     {
-        FakeBody.MainSprite.FlipH = MainSprite.FlipH;
-        FakeBody.MainSprite.FlipV = MainSprite.FlipV;
-        FakeBody.MainSprite.SpriteFrames = MainSprite.SpriteFrames;
-        FakeBody.MainSprite.Animation = MainSprite.Animation;
-        FakeBody.MainSprite.Animation = MainSprite.Animation;
-        FakeBody.MainSprite.Frame = MainSprite.Frame;
-        FakeBody.MainSprite.FrameProgress = MainSprite.FrameProgress;
-
-
-
-        // FakeSprite.FlipH = MainSprite.FlipH;
-        // FakeSprite.FlipV = MainSprite.FlipV;
-        // FakeSprite.SpriteFrames = MainSprite.SpriteFrames;
-        // FakeSprite.Animation = MainSprite.Animation;
-        // FakeSprite.Animation = MainSprite.Animation;
-        // FakeSprite.Frame = MainSprite.Frame;
-        // FakeSprite.FrameProgress = MainSprite.FrameProgress;
+        Utils.AnimatedSprite2DCopyValuesFromAToB(AnimatedSprite, SecondaryBody.AnimatedSprite);
     }
 
 
@@ -65,30 +51,31 @@ public partial class ExtendedCharacterBody2D : CharacterBody2D
                 break;
         }
     }
+
     public Rect2 GetSpriteLocalBounds()
     {
-        if (MainSprite == null || MainSprite.SpriteFrames == null)
+        if (AnimatedSprite == null || AnimatedSprite.SpriteFrames == null)
             return new Rect2();
 
-        string anim = MainSprite.Animation;
-        int frame = MainSprite.Frame;
-        Texture2D currentFrameTexture = MainSprite.SpriteFrames.GetFrameTexture(anim, frame);
+        string anim = AnimatedSprite.Animation;
+        int frame = AnimatedSprite.Frame;
+        Texture2D currentFrameTexture = AnimatedSprite.SpriteFrames.GetFrameTexture(anim, frame);
 
         if (currentFrameTexture == null)
             return new Rect2();
 
-        Vector2 globalScale = MainSprite.GlobalScale;
+        Vector2 globalScale = AnimatedSprite.GlobalScale;
         Vector2 frameSize = currentFrameTexture.GetSize() * globalScale;
-        Vector2 offset = MainSprite.Offset * globalScale;
+        Vector2 offset = AnimatedSprite.Offset * globalScale;
 
         Vector2 topLeft;
-        if (MainSprite.Centered)
+        if (AnimatedSprite.Centered)
         {
-            topLeft = MainSprite.GlobalPosition + offset - (frameSize / 2f);
+            topLeft = AnimatedSprite.GlobalPosition + offset - (frameSize / 2f);
         }
         else
         {
-            topLeft = MainSprite.GlobalPosition + offset;
+            topLeft = AnimatedSprite.GlobalPosition + offset;
         }
 
         return new Rect2(topLeft, frameSize);

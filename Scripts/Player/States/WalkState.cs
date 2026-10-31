@@ -37,21 +37,15 @@ public partial class WalkState : State
         }
 
 
-
-
-
-        //Sprite flipping
-        if (player.inputAxis > 0)
+        float step = player.velocity.X * deltaf;
+        if (step != 0 && Mathf.Sign(step) == Mathf.Sign(player.pushRayCast2D.TargetPosition.X))
         {
-            player.CharacterSprite.FlipH = false;
-            player.pushRayCast2D.TargetPosition = new Vector2(player.pushRayCast2DLength, 0);
-        }
-        else if (player.inputAxis < 0)
-        {
-            player.CharacterSprite.FlipH = true;
-            player.pushRayCast2D.TargetPosition = new Vector2(-player.pushRayCast2DLength, 0);
+            player.pushRayCast2D.ForceRaycastUpdate();
+            if (player.pushRayCast2D.GetCollider() is PushableBody2D box && box.IsOnFloor())
+                box.Push(step * player.PushingSpeedMultiplier);
         }
 
+        player.spriteFlippingEnabled = true;
 
         //State changing
         if (player.IsBoxOnHead())
@@ -86,34 +80,35 @@ public partial class WalkState : State
     }
     public override void AfterMoveAndSlideUpdate(float deltaf)
     {
-        player.pushRayCast2D.ForceRaycastUpdate();
-        if (player.pushRayCast2D.IsColliding())
-        {
-            var collider = player.pushRayCast2D.GetCollider();
-            if (collider is PushableBody2D)
-            {
-                PushableBody2D pushableBody = (PushableBody2D)collider;
-                if (pushableBody.IsOnFloor())
-                {
-                    //int pushDirection = (int)player.pushRayCast2DLength.Sign();
-                    int pushDirection = Mathf.Sign(player.pushRayCast2D.TargetPosition.X);
-                    float pushSpeed = player.velocity.X * player.PushingSpeedMultiplier;
-                    pushableBody.Push(pushDirection * Mathf.Abs(pushSpeed));
-                }
-            }
-            if(collider is RigidBody2D rb)
-            {
-                GD.Print("Touching rigidobyd");
-                Vector2 pushDirection = player.pushRayCast2D.TargetPosition;
+
+        // player.pushRayCast2D.ForceRaycastUpdate();
+        // if (player.pushRayCast2D.IsColliding())
+        // {
+        //     var collider = player.pushRayCast2D.GetCollider();
+        //     if (collider is PushableBody2D)
+        //     {
+        //         PushableBody2D pushableBody = (PushableBody2D)collider;
+        //         if (pushableBody.IsOnFloor())
+        //         {
+        //             //int pushDirection = (int)player.pushRayCast2DLength.Sign();
+        //             int pushDirection = Mathf.Sign(player.pushRayCast2D.TargetPosition.X);
+        //             float pushSpeed = player.velocity.X * player.PushingSpeedMultiplier;
+        //             pushableBody.Push(pushDirection * Mathf.Abs(pushSpeed));
+        //         }
+        //     }
+        //     if(collider is RigidBody2D rb)
+        //     {
+        //         GD.Print("Touching rigidobyd");
+        //         Vector2 pushDirection = player.pushRayCast2D.TargetPosition;
                 
-                // Optional: If you only want to push horizontally, uncomment the next line
-                // pushDirection.Y = 0; 
+        //         // Optional: If you only want to push horizontally, uncomment the next line
+        //         // pushDirection.Y = 0; 
 
-                // Apply the impulse to the RigidBody2D
-                // Multiplying by delta helps keep the force framerate-independent
-                rb.ApplyCentralForce(pushDirection * player.velocity.X);
-            }
+        //         // Apply the impulse to the RigidBody2D
+        //         // Multiplying by delta helps keep the force framerate-independent
+        //         rb.ApplyCentralForce(pushDirection * player.velocity.X);
+        //     }
 
-        }
+        // }
     }
 }

@@ -44,17 +44,6 @@ public partial class JumpState : State
             }
         }
         
-        //Sprite flipping
-        if (player.inputAxis > 0)
-        {
-            player.CharacterSprite.FlipH = false;
-            player.pushRayCast2D.TargetPosition = new Vector2(player.pushRayCast2DLength, 0);
-        }
-        else if (player.inputAxis < 0)
-        {
-            player.CharacterSprite.FlipH = true;
-            player.pushRayCast2D.TargetPosition = new Vector2(-player.pushRayCast2DLength, 0);
-        }
         if (player.IsOnCeiling())
         {
             player.velocity.Y = 0;

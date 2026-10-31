@@ -17,6 +17,8 @@
 
 [sub_resource type="Environment" id="Environment_iuuih"]
 background_mode = 1
+glow_normalized = true
+glow_bloom = 0.1
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_1phco"]
 viewport_path = NodePath("2D sides/Side 1/SubViewport")
@@ -81,7 +83,7 @@ texture_filter = 0
 [node name="Game" type="Node2D" unique_id=753927107]
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=511537939]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.0861)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.4193285)
 environment = SubResource("Environment_iuuih")
 current = true
 
@@ -117,12 +119,14 @@ mouse_target = true
 
 [node name="SubViewport" parent="Level/2D sides/Side 1" index="0" unique_id=1479968897]
 disable_3d = false
+snap_2d_transforms_to_pixel = true
+snap_2d_vertices_to_pixel = false
 physics_object_picking = true
 
 [node name="Level" parent="Level/2D sides/Side 1/SubViewport/World" parent_id_path=PackedInt32Array(597612352, 661390160) index="1" unique_id=1288852080 instance=ExtResource("5_nnt18")]
 
 [node name="PushableBox7" parent="Level/2D sides/Side 1/SubViewport/World/Level" unique_id=150315415 instance=ExtResource("6_ewbju")]
-position = Vector2(180, 62)
+position = Vector2(111, 58)
 
 [node name="Player" parent="Level/2D sides/Side 1/SubViewport/World/Level" unique_id=369105044 node_paths=PackedStringArray("stateLabel") instance=ExtResource("1_rku1e")]
 position = Vector2(59, 182)

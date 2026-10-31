@@ -41,8 +41,7 @@ public partial class Player : ExtendedCharacterBody2D
     public RayCast2D pushRayCast2D;
     public float pushRayCast2DLength;
     public Area2D BoxCheckArea;
-    [ExportCategory("Visuals")]
-    [Export] public AnimatedSprite2D CharacterSprite;
+    public AnimatedSprite2D CharacterSprite;
     public void InvokeOnJumped()
     {
         OnJumped?.Invoke();
@@ -67,6 +66,8 @@ public partial class Player : ExtendedCharacterBody2D
         JumpForce = gravity * timeToJumpPeak;
         maxHorizontalSpeed = jumpDistance / (2 * timeToJumpPeak);
     }
+
+
     public override void _Process(double delta)
     {
         if(stateLabel != null)
@@ -76,6 +77,7 @@ public partial class Player : ExtendedCharacterBody2D
 
         // Jump input buffer
         inputAxis = Input.GetAxis("move_left", "move_right");
+        inputAxis = Mathf.Sign(inputAxis);
         if (Input.IsActionJustPressed("jump"))
         {
            jumpPressed = true;
@@ -103,9 +105,29 @@ public partial class Player : ExtendedCharacterBody2D
         return false;
     }
 
+    public bool spriteFlippingEnabled = false;
     public override void _PhysicsProcess(double delta)
     {
+        spriteFlippingEnabled = false;
         CurrentState.Update((float)delta);
+        //Sprite flipping
+        void FlipSprite()
+        {
+            if (!spriteFlippingEnabled)
+                return;
+            if (inputAxis > 0)
+            {
+                CharacterSprite.FlipH = false;
+                pushRayCast2D.TargetPosition = new Vector2(pushRayCast2DLength, 0);
+            }
+            else if (inputAxis < 0)
+            {
+                CharacterSprite.FlipH = true;
+                pushRayCast2D.TargetPosition = new Vector2(-pushRayCast2DLength, 0);
+            }
+        }
+        FlipSprite();
+
         Vector2 localVelocityFromState = velocity;
         Velocity = ToGlobalVelocity(localVelocityFromState);
         MoveAndSlide();

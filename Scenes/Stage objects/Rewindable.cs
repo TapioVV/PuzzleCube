@@ -9,3 +9,10 @@ public struct RewindData
 	public Node2D Parent;
 	public CubeFace CurrentFace;
 }
+public interface Rewindable
+{
+	void Rewind()
+	{
+
+	}
+}

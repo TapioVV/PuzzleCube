@@ -15,10 +15,9 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_82q2f"]
-size = Vector2(22, 24)
+size = Vector2(24, 24)
 
 [node name="PushableBox" type="CharacterBody2D" unique_id=967360882 groups=["Dynamic", "Rewindable"]]
-modulate = Color(0.59670603, 0.53120965, 0.38410896, 1)
 collision_layer = 256
 collision_mask = 263
 safe_margin = 0.001
@@ -26,13 +25,15 @@ script = ExtResource("1_82q2f")
 metadata/_custom_type_script = "uid://d05tbu2dcyl51"
 
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="." unique_id=1006271114]
-modulate = Color(0.8214151, 0.81604797, 0.7990488, 1)
+modulate = Color(2.5027991e-06, 0.91251194, 0.7572118, 1)
 sprite_frames = SubResource("SpriteFrames_bqej4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=62188526]
 shape = SubResource("RectangleShape2D_82q2f")
+debug_color = Color(0.92850393, 0.17558163, 0.50956357, 0.85800004)
 
 [node name="PushRayCast" type="RayCast2D" parent="." unique_id=832501457]
 unique_name_in_owner = true
+visible = false
 target_position = Vector2(12, 0)
 collision_mask = 256

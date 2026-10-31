@@ -14,7 +14,8 @@ public partial class BoxOnHeadWalkState : State
     {
         //animator.CrossFade("character_run_animation", 0, 0);
         player.velocity.Y = 0;
-		float boxOnHeadWalkSpeed = player.maxHorizontalSpeed / 2;
+
+		float boxOnHeadWalkSpeed = player.maxHorizontalSpeed / 3;
 
         //Deacceleration
         if (player.inputAxis == 0)
@@ -39,21 +40,7 @@ public partial class BoxOnHeadWalkState : State
         }
 
 
-
-
-
-        //Sprite flipping
-        if (player.inputAxis > 0)
-        {
-            player.CharacterSprite.FlipH = false;
-            player.pushRayCast2D.TargetPosition = new Vector2(player.pushRayCast2DLength, 0);
-        }
-        else if (player.inputAxis < 0)
-        {
-            player.CharacterSprite.FlipH = true;
-            player.pushRayCast2D.TargetPosition = new Vector2(-player.pushRayCast2DLength, 0);
-        }
-
+        player.spriteFlippingEnabled = true;
 
 
         //State changing
@@ -71,6 +58,7 @@ public partial class BoxOnHeadWalkState : State
                 return;
 			}
 		}
+
         if (player.velocity.X >= -0.1f && player.velocity.X <= 0.1f)
         {
             player.velocity.X = 0;
