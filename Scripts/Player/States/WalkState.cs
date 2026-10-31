@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Diagnostics;
 
 public partial class WalkState : State
 {
@@ -41,6 +42,7 @@ public partial class WalkState : State
         if (step != 0 && Mathf.Sign(step) == Mathf.Sign(player.pushRayCast2D.TargetPosition.X))
         {
             player.pushRayCast2D.ForceRaycastUpdate();
+            GD.Print(player.pushRayCast2D.GetCollider());
             if (player.pushRayCast2D.GetCollider() is PushableBody2D box && box.IsOnFloor())
                 box.Push(step * player.PushingSpeedMultiplier);
         }

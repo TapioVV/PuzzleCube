@@ -15,6 +15,7 @@ public partial class ExtendedCharacterBody2D : CharacterBody2D
     public AnimatedSprite2D AnimatedSprite;
 
     public ExtendedCharacterBody2D SecondaryBody;
+    public ExtendedCharacterBody2D MainBody;
 
     public override void _EnterTree()
     {
@@ -28,7 +29,12 @@ public partial class ExtendedCharacterBody2D : CharacterBody2D
     public void MirrorSpriteToSecondaryBodySprite()
     {
         Utils.AnimatedSprite2DCopyValuesFromAToB(AnimatedSprite, SecondaryBody.AnimatedSprite);
+        for(int i = 0; i < collisionShape2Ds.Count; i++)
+        {
+            // Utils.CollisionShape2DCopyValuesFromAToB(collisionShape2Ds[i], SecondaryBody.collisionShape2Ds[i]);
+        }
     }
+    
 
 
     public void ChangeGravityDirection(Vector2 direction)

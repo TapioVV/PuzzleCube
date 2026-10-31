@@ -18,13 +18,13 @@ tile_map_data = PackedByteArray("AAAAAAkAAQAAAAAAAAADAAkAAQAAAAAAAAAEAAkAAQAAAAA
 tile_set = ExtResource("2_3w4n1")
 
 [node name="ThickOneWayRectangle" parent="." unique_id=564459581 instance=ExtResource("3_3w4n1")]
-position = Vector2(36, 228)
+position = Vector2(36, 148)
 
 [node name="ThickOneWayRectangle2" parent="." unique_id=1022509437 instance=ExtResource("3_3w4n1")]
-position = Vector2(60, 228)
+position = Vector2(60, 148)
 
 [node name="ThickOneWayRectangle3" parent="." unique_id=726724060 instance=ExtResource("3_3w4n1")]
-position = Vector2(180, 228)
+position = Vector2(180, 142.785)
 
 [node name="ThickOneWayRectangle4" parent="." unique_id=359665036 instance=ExtResource("3_3w4n1")]
-position = Vector2(204, 228)
+position = Vector2(204, 142.785)

@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 
 
@@ -58,34 +59,32 @@ public partial class CubeManager : Node
         startRotation = cubeRotationPoint.Rotation;
         foreach(Node node in GetTree().GetNodesInGroup("Dynamic"))
         {
-            if(node is ExtendedCharacterBody2D body)
+            if(node is PushableBody2D pushableBody)
             {
-                body.collisionShape2Ds = body.FindChildren("*", "CollisionShape2D", true, false)
-                             .Cast<CollisionShape2D>()
-                             .ToList();
-
-                foreach (var shape in body.collisionShape2Ds)
-{
-    GD.Print(shape.Name);
-}
-                // AnimatedSprite2D fakeAnimatedSprite2d = new AnimatedSprite2D();
-                ExtendedCharacterBody2D fakeBody = new ExtendedCharacterBody2D();
-
-                AnimatedSprite2D s = new AnimatedSprite2D();
-
-
-
-                // AddChild(fakeAnimatedSprite2d);
-                AddChild(fakeBody);
-                fakeBody.AddChild(s);
-                fakeBody.AnimatedSprite = s;
+                pushableBody.collisionShape2Ds = pushableBody.GetNodesInChildren<CollisionShape2D>();
+                PushableBody2D secondaryBody = pushableBody.Duplicate() as PushableBody2D;
 
                 
+                pushableBody.SecondaryBody = secondaryBody;
+                AddChild(secondaryBody);
+                dynamicBodies.Add(pushableBody);
+                pushableBody.MirrorSpriteToSecondaryBodySprite();
+                pushableBody.CurrentFace = cubeFaces[0];
+                secondaryBody.MainBody = pushableBody;
+                continue;
+            }
+            if(node is ExtendedCharacterBody2D body)
+            {
+                body.collisionShape2Ds = body.GetNodesInChildren<CollisionShape2D>();
+
+                // AnimatedSprite2D fakeAnimatedSprite2d = new AnimatedSprite2D();
+                ExtendedCharacterBody2D fakeBody = body.Duplicate() as ExtendedCharacterBody2D;
+
+                AddChild(fakeBody);
                 body.SecondaryBody = fakeBody;
                 body.MirrorSpriteToSecondaryBodySprite();
                 dynamicBodies.Add(body);
                 body.CurrentFace = cubeFaces[0];
-                
             }
         }
 
@@ -134,8 +133,8 @@ public partial class CubeManager : Node
 
             Rect2 spriteBounds = body.GetSpriteLocalBounds();
             Vector2 moveDirection = Vector2.Zero;
-            float fakePositionX = 0;
-            float fakePositionY = 0;
+            float fakePositionX = 100000;
+            float fakePositionY = 100000;
 
 
             body.SecondaryBody.CurrentFace = dynamicBodies[i].CurrentFace;
@@ -171,12 +170,11 @@ public partial class CubeManager : Node
                 fakePositionX = body.Position.X;
                 fakePositionY = body.Position.Y - CUBE_SIDE_LENGTH;
             }
+
             if(moveDirection != Vector2.Zero)
             {
 
-                // This works but i dont understand it because i made it with ai
-                // I need to figure this out
-                // Tomorrow figure out notes in vscode
+                //FIXME:  This works but i dont understand it because i made it with ai
                 Vector3 _3dMoveDirection = Convert2DMovementTo3D(moveDirection, body.CurrentFace);
 
                 CubeFace nextFace = FindFaceByNormal(_3dMoveDirection);
@@ -227,7 +225,12 @@ public partial class CubeManager : Node
                 body.SecondaryBody.Reparent(body.SecondaryBody.CurrentFace.WorldNode);
                 body.SecondaryBody.Position = newPlayerPosition;
             }
+            else
+            {
+                body.SecondaryBody.Position = new Vector2(100000, 100000);
+            }
         }
+
 	}
 
 
@@ -361,6 +364,7 @@ public partial class CubeManager : Node
 
     private void UpdateBodyGravity(ExtendedCharacterBody2D body, CubeFace nextFace)
     {
+
         // Changes the players gravity to the correct one when moving between faces.
         Vector3 gravity3D = Convert2DMovementTo3D(body.GravityDirection, body.CurrentFace);
         Quaternion faceRotation = new Quaternion(body.CurrentFace.Normal, nextFace.Normal);

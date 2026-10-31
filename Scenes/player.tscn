@@ -128,7 +128,7 @@ size = Vector2(10, 2)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6t5aa"]
 size = Vector2(10, 2.1)
 
-[node name="Player" type="CharacterBody2D" unique_id=162310026 groups=["Dynamic", "Rewindable"]]
+[node name="Player" type="CharacterBody2D" unique_id=162310026 groups=["Dynamic"]]
 collision_layer = 2
 collision_mask = 265
 floor_snap_length = 2.0
@@ -137,9 +137,9 @@ horizontalAcceleration = 1000.0
 horizontalDeacceleration = 1200.0
 jumpControlAcceleration = 2.0
 jumpControlDeacceleration = 7.0
-timeToJumpPeak = 0.3
-jumpHeight = 48.0
-jumpDistance = 42.0
+timeToJumpPeak = 0.29
+jumpHeight = 23.0
+jumpDistance = 36.0
 maxVerticalSpeed = 180.0
 jumpBufferTime = 0.085
 

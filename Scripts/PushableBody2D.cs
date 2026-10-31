@@ -19,18 +19,13 @@ public partial class PushableBody2D : ExtendedCharacterBody2D
         // Extremely simple gravity and pushing
 
         gravity = GetGravity();
+
         if (!IsOnFloor())
         {
-            _Velocity.Y = gravity.Y;
+            _Velocity += GravityDirection * GetGravity().Length();
         }
-
-
-
-
         _Velocity += PushVelocity;
         Velocity = _Velocity;
-
-     
 
         MoveAndSlide();
         _Velocity = Vector2.Zero;
@@ -38,38 +33,21 @@ public partial class PushableBody2D : ExtendedCharacterBody2D
     }
     public void Push(float dx)
     {
-        // PushVelocity.X = pusherVelocity; 
-        // if(pusherVelocity < 0)
-        // {
-        //     pushRayCast2D.TargetPosition = new Vector2(-pushRayCast2DLength, 0);
-        // }
-        // if(pusherVelocity > 0)
-        // {
-        //     pushRayCast2D.TargetPosition = new Vector2(pushRayCast2DLength, 0);
-        // }
-        // pushRayCast2D.ForceRaycastUpdate();
-        // if (pushRayCast2D.IsColliding())
-        // {
-        //     var collider = pushRayCast2D.GetCollider();
-        //     if (collider is PushableBody2D)
-        //     {
-        //         PushableBody2D pushableBody = (PushableBody2D)collider;
-        //         if (pushableBody.IsOnFloor())
-        //         {
-        //             pushableBody.Push(pusherVelocity);
-        //         }
-        //     }
-        // }
         if (Mathf.IsZeroApprox(dx)) return;
+        if(MainBody != null)
+        {
+            PushableBody2D body = MainBody as PushableBody2D;
+            body.Push(dx);
+            return;
+        }
 
-        // 1. Whatever is in front of us moves first, so chains move front-to-back
         pushRayCast2D.TargetPosition = new Vector2(Mathf.Sign(dx) * pushRayCast2DLength, 0);
         pushRayCast2D.ForceRaycastUpdate();
-        if (pushRayCast2D.GetCollider() is PushableBody2D next && next.IsOnFloor())
-            next.Push(dx);
-
-        // 2. Then we move, this same tick
-        MoveAndCollide(new Vector2(dx, 0));
+        if (pushRayCast2D.GetCollider() is PushableBody2D nextPushableBody && nextPushableBody.IsOnFloor())
+        {
+            nextPushableBody.Push(dx);
+        }
+        MoveAndCollide(Vector2.Right.Rotated(GlobalRotation) * dx);
     }
 }
 
