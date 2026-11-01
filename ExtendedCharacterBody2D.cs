@@ -9,6 +9,8 @@ public partial class ExtendedCharacterBody2D : CharacterBody2D
     public Vector2 GravityDirection = Vector2.Down;
 
     public CubeFace CurrentFace;
+    public CubeFace PreviousFace;
+    public ulong LastFaceChangeFrame;
 
     public List<CollisionShape2D> collisionShape2Ds = new List<CollisionShape2D>();
 

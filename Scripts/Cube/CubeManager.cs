@@ -73,6 +73,19 @@ public partial class CubeManager : Node
                 secondaryBody.MainBody = pushableBody;
                 continue;
             }
+            if(node is Player playerBody)
+            {
+                playerBody.collisionShape2Ds = playerBody.GetNodesInChildren<CollisionShape2D>();
+                ExtendedCharacterBody2D secondaryBody = playerBody.Duplicate() as ExtendedCharacterBody2D;
+
+                playerBody.SecondaryBody = secondaryBody;
+                AddChild(secondaryBody);
+                dynamicBodies.Add(playerBody);
+                playerBody.MirrorSpriteToSecondaryBodySprite();
+                playerBody.CurrentFace = cubeFaces[0];
+                secondaryBody.MainBody = playerBody;
+                continue;
+            }
             if(node is ExtendedCharacterBody2D body)
             {
                 body.collisionShape2Ds = body.GetNodesInChildren<CollisionShape2D>();
@@ -121,7 +134,10 @@ public partial class CubeManager : Node
         {
             CheckForFaceTransition(body);
         }
-
+        if(player.StateLabel != null)
+        {
+            player.StateLabel.Text = $"Current State: {player.CurrentState.GetType().Name}";
+        }
         for(int i = 0; i < dynamicBodies.Count; i++)
         {
             ExtendedCharacterBody2D body = dynamicBodies[i];
@@ -142,7 +158,6 @@ public partial class CubeManager : Node
 
             if(spriteBounds.Position.X < 0)
             {
-                // GD.Print("sprite is on the left of the screen");
                 moveDirection = Vector2.Left;
 
                 fakePositionX = CUBE_SIDE_LENGTH + body.Position.X;
@@ -282,6 +297,11 @@ public partial class CubeManager : Node
         CubeFace nextFace = FindFaceByNormal(_3dMoveDirection);
         if (nextFace == null) return;
 
+        if (nextFace == body.PreviousFace && Engine.GetPhysicsFrames() - body.LastFaceChangeFrame < 8)
+        {
+            return;
+        }
+
         Vector3 exitWorldPos = Convert2DPositionTo3D(body.Position, body.CurrentFace);
 
         // Applying the things
@@ -298,16 +318,21 @@ public partial class CubeManager : Node
         Vector2 newPlayerPosition = Convert3DPositionTo2D(positionOnFace, face);
 
         // // Nudge the player slightly onto the new face so they don't instantly re-trigger a transition
-        // int edgeOffset = 1;
-        // if (newPlayerPosition.X <= 0) newPlayerPosition.X = edgeOffset;
-        // if (newPlayerPosition.X >= CUBE_SIDE_LENGTH) newPlayerPosition.X = CUBE_SIDE_LENGTH - edgeOffset;
-        // if (newPlayerPosition.Y <= 0) newPlayerPosition.Y = edgeOffset;
-        // if (newPlayerPosition.Y >= CUBE_SIDE_LENGTH) newPlayerPosition.Y = CUBE_SIDE_LENGTH - edgeOffset;
+        int edgeOffset = 1;
+        if (newPlayerPosition.X <= 0) newPlayerPosition.X = edgeOffset;
+        if (newPlayerPosition.X >= CUBE_SIDE_LENGTH) newPlayerPosition.X = CUBE_SIDE_LENGTH - edgeOffset;
+        if (newPlayerPosition.Y <= 0) newPlayerPosition.Y = edgeOffset;
+        if (newPlayerPosition.Y >= CUBE_SIDE_LENGTH) newPlayerPosition.Y = CUBE_SIDE_LENGTH - edgeOffset;
 
         // Update the things to the player node
+        node.PreviousFace = node.CurrentFace;
+        node.LastFaceChangeFrame = Engine.GetPhysicsFrames();
+
+
+
         node.CurrentFace = face;
         node.Reparent(node.CurrentFace.WorldNode);
-        node.Position = newPlayerPosition;
+        node.GlobalPosition = newPlayerPosition;
     }
 
     private Vector3 Convert2DPositionTo3D(Vector2 pos2D, CubeFace face)

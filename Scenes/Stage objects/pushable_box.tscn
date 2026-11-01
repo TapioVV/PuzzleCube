@@ -20,6 +20,7 @@ size = Vector2(24, 24)
 [node name="PushableBox" type="CharacterBody2D" unique_id=967360882 groups=["Dynamic"]]
 collision_layer = 256
 collision_mask = 263
+collision_priority = 1000.0
 safe_margin = 0.001
 script = ExtResource("1_82q2f")
 metadata/_custom_type_script = "uid://d05tbu2dcyl51"
@@ -34,6 +35,5 @@ debug_color = Color(0.92850393, 0.17558163, 0.50956357, 0.85800004)
 
 [node name="PushRayCast" type="RayCast2D" parent="." unique_id=832501457]
 unique_name_in_owner = true
-visible = false
-target_position = Vector2(12, 0)
+target_position = Vector2(13, 0)
 collision_mask = 256

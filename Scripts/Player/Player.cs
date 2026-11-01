@@ -4,7 +4,7 @@ public partial class Player : ExtendedCharacterBody2D
 {
     public static event Action OnJumped;
 
-    [Export] Label stateLabel;
+    [Export] public Label StateLabel;
 
     public State CurrentState;
 
@@ -70,10 +70,7 @@ public partial class Player : ExtendedCharacterBody2D
 
     public override void _Process(double delta)
     {
-        if(stateLabel != null)
-        {
-            stateLabel.Text = $"Current State: {CurrentState.GetType().Name}";
-        }
+
 
         // Jump input buffer
         inputAxis = Input.GetAxis("move_left", "move_right");

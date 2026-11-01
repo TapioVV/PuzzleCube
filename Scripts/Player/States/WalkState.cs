@@ -42,9 +42,16 @@ public partial class WalkState : State
         if (step != 0 && Mathf.Sign(step) == Mathf.Sign(player.pushRayCast2D.TargetPosition.X))
         {
             player.pushRayCast2D.ForceRaycastUpdate();
-            GD.Print(player.pushRayCast2D.GetCollider());
+            if(player.SecondaryBody != null)
+            {
+                Player fake = player.SecondaryBody as Player;
+                if (fake.pushRayCast2D.GetCollider() is PushableBody2D box2 && box2.IsOnFloor())
+                {
+                    box2.TryPush(step * player.PushingSpeedMultiplier);
+                }
+            }
             if (player.pushRayCast2D.GetCollider() is PushableBody2D box && box.IsOnFloor())
-                box.Push(step * player.PushingSpeedMultiplier);
+                box.TryPush(step * player.PushingSpeedMultiplier);
         }
 
         player.spriteFlippingEnabled = true;
@@ -100,7 +107,6 @@ public partial class WalkState : State
         //     }
         //     if(collider is RigidBody2D rb)
         //     {
-        //         GD.Print("Touching rigidobyd");
         //         Vector2 pushDirection = player.pushRayCast2D.TargetPosition;
                 
         //         // Optional: If you only want to push horizontally, uncomment the next line

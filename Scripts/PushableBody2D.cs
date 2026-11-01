@@ -5,7 +5,6 @@ using System;
 public partial class PushableBody2D : ExtendedCharacterBody2D
 {
     public Vector2 _Velocity;
-    public Vector2 PushVelocity = Vector2.Zero;
     Vector2 gravity;
     public RayCast2D pushRayCast2D;
     public float pushRayCast2DLength;
@@ -24,30 +23,44 @@ public partial class PushableBody2D : ExtendedCharacterBody2D
         {
             _Velocity += GravityDirection * GetGravity().Length();
         }
-        _Velocity += PushVelocity;
         Velocity = _Velocity;
 
         MoveAndSlide();
         _Velocity = Vector2.Zero;
-        PushVelocity = Vector2.Zero;
     }
+
     public void Push(float dx)
     {
         if (Mathf.IsZeroApprox(dx)) return;
-        if(MainBody != null)
+
+        if (MainBody is PushableBody2D main)
         {
-            PushableBody2D body = MainBody as PushableBody2D;
-            body.Push(dx);
+            main.Push(dx);
             return;
         }
 
-        pushRayCast2D.TargetPosition = new Vector2(Mathf.Sign(dx) * pushRayCast2DLength, 0);
-        pushRayCast2D.ForceRaycastUpdate();
-        if (pushRayCast2D.GetCollider() is PushableBody2D nextPushableBody && nextPushableBody.IsOnFloor())
+        // Look for boxes ahead on this face AND ahead of our clone on the other face.
+        PushThroughRay(pushRayCast2D, pushRayCast2DLength, dx);
+        if (SecondaryBody is PushableBody2D clone)
         {
-            nextPushableBody.Push(dx);
+            PushThroughRay(clone.pushRayCast2D, clone.pushRayCast2DLength, dx);
         }
+
         MoveAndCollide(Vector2.Right.Rotated(GlobalRotation) * dx);
+    }
+
+    void PushThroughRay(RayCast2D ray, float length, float dx)
+    {
+        ray.TargetPosition = new Vector2(Mathf.Sign(dx) * length, 0);
+        ray.ForceRaycastUpdate();
+
+        if (ray.GetCollider() is PushableBody2D hit)
+        {
+            // If we hit a clone, ask the real body about floor state.
+            PushableBody2D real = hit.MainBody as PushableBody2D ?? hit;
+            if (real != this && real.IsOnFloor())
+                real.Push(dx);
+        }
     }
 }
 

@@ -126,7 +126,7 @@ size = Vector2(10, 8)
 size = Vector2(10, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6t5aa"]
-size = Vector2(10, 2.1)
+size = Vector2(8, 2.1)
 
 [node name="Player" type="CharacterBody2D" unique_id=162310026 groups=["Dynamic"]]
 collision_layer = 2
@@ -163,12 +163,6 @@ shape = SubResource("RectangleShape2D_ohsbh")
 one_way_collision_margin = 0.0
 debug_color = Color(0.95187443, 2.117753e-06, 0.56391746, 0.41960785)
 
-[node name="PushRayCast" type="RayCast2D" parent="." unique_id=525478439]
-unique_name_in_owner = true
-position = Vector2(0, 3)
-target_position = Vector2(6, 0)
-collision_mask = 256
-
 [node name="BoxCheckArea" type="Area2D" parent="." unique_id=766891484]
 unique_name_in_owner = true
 collision_layer = 0
@@ -179,3 +173,10 @@ position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_6t5aa")
 one_way_collision_margin = 0.0
 debug_color = Color(6.738305e-07, 0.6306938, 0.48123717, 0.41960785)
+
+[node name="PushRayCast" type="RayCast2D" parent="." unique_id=525478439]
+unique_name_in_owner = true
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+position = Vector2(0, 3)
+target_position = Vector2(6, 0)
+collision_mask = 256
